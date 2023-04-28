@@ -1,0 +1,32 @@
+[
+    {
+        "thumbnail": "썸네일",
+        "title": "React로 넷플릭스 클론코딩",
+        "description": "리액트 지옥에서 구원해 드리겠습니다."
+    },
+    {
+        "thumbnail": "썸네일",
+        "title": "SQL & Database",
+        "description": "설명이빈다."
+    },
+    {
+        "thumbnail": "썸네일",
+        "title": "Vue.js로 카카오 따라잡기",
+        "description": "설명이빈다."
+    },
+    {
+        "thumbnail": "썸네일",
+        "title": "파이썬 기초부터 갈아마시기",
+        "description": "설명이빈다."
+    },
+    {
+        "thumbnail": "썸네일",
+        "title": "JavaScript 깨부시기",
+        "description": "설명이빈다."
+    },
+    {
+        "thumbnail": "썸네일",
+        "title": "Git 파헤치기",
+        "description": "설명이빈다."
+    }
+]
