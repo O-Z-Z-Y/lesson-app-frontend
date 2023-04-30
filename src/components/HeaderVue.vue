@@ -1,5 +1,5 @@
 <template>
-    <header class="w-full  text-gray-700 bg-white border-gray-100 shadow-sm body-font dark:bg-zinc-800">
+    <header class="w-full  text-gray-700 bg-white border-gray-100 shadow-sm body-font dark:bg-[#18181b]">
         <div class="container flex items-start justify-between p-6 mx-auto md:flex-row">
             <a class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">
                 <img class="h-10" src="./../assets/logo.png" alt="">
