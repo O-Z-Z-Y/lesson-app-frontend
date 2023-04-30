@@ -23,7 +23,6 @@ export default {
     methods: {
         toggleDarkMode() {
             this.darkModeEnabled = !this.darkModeEnabled;
-
             if (this.darkModeEnabled) {
                 document.body.classList.add('dark');
             } else {

@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "NanumSquareLight";
+  font-family: "NanumSquare";
+  font-family: "NanumSquareBold";
+  font-family: "NanumSquareExtraBold";
+  font-family: "NanumSquareAcb";
+  font-family: "NanumSquareAceb";
+  font-family: "NanumSquareAcl";
+  font-family: "NanumSquareAcr";
+}
+
+.dark {
+  background-color: #0e0e10;
+}
+
+
 /* 1440px 이상 */
 @media (min-width: 1440px) {
   .container {
