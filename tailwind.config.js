@@ -9,7 +9,18 @@ module.exports = {
       'laptop': '1024px',
       'desktop': '1280px,'
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        slideUp: {
+          '0%': { 'margin-top': '70em' },
+          '100%': { 'margin-top': 0 },
+        }
+      }
+    },
   },
   plugins: [],
 }

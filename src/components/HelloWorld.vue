@@ -1,18 +1,16 @@
 <template>
-    <HeaderVue />
+    <Header />
     <template v-if="navState === 'Home'">
-        <HomeVue />
+        <Home />
     </template>
     <template v-else-if="navState === 'Notice'">
-        <NoticeVue />
+        <Notice />
     </template>
     <template v-else-if="navState === 'Course'">
-        <div class="course-wrapper">
-            <CourseList />
-        </div>
+        <Course />
     </template>
     <template v-else-if="navState === 'About'">
-        <AboutVue />
+        <About />
     </template>
     <footer class="h-32 bg-slate-400">
         푸터 입니닭
@@ -21,28 +19,28 @@
 </template>
 
 <script>
-import HeaderVue from './HeaderVue.vue'
-import HomeVue from './Home/HomeVue.vue'
-import NoticeVue from './Notice/NoticeVue.vue'
-import CourseList from './Home/CourseList/CourseList'
-import AboutVue from './About/AboutVue.vue'
+import Header from './Header.vue'
+import Home from './Home/Home.vue'
+import Notice from './Notice/Notice.vue'
+import Course from './Course/Course.vue'
+import About from './About/About.vue'
 import DarkmodeToggle from './DarkmodeToggle.vue'
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 export default {
     name: 'HelloWorld',
     components: {
-        HeaderVue,
-        HomeVue,
-        NoticeVue,
-        CourseList,
-        AboutVue,
+        Header,
+        Home,
+        Notice,
+        Course,
+        About,
         DarkmodeToggle
     },
     computed: {
-        ...mapState('Nav', {
-            navState: state => state.nav
-        })
+        navState() {
+            return this.$store.state.Nav.nav
+        }
     }
 }
 </script>

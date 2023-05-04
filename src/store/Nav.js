@@ -6,13 +6,13 @@ export default {
     }
   },
   mutations: {
-    setNav(state, value) {
+    SET_NAV(state, value) {
       state.nav = value
     }
   },
   actions: {
-    setNav(context, value) {
-      context.commit('setNav', value)
+    set(context, value) {
+      context.commit('SET_NAV', value)
     }
   },
   getters: {

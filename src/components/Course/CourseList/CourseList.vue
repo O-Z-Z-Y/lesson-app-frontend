@@ -1,6 +1,6 @@
 <template>
     <div class="course-wrapper container course-list-wrapper">
-        <ul class="flex flex-wrap justify-center mx-4">
+        <ul class="flex flex-wrap justify-center">
             <CourseItem v-for="(course, index) in courses" :key="index" :thumbnail="course.thumbnail" :title="course.title"
                 :description="course.description" />
         </ul>
@@ -26,7 +26,8 @@ export default {
             .then((response) => response.json())
             .then((data) => (this.courses = data))
             .catch((error) => console.error(error));
-    },
+    }
+    
 };
 </script>
 
@@ -37,4 +38,4 @@ export default {
         margin: 0 auto;
     }
 }
-</style>
+</style> 

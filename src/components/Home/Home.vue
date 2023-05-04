@@ -5,7 +5,7 @@
         <p class="text-lg pt-6 pb-8">이 것이 강의인가 <span class="text-pink-600">치킨인가</span>
             <br>수원왕갈비강좌입니다!
         </p>
-        <a href="#_" @click="setNav('Course')"
+        <a href="#_" @click="SET_NAV('Course')"
             class="px-6 py-4 text-base font-bold text-white uppercase transition-all duration-150 bg-pink-500 rounded shadow outline-none active:bg-pink-600 hover:shadow-md focus:outline-none ease">
             강의 보기
         </a>
@@ -31,8 +31,8 @@
 </template>
 <script>
 import CourseCarousel from './../CourseCarousel.vue';
-import CourseList from './CourseList/CourseList'
-import { mapState, mapActions } from 'vuex';
+import CourseList from './../Course/CourseList/CourseList'
+import { mapState, mapMutations } from 'vuex';
 
 export default {
     name: "HomeVue",
@@ -44,7 +44,7 @@ export default {
         ...mapState('Nav', ['nav'])
     },
     methods: {
-        ...mapActions('Nav', ['setNav'])
+        ...mapMutations('Nav', ['SET_NAV'])
     }
 }
 </script>
