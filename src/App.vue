@@ -1,8 +1,6 @@
 <template>
   <HelloWorld />
   <TeleportExample />
-  <div id="root-modal">
-  </div>
 </template>
 
 <script>
