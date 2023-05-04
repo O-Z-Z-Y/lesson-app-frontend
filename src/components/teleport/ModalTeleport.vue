@@ -28,6 +28,7 @@
 import { mapMutations, mapState } from 'vuex';
 
 export default {
+    name: 'ModalTeleport',
     data() {
         return {
             email: '',
@@ -52,31 +53,5 @@ export default {
 </script>
 
 <style>
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 11;
-}
 
-.modal.mounted {
-    opacity: 1;
-}
-
-.modal-background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
-}
-.modal-content {
-    background-color: #fff;
-    padding: 1rem;
-}
 </style>

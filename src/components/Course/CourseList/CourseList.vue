@@ -1,7 +1,7 @@
 <template>
     <div class="course-wrapper container course-list-wrapper">
-        <ul class="flex flex-wrap justify-center">
-            <CourseItem v-for="(course, index) in courses" :key="index" :thumbnail="course.thumbnail" :title="course.title"
+        <ul class="flex flex-wrap justify-around">
+            <CourseItem v-for="(course, index) in sliceCourses" :key="index" :thumbnail="course.thumbnail" :title="course.title"
                 :description="course.description" />
         </ul>
     </div>
@@ -26,6 +26,11 @@ export default {
             .then((response) => response.json())
             .then((data) => (this.courses = data))
             .catch((error) => console.error(error));
+    },
+    computed: {
+        sliceCourses() {
+            return this.courses.slice(0, 6);
+        }
     }
     
 };

@@ -1,17 +1,17 @@
 <template>
   <HelloWorld />
-  <TeleportExample />
+  <ModalTeleport />
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import TeleportExample from '@/components/teleport/TeleportExample.vue'
+import ModalTeleport from '@/components/teleport/ModalTeleport.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    TeleportExample
+    ModalTeleport
   }
 }
 </script>

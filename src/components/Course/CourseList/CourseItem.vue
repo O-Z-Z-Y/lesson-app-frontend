@@ -1,17 +1,34 @@
 <template>
-    <li v-if="navState === 'Home'" class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-lg h-96 flex flex-col items-center bg-white rounded-lg shadow-md">
-        <div class="item-thumbnail w-full h-60 bg-slate-500 rounded-t-lg">
-            <a>{{ thumbnail }}</a>
+    <li v-if="navState === 'Home'"
+        class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-xl h-80 flex flex-col items-center bg-white rounded-lg shadow-md">
+        <div class="item-thumbnail mb-2 w-full h-fit bg-slate-500 rounded-t-lg">
+            <a href="#_">
+                <div class="img-wrapper" v-if="this.thumbnail === '썸네일'">
+                    <img class="rounded-t-lg" src="./../../../assets/thumbnail-default.jpg" alt="">
+                </div>
+                <div class="img-wrapper" v-else>{{ thumbnail }}</div>
+            </a>
         </div>
-        <h4 class="text-cyan-700 text-lg font-medium">{{ title }}</h4>
+        <h4 class="mb-1 text-cyan-700 text-lg font-medium duration-300 hover:text-orange-400">
+            <a href="#_">{{ title }}</a>
+        </h4>
         <p class="item-description">{{ description }}</p>
         <div class="difficulty"></div>
     </li>
 
     <li v-else-if="navState === 'Course'" class="py-6 flex border-b-2">
-        <div class="item-thumbnail w-96 h-60 bg-slate-500 rounded-lg">{{ thumbnail }}</div>
-        <div class="text-wrapper mx-6 w-full">
-            <h4 class="text-cyan-700 text-lg font-medium">{{ title }}</h4>
+        <div class="item-thumbnail w-1/3 h-auto bg-slate-500 rounded-lg">
+            <a href="#_">
+                <div class="img-wrapper" v-if="this.thumbnail === '썸네일'">
+                    <img class="rounded-lg" src="./../../../assets/thumbnail-default.jpg" alt="">
+                </div>
+                <div class="img-wrapper" v-else>{{ thumbnail }}</div>
+            </a>
+        </div>
+        <div class="text-wrapper mx-6 w-2/3">
+            <h4 class="text-cyan-700 text-lg font-medium duration-300 hover:text-orange-400">
+                <a href="#_">{{ title }}</a>
+            </h4>
             <p class="item-description">{{ description }}</p>
             <p class="item-price mt-10 float-right text-red-500">price</p>
             <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
@@ -35,6 +52,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
