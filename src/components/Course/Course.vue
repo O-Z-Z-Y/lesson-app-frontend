@@ -11,7 +11,7 @@ import CourseItem from './CourseList/CourseItem.vue';
 import "/public/CourseData.json"
 
 export default {
-    name:"CourseVue",
+    name:"Course",
     components: {
         CourseItem
     },

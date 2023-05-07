@@ -16,11 +16,6 @@
 <script>
 export default {
     name: "SubCourse",
-    data() {
-        return {
-            test: 824522580
-        }
-    },
     mounted() {
         console.log(this.$refs.plyr.player)
     }

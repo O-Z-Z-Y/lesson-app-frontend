@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+import store from "@/store/store";
 
 import Home from "@/components/Home/Home.vue"
 import Notice from "@/components/Notice/Notice.vue"
@@ -14,17 +15,17 @@ const routes = [
     },
     {
         path: "/home",
-        name: "HomeVue",
+        name: "Home",
         component: Home
     },
     {
         path: "/notice",
-        name: "NoticeVue",
+        name: "Notice",
         component: Notice
     },
     {
         path: "/course",
-        name: "CourseVue",
+        name: "Course",
         component: Course
     },
     {
@@ -34,7 +35,7 @@ const routes = [
     },
     {
         path: "/about",
-        name: "AboutVue",
+        name: "About",
         component: About
     },
     {
@@ -48,5 +49,10 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+
+router.beforeEach((to, from, next) => {
+    store.commit('Nav/SET_NAV', to.name);
+    next();
+})
 
 export default router;

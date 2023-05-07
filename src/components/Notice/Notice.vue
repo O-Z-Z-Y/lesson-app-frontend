@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-    name: "NoticeVue"
+    name: "Notice"
 }
 </script>
 <style lang="">

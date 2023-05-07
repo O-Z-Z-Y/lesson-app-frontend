@@ -28,7 +28,7 @@
 </template>
 <script>
 export default {
-    name: "AboutVue"
+    name: "About"
 }
 </script>
 <style lang="">

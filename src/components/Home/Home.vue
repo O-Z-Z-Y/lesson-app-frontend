@@ -45,7 +45,7 @@ import CourseList from './../Course/CourseList/CourseList'
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-    name: "HomeVue",
+    name: "Home",
     components: {
         CourseCarousel,
         CourseList
