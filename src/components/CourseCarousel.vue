@@ -2,7 +2,7 @@
     <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
         <Slide v-for="slide in 10" :key="slide">
             <div class="carousel__item">
-                <a href="#_" @click="todo()">
+                <a href="#" @click="todo()">
                     <img class="h-full w-full" src="./../assets/carousel-test-image.jpg" alt="Slide {{ slide }}">
                 </a>
             </div>

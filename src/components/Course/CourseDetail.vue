@@ -5,8 +5,12 @@
                 <div class="title">제목인디</div>
                 <div class="img-wrapper">이미지 들어갈 곳</div>
             </div>
-            <div class="sub-course-list">여기가 커리큘럼
-                <router-link to="/test">자 라우팅 드가자</router-link>
+            <div class="sub-course-list">
+                <div v-for="course in SubCourses" :key="course.id">
+                    <router-link :to="`/unit/${category}/${course.id}`">
+                        {{ course.title }}
+                    </router-link>
+                </div>
             </div>
             <div class="comment">댓글</div>
         </div>
@@ -24,7 +28,7 @@ export default {
         }
     },
     mounted() {
-        fetch("SubCourses.json")
+        fetch("/SubCourses.json")
             .then((response) => {
                 return response.json();
             })
@@ -40,4 +44,5 @@ export default {
     }
 }
 </script>
+
 <style></style>

@@ -1,8 +1,8 @@
 <template>
     <div class="course-wrapper container course-list-wrapper">
         <ul class="flex flex-wrap justify-around">
-            <CourseItem v-for="(course, index) in sliceCourses" :key="index" :thumbnail="course.thumbnail" :title="course.title"
-                :description="course.description" :id="course.id" />
+            <CourseItem v-for="(course, index) in sliceCourses" :key="index" :id="course.id" :thumbnail="course.thumbnail" :title="course.title"
+                :description="course.description" />
         </ul>
     </div>
 </template>

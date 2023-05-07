@@ -10,15 +10,10 @@ yarn install
 yarn serve
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## vue-plyr autoplay issue
 
-### Lints and fixes files
-```
-yarn lint
-```
+chrome에서 자동재생 정책에 걸려 음소거를 하지 않으면 영상이 재생되지 않는 이슈
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+allow를 콤마로 split해서 생긴 문제 -> 세미콜론으로 교체
+
+fix 폴더에 있는 파일을 /node_modules/vue-plyr/dist 에 덮어 쓰세여

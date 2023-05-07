@@ -1,20 +1,6 @@
 <template>
     <Header />
-    <template v-if="navState === 'Home'">
-        <Home />
-    </template>
-    <template v-else-if="navState === 'Notice'">
-        <Notice />
-    </template>
-    <template v-else-if="navState === 'Course'">
-        <Course />
-    </template>
-    <template v-else-if="navState === 'About'">
-        <About />
-    </template>
-    <template v-else-if="navState === 'Detail'">
-        <CourseDetail />
-    </template>
+    <router-view></router-view>
     <footer class="h-32 bg-slate-400">
         푸터 입니닭
     </footer>
@@ -23,23 +9,11 @@
 
 <script>
 import Header from './Header.vue'
-import Home from './Home/Home.vue'
-import Notice from './Notice/Notice.vue'
-import Course from './Course/Course.vue'
-import About from './About/About.vue'
 import DarkmodeToggle from './DarkmodeToggle.vue'
-import CourseDetail from './Course/CourseDetail.vue'
-// import { mapState } from 'vuex'
-
 export default {
     name: 'HelloWorld',
     components: {
         Header,
-        Home,
-        Notice,
-        Course,
-        About,
-        CourseDetail,
         DarkmodeToggle
     },
     computed: {

@@ -5,10 +5,10 @@
         <p class="text-lg pt-6 pb-8">이 것이 강의인가 <span class="text-pink-600">치킨인가</span>
             <br>수원왕갈비강좌입니다!
         </p>
-        <a href="#_" @click="SET_NAV('Course')"
+        <router-link to="/course" @click="SET_NAV('Course')"
             class="px-6 py-4 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded drop-shadow outline-none active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
             강의 보기
-        </a>
+        </router-link>
     </div>
     </div>
     <div class="bg-slate-300">
@@ -22,12 +22,14 @@
     </div>
     <CourseList />
     <div class="button-wrapper my-6 flex justify-center items-center">
-        <button class="learn-more">
-            <span class="circle" aria-hidden="true">
-                <span class="icon arrow"></span>
-            </span>
-            <span class="button-text">더보기</span>
-        </button>
+        <router-link to="/course" @click="SET_NAV('Course')" >
+            <button class="learn-more">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">더보기</span>
+            </button>
+        </router-link>
     </div>
     <div class="container h-[32rem] bg-zinc-300">
         당신을 치킨을 좋아한닭

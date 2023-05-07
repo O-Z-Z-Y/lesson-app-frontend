@@ -15,7 +15,7 @@
 
                 <button type="submit">로그인</button>
             </form>
-            <a href="#_" @click="CLOSE_MODAL()">닫기</a>
+            <a href="#" @click="CLOSE_MODAL()">닫기</a>
         </div>
     </div>
 </template>
