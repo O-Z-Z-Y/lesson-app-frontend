@@ -1,20 +1,25 @@
 <template>
     <div class="item-wrapper m-6 flex justify-between">
-        <div class="item-body">
+        <div class="item-body w-full">
             <div class="item-header" role="complementary">
-                <div class="title">제목인디</div>
-                <div class="img-wrapper">이미지 들어갈 곳</div>
+                <h2 class="title text-2xl font-bold">제목인디</h2>
+                <div class="img-wrapper" >
+                    <img class="rounded-lg max-h-96" src="./../../assets/thumbnail-default.jpg" alt="">
+                </div>
             </div>
             <div class="sub-course-list">
-                <div v-for="course in SubCourses" :key="course.id">
-                    <router-link :to="`/unit/${category}/${course.id}`">
-                        {{ course.title }}
-                    </router-link>
-                </div>
+                <h3 class="course-list text-xl">커리큘럼 입니다. 여기 테이블로 바꿔야 합니다.</h3>
+                <ul>
+                    <li class="text-lg font-medium text-green-600 duration-300 hover:text-orange-400" v-for="course in SubCourses" :key="course.id">
+                        <router-link :to="`/unit/${category}/${course.id}`">
+                            {{ course.title }}
+                        </router-link>
+                    </li>
+                </ul>
             </div>
             <div class="comment">댓글</div>
         </div>
-        <div class="payment-wrapper">결제하기</div>
+        <div class="payment-wrapper h-80 w-72 border">결제창인디</div>
     </div>
 </template>
 <script>

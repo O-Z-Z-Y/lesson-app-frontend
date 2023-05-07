@@ -5,13 +5,13 @@
                 <img class="h-10" src="./../assets/logo.png" alt="">
             </router-link>
             <nav class="flex flex-wrap items-center justify-center pl-24 text-base md:ml-auto md:mr-auto">
-                <router-link to="/home" @click="SET_NAV('Home')" :class="{ '!text-pink-500': nav === 'Home' }"
+                <router-link to="/home" :class="{ '!text-pink-500': nav === 'Home' }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Home</router-link>
-                <router-link to="/notice" @click="SET_NAV('Notice')" :class="{ '!text-pink-500': nav === 'Notice' }"
+                <router-link to="/notice" :class="{ '!text-pink-500': nav === 'Notice' }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Notice</router-link>
-                <router-link to="/course" @click="SET_NAV('Course')" :class="{ '!text-pink-500': nav === 'Course' || nav === 'Detail' }"
+                <router-link to="/course" :class="{ '!text-pink-500': nav === 'Course' || nav === 'Detail' }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Course</router-link>
-                <router-link to="/about" @click="SET_NAV('About')" :class="{ '!text-pink-500': nav === 'About' }"
+                <router-link to="/about" :class="{ '!text-pink-500': nav === 'About' }"
                     class="dark:text-white font-medium hover:!text-pink-500">About</router-link>
             </nav>
             <div class="items-center h-full">

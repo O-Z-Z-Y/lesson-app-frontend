@@ -1,5 +1,5 @@
 <template>
-    <div class="sub-course-title">제목띠</div>
+    <div class="sub-course-title m-6 text-2xl font-bold">제목띠</div>
     <div class="sub-course-body">
         <div class="video-wrapper">
             <vue-plyr>
@@ -15,10 +15,7 @@
 </template>
 <script>
 export default {
-    name: "SubCourse",
-    mounted() {
-        console.log(this.$refs.plyr.player)
-    }
+    name: "SubCourse"
 }
 </script>
 <style></style>
