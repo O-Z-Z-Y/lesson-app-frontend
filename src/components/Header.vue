@@ -9,7 +9,7 @@
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Home</a>
                 <a href="#_" @click="SET_NAV('Notice')" :class="{ '!text-pink-500': nav === 'Notice' }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Notice</a>
-                <a href="#_" @click="SET_NAV('Course')" :class="{ '!text-pink-500': nav === 'Course' }"
+                <a href="#_" @click="SET_NAV('Course')" :class="{ '!text-pink-500': nav === 'Course' || nav === 'Detail' }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Course</a>
                 <a href="#_" @click="SET_NAV('About')" :class="{ '!text-pink-500': nav === 'About' }"
                     class="dark:text-white font-medium hover:!text-pink-500">About</a>

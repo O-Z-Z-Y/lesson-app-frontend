@@ -1,5 +1,5 @@
 <template>
-    <div class="px-6 course-wrapper course-list-wrapper">
+    <div class="container course-wrapper course-list-wrapper px-6 ">
         <ul class="flex flex-col">
             <CourseItem v-for="(course, index) in courses" :key="index" :thumbnail="course.thumbnail" :title="course.title"
                 :description="course.description" />
@@ -27,7 +27,7 @@ export default {
             .catch((error) => console.error(error));
     },
 };
-</script>\
+</script>
 
 <style>
 

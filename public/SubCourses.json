@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "indexnumber": 1,
+        "title": "React 1강",
+        "maincategory": "1",
+        "content": "<p>어렵게만 느껴졌던 리액트,</p><p><br></p><p>찢어발겨 드리겠습니다.</p>"
+    },
+    {
+        "id": 2,
+        "indexnumber": 2,
+        "title": "React로 2강",
+        "maincategory": "1",
+        "content": "<p>어렵게만 느껴졌던 리액트,</p><p><br></p><p>찢어발겨 드리겠습니다.</p>"
+    },
+    {
+        "id": 3,
+        "indexnumber": 3,
+        "title": "React로 3강",
+        "maincategory": "1",
+        "content": "<p>어렵게만 느껴졌던 리액트,</p><p><br></p><p>찢어발겨 드리겠습니다.</p>"
+    }
+]

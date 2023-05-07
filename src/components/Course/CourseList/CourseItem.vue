@@ -2,7 +2,7 @@
     <li v-if="navState === 'Home'"
         class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-xl h-80 flex flex-col items-center bg-white rounded-lg shadow-md">
         <div class="item-thumbnail mb-2 w-full h-fit bg-slate-500 rounded-t-lg">
-            <a href="#_">
+            <a href="#_" @click="onClickCourseItem(id)">
                 <div class="img-wrapper" v-if="this.thumbnail === '썸네일'">
                     <img class="rounded-t-lg" src="./../../../assets/thumbnail-default.jpg" alt="">
                 </div>
@@ -10,7 +10,7 @@
             </a>
         </div>
         <h4 class="mb-1 text-cyan-700 text-lg font-medium duration-300 hover:text-orange-400">
-            <a href="#_">{{ title }}</a>
+            <a href="#_" @click="onClickCourseItem(id)">{{ title }}</a>
         </h4>
         <p class="item-description">{{ description }}</p>
         <div class="difficulty"></div>
@@ -18,7 +18,7 @@
 
     <li v-else-if="navState === 'Course'" class="py-6 flex border-b-2">
         <div class="item-thumbnail w-1/3 h-auto bg-slate-500 rounded-lg">
-            <a href="#_">
+            <a href="#_" @click="onClickCourseItem(id)">
                 <div class="img-wrapper" v-if="this.thumbnail === '썸네일'">
                     <img class="rounded-lg" src="./../../../assets/thumbnail-default.jpg" alt="">
                 </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="text-wrapper mx-6 w-2/3">
             <h4 class="text-cyan-700 text-lg font-medium duration-300 hover:text-orange-400">
-                <a href="#_">{{ title }}</a>
+                <a href="#_" @click="onClickCourseItem(id)">{{ title }}</a>
             </h4>
             <p class="item-description">{{ description }}</p>
             <p class="item-price mt-10 float-right text-red-500">price</p>
@@ -37,9 +37,12 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
+
 export default {
     name: "CourseItem",
     props: {
+        id: Number,
         thumbnail: String,
         title: String,
         description: String,
@@ -47,6 +50,15 @@ export default {
     computed: {
         navState() {
             return this.$store.state.Nav.nav
+        },
+        ...mapState('Courses', ['category']),
+    },
+    methods: {
+        ...mapMutations('Courses', ['SET_CATEGORY']),
+        ...mapMutations('Nav', ['SET_NAV']),
+        onClickCourseItem(id) {
+            this.SET_CATEGORY(id);
+            this.SET_NAV('Detail')
         }
     }
 };

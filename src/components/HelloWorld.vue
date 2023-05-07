@@ -12,6 +12,9 @@
     <template v-else-if="navState === 'About'">
         <About />
     </template>
+    <template v-else-if="navState === 'Detail'">
+        <CourseDetail />
+    </template>
     <footer class="h-32 bg-slate-400">
         푸터 입니닭
     </footer>
@@ -25,6 +28,7 @@ import Notice from './Notice/Notice.vue'
 import Course from './Course/Course.vue'
 import About from './About/About.vue'
 import DarkmodeToggle from './DarkmodeToggle.vue'
+import CourseDetail from './Course/CourseDetail.vue'
 // import { mapState } from 'vuex'
 
 export default {
@@ -35,6 +39,7 @@ export default {
         Notice,
         Course,
         About,
+        CourseDetail,
         DarkmodeToggle
     },
     computed: {
