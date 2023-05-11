@@ -2,26 +2,23 @@ export default {
   namespaced: true,
   state() {
     return {
-      openModal: false
+      modalOpened: false
     }
   },
   mutations: {
-    OPEN_MODAL(state) {
-      state.openModal = true
-    },
-    CLOSE_MODAL(state) {
-      state.openModal = false
+    SET_MODAL(state, value) {
+      state.modalOpened = value
     }
   },
   actions: {
-    open({ commit }) {
-      commit('OPEN_MODAL')
+    openModal({ commit }) {
+      commit('SET_MODAL', true)
     },
-    close({ commit }) {
-      commit('CLOSE_MODAL')
+    closeModal({ commit }) {
+      commit('SET_MODAL', false)
     }
   },
   getters: {
-    openModal: state => state.openModal
+    openModal: state => state.modalOpened
   }
 }

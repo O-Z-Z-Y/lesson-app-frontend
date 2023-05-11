@@ -1,13 +1,19 @@
 <template>
     <div>
-        <h2 class="text-2xl font-bold">이제 누가 공지 해주냐</h2>
+        <h2 class="m-6 text-2xl font-bold">이제 누가 공지 해주냐</h2>
     </div>
+    <NoticeList />
 </template>
 <script>
+import NoticeList from './NoticeList.vue'
+
 export default {
-    name: "Notice"
+    name: "Notice",
+    components: {
+        NoticeList
+    }
 }
 </script>
-<style lang="">
+<style>
     
 </style>
