@@ -19,7 +19,8 @@ module.exports = {
           '0%': { 'margin-top': '70em' },
           '100%': { 'margin-top': 0 },
         }
-      }
+      },
+      'auth-input': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-none focus:shadow-[0_0_5px_1px_rgba(219,39,119,1)]',
     },
   },
   plugins: [],

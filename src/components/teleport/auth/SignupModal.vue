@@ -1,11 +1,11 @@
 <template>
     <div class="signup-header flex justify-between">
         <h2 class="text-xl font-bold mb-8">회원가입</h2>
-        <a href="#" @click="closeModal()">
+        <a href="#" @click="closeModal">
             <img class="w-7" :src="closeIcon" alt="close">
         </a>
     </div>
-    <form class="max-w-md mx-auto" @submit.prevent="signup">
+    <form class="max-w-md mx-auto" @submit.prevent="submitSignup">
         <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2" for="email">
                 이메일
@@ -67,25 +67,19 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
-import closeIcon from './../../../assets/modal_close_x_icon.svg'
 import axios from "axios"
 
 export default {
     name: 'SignupModal',
+    props: ['closeIcon'],
     data() {
         return {
-            id: '',
             username: '',
             email: '',
             phonenumber: '',
             password: '',
             confirmPassword: '',
             passwordStrength: ''
-        }
-    },
-    setup() {
-        return {
-            closeIcon
         }
     },
     watch: {
@@ -122,7 +116,6 @@ export default {
         //* 모든 칸에 입력이 다 되었는지
         inputChecker() {
             if (
-                this.id !== '' && 
                 this.username !== '' && 
                 this.email !== '' && 
                 this.phonenumber !== '' && 
@@ -139,7 +132,7 @@ export default {
         },
 
         //* 회원가입
-        async signup() {
+        async submitSignup() {
             if (!this.email || !this.username || !this.password || !this.phonenumber) {
                 alert('모든 항목을 입력해주세요.');
                 return;
@@ -157,7 +150,6 @@ export default {
 
             try {
                 const response = await axios.post('/api/v1/customer/register', {
-                    id: this.id,
                     username: this.username,
                     password: this.password,
                     email: this.email,

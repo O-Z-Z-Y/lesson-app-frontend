@@ -1,6 +1,11 @@
 <template>
-    <h2 class="text-xl font-bold mb-8">로그인</h2>
-    <form class="max-w-md mx-auto" @submit.prevent="login">
+    <div class="signup-header flex justify-between">
+        <h2 class="text-xl font-bold mb-8">로그인</h2>
+        <a href="#" @click="closeModal">
+            <img class="w-7" :src="closeIcon" alt="close">
+        </a>
+    </div>
+    <form class="max-w-md mx-auto" @submit.prevent="submitLogin">
         <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2" for="email">
                 이메일
@@ -19,33 +24,39 @@
                 id="password" type="password" placeholder="Password" v-model="password" required minlength="8">
         </div>
         <div class="mb-4">
-            <button
-                :class="email !== '' && password !== '' 
-                    ? 'bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' 
-                    : 'bg-gray-400 cursor-default text-white font-bold py-2 px-4 rounded'"
-                class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            <button :class="email !== '' && password !== ''
+                ? 'w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                : 'w-full bg-gray-400 cursor-default text-white font-bold py-2 px-4 rounded'"
                 type="submit" :disabled="email === '' || password === ''">
                 Log In
             </button>
         </div>
+        <div class="mb-4 flex justify-around">
+            <a href="#" @click="SET_AUTHMODE('findpw')" class="text-cyan-700 font-medium duration-300 hover:text-orange-400">비밀번호 찾기 ></a>
+            <a href="#" @click="SET_AUTHMODE('signup')" class="text-cyan-700 font-medium duration-300 hover:text-orange-400">회원 가입 ></a>
+        </div>
     </form>
-    <a href="#" @click="closeModal()">닫기</a>
 </template>
 <script>
 import axios from 'axios';
-import { mapActions } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 
 export default {
     name: 'LoginModal',
+    props: ['closeIcon'],
     data() {
         return {
             email: '',
             password: '',
         }
     },
+    computed: {
+        ...mapState('Auth', ['isLogged'])
+    },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal']),
-        async login() {
+        ...mapMutations('Auth', ['SET_AUTHMODE', 'SET_LOGGED']),
+        async submitLogin() {
             if (this.email === '' || this.password === '') {
                 alert('회원 정보를 정확히 입력해 주세요.')
                 return;
@@ -65,5 +76,4 @@ export default {
     },
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

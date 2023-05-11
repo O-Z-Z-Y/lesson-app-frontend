@@ -1,20 +1,18 @@
 <template>
   <HelloWorld />
-  <ModalTeleport />
+  <AuthModal />
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import ModalTeleport from '@/components/teleport/ModalTeleport.vue'
-// import Auth from './components/teleport/auth/Auth.vue';
+import AuthModal from '@/components/teleport/AuthModal.vue'
 
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    ModalTeleport,
-    // Auth
+    AuthModal,
   }
 }
 </script>

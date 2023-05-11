@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state() {
     return {
+      //* authMode: 'signup' | 'login' | 'findpw'
       authMode: '',
       isLogged: false,
     }
