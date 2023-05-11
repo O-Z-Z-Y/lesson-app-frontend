@@ -7,22 +7,6 @@
     </div>
     <form class="max-w-md mx-auto" @submit.prevent="signup">
         <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2" for="id">
-                아이디
-            </label>
-            <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
-                id="id" type="text" placeholder="ID" v-model="id" required>
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2" for="username">
-                이름
-            </label>
-            <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
-                id="username" type="text" placeholder="Username" v-model="username" required>
-        </div>
-        <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2" for="email">
                 이메일
             </label>
@@ -32,13 +16,21 @@
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
         </div>
         <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="username">
+                이름
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
+                id="username" type="text" placeholder="Name" v-model="username" required>
+        </div>
+        <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2" for="phone-number">
                 전화번호
             </label>
             <input
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
                 id="phone-number" type="text" 
-                placeholder="전화번호는 '-' 빼고 숫자만 입력해 주세요." 
+                placeholder="'-' 빼고 숫자만 입력해 주세요." 
                 v-model="phonenumber"
                 inputmode="numeric"
                 pattern="[0-9]*"
@@ -51,7 +43,7 @@
             </label>
             <input
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
-                id="password" type="password" placeholder="Password" v-model="password" required>
+                id="password" type="password" placeholder="8자 이상, 영어, 숫자, 특수문자 포함입니다" v-model="password" required>
             <p v-if="passwordStrength" class="text-red-500">{{ passwordStrength }}</p>
         </div>
         <div class="mb-4">
@@ -148,7 +140,7 @@ export default {
 
         //* 회원가입
         async signup() {
-            if (!this.id || !this.username || !this.password || !this.email) {
+            if (!this.email || !this.username || !this.password || !this.phonenumber) {
                 alert('모든 항목을 입력해주세요.');
                 return;
             }
