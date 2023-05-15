@@ -28,7 +28,6 @@ export default {
     },
     logout({ commit }) {
       commit('SET_LOGGED', false)
-      alert('로그아웃 되었습니다')
     }
   },
   getters: {
