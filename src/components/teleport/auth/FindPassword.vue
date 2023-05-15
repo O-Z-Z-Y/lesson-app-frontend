@@ -5,7 +5,7 @@
             <img class="w-7" :src="closeIcon" alt="close">
         </a>
     </div>
-    <form class="max-w-md mx-auto" @submit.prevent="submitFindPw">
+    <form class="max-w-md mx-auto" @submit.prevent="submitFindEmail">
         <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2" for="email">
                 이메일
@@ -52,7 +52,7 @@ export default {
         }
     },
     methods: {
-        async submitFindPw() {
+        async submitFindEmail() {
             if (!this.email || !this.phonenumber) {
                 alert('모든 항목을 입력해주세요.');
                 return;

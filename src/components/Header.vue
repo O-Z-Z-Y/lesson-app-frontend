@@ -22,7 +22,14 @@
                     Sign Up
                 </a>
             </div>
-            <div v-else-if="isLogged" class="items-center h-full">로그인됨</div>
+            <div v-else-if="isLogged" class="header-user items-center h-full">
+                <span @click="openUserMenu()" class="hypertext">{{ this.username }}</span> 님 안녕하세요
+                <ul v-if="isUserMenuOpened" v-click-outside="onClickOutside()" class="header-usermenu block absolute border rounded-sm p-2">
+                    <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">수강중인 강좌</li>
+                    <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">회원 정보 변경</li>
+                    <li class=" cursor-pointer duration-300 hover:text-orange-600" @click="logout()">로그아웃</li>
+                </ul>
+            </div>
         </div>
     </header>
 </template>
@@ -31,22 +38,43 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
     name: 'HeaderVue',
+    data() {
+        return {
+            isUserMenuOpened: false
+        }
+    },
+    //* 초기 로그인 상태
+    created() {
+        const token = this.$cookies.get('access_token');
+        if (token) {
+            this.login()
+        } else {
+            this.logout()
+        }
+    },
     computed: {
         ...mapState('Nav', ['nav']),
         ...mapState('Auth', ['authMode', 'isLogged']),
-        ...mapState('Modal', ['modalOpened'])
+        ...mapState('Modal', ['modalOpened']),
+        ...mapState('User', ['username'])
     },
     methods: {
         ...mapMutations('Nav', ['SET_NAV']),
-        ...mapMutations('Auth', ['SET_AUTHMODE']),
+        ...mapActions('Auth', ['setAuthMode', 'login', 'logout']),
         ...mapActions('Modal', ['openModal', 'closeModal']),
         onLogin() {
-            this.SET_AUTHMODE('login');
+            this.setAuthMode('login');
             this.openModal()
         },
         onSignUp() {
-            this.SET_AUTHMODE('signup');
+            this.setAuthMode('signup');
             this.openModal()
+        },
+        openUserMenu() {
+            this.isUserMenuOpened = !this.isUserMenuOpened
+        },
+        onClickOutside() {
+            console.log('test')
         }
     }
 }

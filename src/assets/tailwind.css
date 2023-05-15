@@ -18,6 +18,16 @@ body {
   color:white;
 }
 
+.hypertext {
+  color: #0E7490;
+  font-size: 1.125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition-duration: 300ms;
+}
+.hypertext:hover {
+  color: #FB923C
+}
 
 /* 1440px 이상 */
 @media (min-width: 1440px) {

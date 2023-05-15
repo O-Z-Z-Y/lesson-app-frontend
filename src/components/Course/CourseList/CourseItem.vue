@@ -9,7 +9,7 @@
                 <div class="img-wrapper" v-else>{{ thumbnail }}</div>
             </router-link>
         </div>
-        <h4 class="mb-1 text-cyan-700 text-lg font-medium duration-300 hover:text-orange-400">
+        <h4 class="mb-1 hypertext">
             <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
         </h4>
         <p class="item-description">{{ description }}</p>
@@ -26,7 +26,7 @@
             </router-link>
         </div>
         <div class="text-wrapper mx-6 w-2/3">
-            <h4 class="text-cyan-700 text-lg font-medium duration-300 hover:text-orange-400">
+            <h4 class="hypertext">
                 <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
             </h4>
             <p class="item-description">{{ description }}</p>

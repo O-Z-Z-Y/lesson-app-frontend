@@ -8,7 +8,7 @@
             <div v-else-if="authMode === 'signup'" class="modal-content w-96 p-4 bg-white rounded opacity-100 z-20 animate-[slideUp_0.5s_ease-out]">
                 <SignupModal :closeIcon="closeIcon"/>
             </div>
-            <div v-else-if="authMode === 'findPw'" class="modal-content w-96 p-4 bg-white rounded opacity-100 z-20 animate-[slideUp_0.5s_ease-out]">
+            <div v-else-if="authMode === 'findEmail'" class="modal-content w-96 p-4 bg-white rounded opacity-100 z-20 animate-[slideUp_0.5s_ease-out]">
                 <FindPassword :closeIcon="closeIcon"/>
             </div>
         </div>

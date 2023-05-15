@@ -32,8 +32,8 @@
             </button>
         </div>
         <div class="mb-4 flex justify-around">
-            <a href="#" @click="SET_AUTHMODE('findpw')" class="text-cyan-700 font-medium duration-300 hover:text-orange-400">비밀번호 찾기 ></a>
-            <a href="#" @click="SET_AUTHMODE('signup')" class="text-cyan-700 font-medium duration-300 hover:text-orange-400">회원 가입 ></a>
+            <a href="#" @click="SET_AUTHMODE('findEmail')" class="hypertext">비밀번호 찾기 ></a>
+            <a href="#" @click="SET_AUTHMODE('signup')" class="hypertext">회원 가입 ></a>
         </div>
     </form>
 </template>
@@ -51,10 +51,12 @@ export default {
         }
     },
     computed: {
-        ...mapState('Auth', ['isLogged'])
+        ...mapState('Auth', ['isLogged']),
+        ...mapState('User', ['username'])
     },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal']),
+        ...mapMutations('User', ['SET_USERNAME']),
         ...mapMutations('Auth', ['SET_AUTHMODE', 'SET_LOGGED']),
         async submitLogin() {
             if (this.email === '' || this.password === '') {
@@ -66,8 +68,10 @@ export default {
                     email: this.email,
                     password: this.password
                 });
+                this.SET_USERNAME(response.data.user.name)
                 console.log(response.data);
-                alert('로그인 되었습니다.')
+                this.$cookies.set('access_token', response.data.token, 60*60*2)
+                alert(`${this.username}님 로그인 되었습니다.`)
                 this.SET_LOGGED(true)
                 this.closeModal()
             } catch (error) {

@@ -62,12 +62,6 @@
                 type="submit" :disabled="!inputChecker()">
                 Sign In
             </button>
-            <button
-                @click="testChecker()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-                >
-                test
-            </button>
         </div>
     </form>
 </template>
@@ -136,12 +130,6 @@ export default {
             }
             
         },
-
-        testChecker() {
-            console.log(typeof this.phonenumber)
-            console.log(this.phonenumber)
-        },
-
         //* 회원가입
         async submitSignup() {
             if (!this.email || !this.username || !this.password || !this.phonenumber) {
