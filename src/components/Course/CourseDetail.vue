@@ -7,6 +7,7 @@
                     <img class="rounded-lg max-h-96" src="./../../assets/thumbnail-default.jpg" alt="">
                 </div>
             </div>
+            <div class="item-info">내용이거든</div>
             <div class="sub-course-list">
                 <h3 class="course-list text-xl">커리큘럼 입니다. 여기 테이블로 바꿔야 합니다.</h3>
                 <ul>

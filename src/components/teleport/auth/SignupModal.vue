@@ -62,6 +62,12 @@
                 type="submit" :disabled="!inputChecker()">
                 Sign In
             </button>
+            <button
+                @click="testChecker()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                >
+                test
+            </button>
         </div>
     </form>
 </template>
@@ -131,6 +137,11 @@ export default {
             
         },
 
+        testChecker() {
+            console.log(typeof this.phonenumber)
+            console.log(this.phonenumber)
+        },
+
         //* 회원가입
         async submitSignup() {
             if (!this.email || !this.username || !this.password || !this.phonenumber) {
@@ -150,16 +161,16 @@ export default {
 
             try {
                 const response = await axios.post('/api/v1/customer/register', {
-                    username: this.username,
-                    password: this.password,
+                    name: this.username,
                     email: this.email,
+                    password: this.password,
                     phonenumber: this.phonenumber,
                 });
                 console.log(response.data); // 서버로부터 받은 응답을 콘솔에 출력
                 alert('회원가입이 완료되었습니다.'); // 회원가입 성공 알림창 표시
             } catch (error) {
                 console.error(error);
-                alert('회원가입에 실패했습니다. 다시 시도해주세요.'); // 회원가입 실패 알림창 표시
+                alert(error.response.data.msg); // 회원가입 실패 알림창 표시
             }
         }
     }

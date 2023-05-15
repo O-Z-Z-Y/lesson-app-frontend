@@ -62,12 +62,14 @@ export default {
                 return;
             }
             try {
-                const response = await axios.post('api/v1/customer/login', {
+                const response = await axios.post('/api/v1/customer/login', {
                     email: this.email,
                     password: this.password
                 });
                 console.log(response.data);
                 alert('로그인 되었습니다.')
+                this.SET_LOGGED(true)
+                this.closeModal()
             } catch (error) {
                 console.error(error);
                 alert('로그인 실패');
