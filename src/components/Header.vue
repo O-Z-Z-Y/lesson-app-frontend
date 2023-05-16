@@ -27,7 +27,7 @@
                 <ul v-if="isUserMenuOpened" v-click-outside="onClickOutside()" class="header-usermenu block absolute border rounded-sm p-2">
                     <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">수강중인 강좌</li>
                     <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">회원 정보 변경</li>
-                    <li class=" cursor-pointer duration-300 hover:text-orange-600" @click="logout()">로그아웃</li>
+                    <li class="cursor-pointer duration-300 hover:text-orange-600" @click="logout()">로그아웃</li>
                 </ul>
             </div>
         </div>

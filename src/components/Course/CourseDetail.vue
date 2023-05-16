@@ -20,7 +20,13 @@
             </div>
             <div class="comment">댓글</div>
         </div>
-        <div class="payment-wrapper h-80 w-72 border">결제창인디</div>
+        <div class="payment-wrapper h-80 w-72 p-4 border">
+            <button class="credit-auth-button px-6 py-4 w-full text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded drop-shadow outline-none active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
+                결제하기 or 수강하기
+            </button>
+            <p class="text-center">83,000₩</p>
+            <p class="text-center">아직 디자인을 못 정함</p>
+        </div>
     </div>
 </template>
 <script>

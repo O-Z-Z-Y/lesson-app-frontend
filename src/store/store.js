@@ -4,6 +4,7 @@ import modal from './modal'
 import courses from './courses'
 import auth from './auth'
 import user from './user'
+import notice from './notice'
 import createPersistedState from 'vuex-persistedstate';
 
 const store = createStore({
@@ -13,10 +14,11 @@ const store = createStore({
     Courses: courses,
     Auth: auth,
     User: user,
+    Notice: notice
   },
   plugins: [createPersistedState({
     // paths에 입력한 모듈만 적용
-    paths: ['Nav','Courses', 'User'],
+    paths: ['Nav','Courses', 'User', 'Notice'],
   })],
 })
 
