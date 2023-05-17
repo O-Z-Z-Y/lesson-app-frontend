@@ -16,6 +16,7 @@ app.use(store)
 app.use(VuePlyr)
 app.use(VueCookies)
 app.use(vClickOutSide)
+
 app.mount('#app')
 
 //쿠키의 만료일은 7일이다. (글로벌 세팅)

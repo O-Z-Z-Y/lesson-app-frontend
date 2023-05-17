@@ -24,11 +24,14 @@
             </div>
             <div v-else-if="isLogged" class="header-user items-center h-full">
                 <span @click="openUserMenu()" class="hypertext">{{ this.username }}</span> 님 안녕하세요
-                <ul v-if="isUserMenuOpened" v-click-outside="onClickOutside()" class="header-usermenu block absolute border rounded-sm p-2">
-                    <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">수강중인 강좌</li>
-                    <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">회원 정보 변경</li>
-                    <li class="cursor-pointer duration-300 hover:text-orange-600" @click="logout()">로그아웃</li>
-                </ul>
+                <div v-show="isUserMenuOpened" v-click-outside="onClickOutside()"
+                    class="header-usermenu block absolute border rounded-sm p-2">
+                    <ul>
+                        <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">수강중인 강좌</li>
+                        <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">회원 정보 변경</li>
+                        <li class="cursor-pointer duration-300 hover:text-orange-600" @click="logout()">로그아웃</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </header>
@@ -79,6 +82,4 @@ export default {
     }
 }
 </script>
-<style>
-    
-</style>
+<style></style>

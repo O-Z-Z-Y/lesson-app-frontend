@@ -31,11 +31,16 @@
                 Log In
             </button>
         </div>
-        <div class="mb-4 flex justify-around">
-            <a href="#" @click="SET_AUTHMODE('findEmail')" class="hypertext">비밀번호 찾기 ></a>
-            <a href="#" @click="SET_AUTHMODE('signup')" class="hypertext">회원 가입 ></a>
-        </div>
     </form>
+    <button class="'w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'"
+        @click="test()"
+    >
+        test
+    </button>
+    <div class="mb-4 flex justify-around">
+        <a href="#" @click="SET_AUTHMODE('findEmail')" class="hypertext">비밀번호 찾기 ></a>
+        <a href="#" @click="SET_AUTHMODE('signup')" class="hypertext">회원 가입 ></a>
+    </div>
 </template>
 <script>
 import axios from 'axios';
@@ -70,7 +75,8 @@ export default {
                 });
                 this.SET_USERNAME(response.data.user.name)
                 console.log(response.data);
-                this.$cookies.set('access_token', response.data.token, 60*60*2)
+                
+                this.$cookies.set('access_token', response.data.token, 60*60)
                 alert(`${this.username}님 로그인 되었습니다.`)
                 this.SET_LOGGED(true)
                 this.closeModal()
@@ -78,7 +84,7 @@ export default {
                 console.error(error);
                 alert('로그인 실패');
             }
-        }
+        },
     },
 }
 </script>
