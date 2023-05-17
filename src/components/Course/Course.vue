@@ -1,30 +1,28 @@
 <template>
     <div class="container course-wrapper course-list-wrapper px-6 ">
         <ul class="flex flex-col">
-            <CourseItem v-for="(course, index) in courses" :key="index" :id="course.id" :thumbnail="course.thumbnail" :title="course.title"
+            <CourseItem v-for="(course, index) in mainCourseList" :key="index" :id="course.id" :thumbnail="course.thumbnail" :title="course.title"
                 :description="course.description" />
         </ul>
     </div>
 </template>
 <script>
 import CourseItem from './CourseList/CourseItem.vue';
-import "/public/CourseData.json"
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name:"Course",
     components: {
         CourseItem
     },
-    data() {
-        return {
-            courses: [],
-        };
+    computed: {
+        ...mapState('Courses', ['mainCourseList'])
+    },
+    methods: {
+        ...mapActions('Courses', ['fetchMainCourseList'])
     },
     mounted() {
-        fetch("CourseData.json")
-            .then((response) => response.json())
-            .then((data) => (this.courses = data))
-            .catch((error) => console.error(error));
+        this.fetchMainCourseList();
     },
 };
 </script>

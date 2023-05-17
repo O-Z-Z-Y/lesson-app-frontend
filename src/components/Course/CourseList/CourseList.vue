@@ -1,7 +1,7 @@
 <template>
     <div class="course-wrapper container course-list-wrapper">
         <ul class="flex flex-wrap justify-around">
-            <CourseItem v-for="(course, index) in sliceCourses" :key="index" :id="course.id" :thumbnail="course.thumbnail" :title="course.title"
+            <CourseItem v-for="(course, index) in mainCourseList" :key="index" :id="course.id" :thumbnail="course.thumbnail" :title="course.title"
                 :description="course.description" />
         </ul>
     </div>
@@ -9,28 +9,15 @@
 
 <script>
 import CourseItem from "./CourseItem.vue";
-import "/public/CourseData.json"
+import { mapState } from 'vuex';
 
 export default {
     name: "CourseList",
     components: {
         CourseItem
     },
-    data() {
-        return {
-            courses: [],
-        };
-    },
-    mounted() {
-        fetch("CourseData.json")
-            .then((response) => response.json())
-            .then((data) => (this.courses = data))
-            .catch((error) => console.error(error));
-    },
     computed: {
-        sliceCourses() {
-            return this.courses.slice(0, 6);
-        }
+        ...mapState('Courses', ['mainCourseList']),
     }
     
 };

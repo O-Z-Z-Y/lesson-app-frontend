@@ -40,7 +40,7 @@ const routes = [
         component: About
     },
     {
-        path: "/unit/:category/:id",
+        path: "/unit/:mainCategory/:id",
         name: "SubCourse",
         component: SubCourse
     },

@@ -1,19 +1,23 @@
 <template>
     <li v-if="navState === 'Home'"
         class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-xl h-80 flex flex-col items-center bg-white rounded-lg shadow-md">
-        <div class="item-thumbnail mb-2 w-full h-fit bg-slate-500 rounded-t-lg">
+        <div class="item-thumbnail mb-2 w-full h-auto bg-slate-500 rounded-t-lg">
             <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
                 <div class="img-wrapper" v-if="this.thumbnail === '썸네일'">
                     <img class="rounded-t-lg" src="./../../../assets/thumbnail-default.jpg" alt="">
                 </div>
-                <div class="img-wrapper" v-else>{{ thumbnail }}</div>
+                <div class="img-wrapper h-36" v-else>
+                    <img class="rounded-lg" :src="`/images/${thumbnail}`" alt="thumbnail">
+                </div>
             </router-link>
         </div>
-        <h4 class="mb-1 hypertext">
-            <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
-        </h4>
-        <p class="item-description">{{ description }}</p>
-        <div class="difficulty"></div>
+        <div class="text-wrapper p-2 w-full">
+            <h4 class="mb-1 hypertext text-center">
+                <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
+            </h4>
+            <p class="item-description text-center">{{ description }}</p>
+            <div class="difficulty"></div>
+        </div>
     </li>
 
     <li v-else-if="navState === 'Course'" class="py-6 flex border-b-2">
@@ -22,7 +26,9 @@
                 <div class="img-wrapper" v-if="this.thumbnail === '썸네일'">
                     <img class="rounded-lg" src="./../../../assets/thumbnail-default.jpg" alt="">
                 </div>
-                <div class="img-wrapper" v-else>{{ thumbnail }}</div>
+                <div class="img-wrapper" v-else>
+                    <img class="rounded-lg" :src="`/images/${thumbnail}`" alt="thumbnail">
+                </div>
             </router-link>
         </div>
         <div class="text-wrapper mx-6 w-2/3">
@@ -51,13 +57,16 @@ export default {
         navState() {
             return this.$store.state.Nav.nav
         },
-        ...mapState('Courses', ['category']),
+        ...mapState('Courses', ['mainCategory']),
     },
     methods: {
-        ...mapMutations('Courses', ['SET_CATEGORY']),
+        ...mapMutations('Courses', ['SET_MAINCATEGORY', 'SET_MAINTHUMBNAIL', 'SET_MAINTITLE', 'SET_MAINDESCRIPTION']),
         ...mapMutations('Nav', ['SET_NAV']),
-        onClickCourseItem(id) {
-            this.SET_CATEGORY(id);
+        onClickCourseItem() {
+            this.SET_MAINCATEGORY(this.id);
+            this.SET_MAINTHUMBNAIL(this.thumbnail)
+            this.SET_MAINTITLE(this.title)
+            this.SET_MAINDESCRIPTION(this.description)
             this.SET_NAV('Detail')
         }
     }

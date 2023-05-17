@@ -1,31 +1,71 @@
+import axios from "axios"
+
 export default {
   namespaced: true,
   state() {
     return {
-      category: 0,
-      thumbnail: "썸네일",
-      title: "",
-      description: "",
+      mainCourseList: [],
+      subCourseList: [],
+
+      //* maincourseitem
+      mainCategory: null,
+      mainThumbnail: "썸네일",
+      mainTitle: "",
+      mainDescription: "",
+
+      //* subcourseitem
+      subIndexnumber: null,
+      subTitle: '',
+      subContent: '',
+      subLink: '',
     }
   },
   mutations: {
-    SET_CATEGORY(state, id) {
-      state.category = id;
+    // maincourse
+    SET_MAINCOURSELIST(state, array) {
+      state.mainCourseList = array
     },
-    SET_THUMBNAIL(state, url) {
-      state.thumbnail = url;
+    SET_MAINCATEGORY(state, id) {
+      state.mainCategory = id;
     },
-    SET_TITLE(state, title) {
-      state.title = title;
+    SET_MAINTHUMBNAIL(state, url) {
+      state.mainThumbnail = url;
     },
-    SET_DESCRIPTION(state, info) {
-      state.description = info
+    SET_MAINTITLE(state, title) {
+      state.mainTitle = title;
+    },
+    SET_MAINDESCRIPTION(state, info) {
+      state.mainDescription = info
+    },
+
+    // subcourse
+    SET_SUBCOURSELIST(state, array) {
+      state.subCourseList = array
+    },
+    SET_SUBINDEXNUMBER(state, index) {
+      state.subIndexnumber = index
+    },
+    SET_SUBTITLE(state, title) {
+      state.subTitle = title
+    },
+    SET_SUBLINK(state, url) {
+      state.subLink = url
+    },
+    SET_SUBCONTENT(state, value) {
+      state.subContent = value
     }
   },
   actions: {
-    set({ commit }) {
-      commit('SET_CATEGORY')
-    }
+    async fetchMainCourseList({commit}) {
+      const response = await axios.get(`/api/v1/jobs/maincourse/list`)
+      console.log(response.data.mainItems)
+      commit('SET_MAINCOURSELIST', response.data.mainItems)
+    },
+    async fetchSubCourseList({commit, state}) {
+      const response = await axios.get(`/api/v1/jobs/subcourse/list/${state.mainCategory}`)
+      console.log(response.data.result)
+      commit('SET_SUBCOURSELIST', response.data.result)
+    },
   },
   getters: {
     category: state => state.category
