@@ -9,6 +9,8 @@ import CourseDetail from "@/components/Course/CourseDetail.vue"
 import NoticeDetail from "@/components/Notice/NoticeDetail.vue"
 import SubCourse from "@/components/Course/SubCourse/SubCourse.vue"
 
+import Test from "@/components/test/Test.vue"
+
 const routes = [
     {
         path: "/",
@@ -48,6 +50,11 @@ const routes = [
         path: "/notice/detail/:id",
         name: "NoticeDetail",
         component: NoticeDetail
+    },
+    {
+        path: "/test",
+        name: "Test",
+        component: Test
     }
 ];
 

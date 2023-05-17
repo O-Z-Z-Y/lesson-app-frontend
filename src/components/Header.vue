@@ -15,21 +15,21 @@
                     class="dark:text-white font-medium hover:!text-pink-500">About</router-link>
             </nav>
             <div v-if="!isLogged" class="items-center h-full">
-                <a href="#" @click="onLogin()"
+                <a href="#" @click="onLogin"
                     class="dark:text-white login-button mr-5 font-medium hover:!text-pink-500">Login</a>
-                <a href="#" @click="onSignUp()"
+                <a href="#" @click="onSignUp"
                     class="px-4 py-2 text-xs font-bold text-white transition-all duration-150 bg-pink-500 rounded shadow outline-none active:bg-pink-600 focus:outline-none ease hover:shadow-xl">
                     Sign Up
                 </a>
             </div>
-            <div v-else-if="isLogged" class="header-user items-center h-full">
-                <span @click="openUserMenu()" class="hypertext">{{ this.username }}</span> 님 안녕하세요
-                <div v-show="isUserMenuOpened" v-click-outside="onClickOutside()"
-                    class="header-usermenu block absolute border rounded-sm p-2">
+            <div v-else-if="isLogged" class="header-user items-center h-full" v-click-outside="onClickOutside">
+                <span @click="openUserMenu" class="hypertext">{{ this.username }}</span> 님 안녕하세요
+                <div v-show="isUserMenuOpened"
+                    class="header-usermenu block absolute border rounded-sm bg-white p-2 shadow-lg z-20">
                     <ul>
                         <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">수강중인 강좌</li>
                         <li class="mb-2 cursor-pointer duration-300 hover:text-orange-600">회원 정보 변경</li>
-                        <li class="cursor-pointer duration-300 hover:text-orange-600" @click="logout()">로그아웃</li>
+                        <li class="cursor-pointer duration-300 hover:text-orange-600" @click="logout">로그아웃</li>
                     </ul>
                 </div>
             </div>
@@ -77,7 +77,7 @@ export default {
             this.isUserMenuOpened = !this.isUserMenuOpened
         },
         onClickOutside() {
-            console.log('test')
+            this.isUserMenuOpened = false
         }
     }
 }

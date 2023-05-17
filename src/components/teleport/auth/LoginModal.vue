@@ -32,11 +32,6 @@
             </button>
         </div>
     </form>
-    <button class="'w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'"
-        @click="test()"
-    >
-        test
-    </button>
     <div class="mb-4 flex justify-around">
         <a href="#" @click="SET_AUTHMODE('findEmail')" class="hypertext">비밀번호 찾기 ></a>
         <a href="#" @click="SET_AUTHMODE('signup')" class="hypertext">회원 가입 ></a>
