@@ -97,10 +97,10 @@ export default {
             const minLength = 8;
             const passwordLowerCase = password.toLowerCase();
             // const hasUpperCase = /[A-Z]/.test(password);
-            const hasLowerCase = /[a-z]/.test(password);
-            const hasNumber = /\d/.test(password);
+            const hasLowerCase = /[a-z]/.test(passwordLowerCase);
+            const hasNumber = /\d/.test(passwordLowerCase);
             // eslint-disable-next-line no-useless-escape
-            const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+            const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(passwordLowerCase);
 
             if (passwordLowerCase.length < minLength) {
                 return '비밀번호는 최소 ' + minLength + '자 이상이어야 합니다.';

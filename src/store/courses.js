@@ -62,12 +62,10 @@ export default {
   actions: {
     async fetchMainCourseList({commit}) {
       const response = await axios.get(`/api/v1/jobs/maincourse/list`)
-      console.log(response.data.mainItems)
       commit('SET_MAINCOURSELIST', response.data.mainItems)
     },
     async fetchSubCourseList({commit, state}) {
       const response = await axios.get(`/api/v1/jobs/subcourse/list/${state.mainCategory}`)
-      console.log(response.data.result)
       commit('SET_SUBCOURSELIST', response.data.result)
     },
   },

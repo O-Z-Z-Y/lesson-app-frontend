@@ -5,13 +5,13 @@
                 <img class="h-10" src="./../assets/logo.png" alt="logo">
             </router-link>
             <nav class="flex flex-wrap items-center justify-center pl-24 text-base md:ml-auto md:mr-auto">
-                <router-link to="/home" :class="{ '!text-pink-500': nav === 'Home' }"
+                <router-link to="/home" :class="{ '!text-pink-500': nav.includes('Home') }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Home</router-link>
-                <router-link to="/notice" :class="{ '!text-pink-500': nav === 'Notice' }"
+                <router-link to="/notice" :class="{ '!text-pink-500': nav.includes('Notice') }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Notice</router-link>
-                <router-link to="/course" :class="{ '!text-pink-500': nav === 'Course' || nav === 'Detail' }"
+                <router-link to="/course" :class="{ '!text-pink-500': nav.includes('Course') }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Course</router-link>
-                <router-link to="/about" :class="{ '!text-pink-500': nav === 'About' }"
+                <router-link to="/about" :class="{ '!text-pink-500': nav.includes('About') }"
                     class="dark:text-white font-medium hover:!text-pink-500">About</router-link>
             </nav>
             <div v-if="!isLogged" class="items-center h-full">
