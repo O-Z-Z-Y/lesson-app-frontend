@@ -12,6 +12,7 @@ export default {
       mainThumbnail: "썸네일",
       mainTitle: "",
       mainDescription: "",
+      mainCoursePrice: null,
 
       //* subcourseitem
       subIndexnumber: null,
@@ -36,6 +37,9 @@ export default {
     },
     SET_MAINDESCRIPTION(state, info) {
       state.mainDescription = info
+    },
+    SET_MAINCOURSEPRICE(state, value) {
+      state.mainCoursePrice = value
     },
 
     // subcourse

@@ -16,8 +16,8 @@ app.use(store)
 app.use(VuePlyr)
 app.use(VueCookies)
 
-app.use(vClickOutside)
 // v-click-outside
+app.use(vClickOutside)
 const { bind, unbind } = vClickOutside.directive;
 
 app.directive('click-outside', {
@@ -29,7 +29,7 @@ app.directive('click-outside', {
   },
 });
 
-//쿠키의 만료일은 7일이다. (글로벌 세팅)
+// 쿠키의 만료일은 7일이다. (글로벌 세팅)
 // default options config: { expires: '1d', path: '/', domain: '', secure: '', sameSite: 'Lax' }
 app.$cookies.config("7d");
 

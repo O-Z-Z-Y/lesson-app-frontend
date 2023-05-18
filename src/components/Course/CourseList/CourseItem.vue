@@ -36,7 +36,7 @@
                 <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
             </h4>
             <p class="item-description">{{ description }}</p>
-            <p class="item-price mt-10 float-right text-red-500">price</p>
+            <p class="item-price mt-10 float-right text-red-500">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR') }}</p>
             <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
         </div>
     </li>
@@ -52,6 +52,7 @@ export default {
         thumbnail: String,
         title: String,
         description: String,
+        price: Number,
     },
     computed: {
         navState() {
@@ -60,13 +61,14 @@ export default {
         ...mapState('Courses', ['mainCategory']),
     },
     methods: {
-        ...mapMutations('Courses', ['SET_MAINCATEGORY', 'SET_MAINTHUMBNAIL', 'SET_MAINTITLE', 'SET_MAINDESCRIPTION']),
+        ...mapMutations('Courses', ['SET_MAINCATEGORY', 'SET_MAINTHUMBNAIL', 'SET_MAINTITLE', 'SET_MAINDESCRIPTION', 'SET_MAINCOURSEPRICE']),
         ...mapMutations('Nav', ['SET_NAV']),
         onClickCourseItem() {
             this.SET_MAINCATEGORY(this.id);
             this.SET_MAINTHUMBNAIL(this.thumbnail)
             this.SET_MAINTITLE(this.title)
             this.SET_MAINDESCRIPTION(this.description)
+            this.SET_MAINCOURSEPRICE(this.price)
             this.SET_NAV('Detail')
         }
     }
