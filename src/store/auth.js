@@ -1,3 +1,6 @@
+import cookies from 'vue-cookies'
+import router from '@/router';
+
 export default {
   namespaced: true,
   state() {
@@ -27,7 +30,14 @@ export default {
       commit('SET_LOGGED', true)
     },
     logout({ commit }) {
+      cookies.remove('access_token')
       commit('SET_LOGGED', false)
+      
+      //* 접근 권한이 있는 페이지는 홈으로 보냄
+      if (router.currentRoute._value.meta?.roles) {
+        alert('로그아웃 되었습니다.')
+        router.push('/')
+      }
     }
   },
   getters: {

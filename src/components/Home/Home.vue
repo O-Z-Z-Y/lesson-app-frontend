@@ -1,6 +1,6 @@
 <template lang="">
     <div class="container">
-    <div class="h-[32rem] bg-[url('./../assets/jumbotron-back1.png')] bg-contain bg-no-repeat bg-right-bottom pl-8">
+    <div class="h-[32rem] bg-[url('./../assets/img/jumbotron-back1.png')] bg-contain bg-no-repeat bg-right-bottom pl-8">
         <h3 class="font-semibold text-2xl mt-16">붓싼 풀코스로 진행하는 <span class="underline decoration-wavy decoration-zinc-400">프로그래밍 강좌</span></h3>
         <p class="text-lg pt-6 pb-8">이 것이 강의인가 <span class="text-pink-600">치킨인가</span>
             <br>수원왕갈비강좌입니다!

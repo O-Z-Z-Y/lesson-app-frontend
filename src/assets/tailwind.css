@@ -15,33 +15,35 @@ body {
 
 .dark {
   background-color: #0e0e10;
-  color:white;
+  color: white;
 }
 
 .hypertext {
-  color: #0E7490;
-  font-size: 1.125rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition-duration: 300ms;
+  @apply text-cyan-700 text-lg font-medium cursor-pointer duration-300 hover:text-orange-400;
 }
-.hypertext:hover {
-  color: #FB923C
+
+@layer utilities{
+  .hover-layer {
+    @apply absolute hidden top-0 w-full h-full rounded-lg bg-black opacity-0 text-white text-2xl font-bold transition-opacity duration-300 hover:opacity-50;
+  }
+  
+  .img-wrapper:hover .hover-layer {
+    @apply inline-block; 
+  }
 }
 
 body::-webkit-scrollbar {
-    width: 8px;  /* 스크롤바의 너비 */
+  width: 8px; /* 스크롤바의 너비 */
 }
 
 body::-webkit-scrollbar-thumb {
-    height: 30%; /* 스크롤바의 길이 */
-    background: #00a88f; /* 스크롤바의 색상 */
-    
-    border-radius: 10px;
+  height: 30%; /* 스크롤바의 길이 */
+  background: #00a88f; /* 스크롤바의 색상 */
+  border-radius: 10px;
 }
 
 body::-webkit-scrollbar-track {
-    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+  background: rgba(33, 122, 244, 0.1); /*스크롤바 뒷 배경 색상*/
 }
 
 /* 1440px 이상 */

@@ -21,7 +21,7 @@ import { mapActions, mapState } from 'vuex';
 import LoginModal from './auth/LoginModal.vue';
 import SignupModal from './auth/SignupModal.vue';
 import FindPassword from './auth/FindPassword.vue';
-import closeIcon from './../../assets/modal_close_x_icon.svg'
+import closeIcon from './../../assets/svg/modal_close_x_icon.svg'
 
 export default {
     name: 'ModalTeleport',

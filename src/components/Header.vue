@@ -23,7 +23,16 @@
                 </a>
             </div>
             <div v-else-if="isLogged" class="header-user items-center h-full" v-click-outside="onClickOutside">
-                <span @click="openUserMenu" class="hypertext">{{ this.username }}</span> 님 안녕하세요
+                <div class="header-user-wrapper flex">
+                    <p>
+                        <span @click="openUserMenu" class="hypertext">{{ this.username }}</span>
+                        님 안녕하세요
+                    </p>
+                    <router-link to="/user/cart" class="cart-wrapper relative w-6 h-6 ml-2">
+                        <img class="w-full h-full pink" :src="shoppingCartIcon" alt="">
+                        <p class="absolute bottom-3 left-3 w-5 h-5 text-sm rounded-full bg-red-600 text-white text-center">1</p>
+                    </router-link>
+                </div>
                 <div v-show="isUserMenuOpened"
                     class="header-usermenu block absolute border rounded-sm bg-white p-2 shadow-lg z-20">
                     <ul>
@@ -38,12 +47,14 @@
 </template>
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import shoppingCartIcon from '@/assets/svg/shopping_cart_icon.svg'
 
 export default {
     name: 'HeaderVue',
     data() {
         return {
-            isUserMenuOpened: false
+            isUserMenuOpened: false,
+            shoppingCartIcon: shoppingCartIcon
         }
     },
     //* 초기 로그인 상태

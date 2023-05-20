@@ -9,6 +9,8 @@ import CourseDetail from "@/components/Course/CourseDetail.vue"
 import NoticeDetail from "@/components/Notice/NoticeDetail.vue"
 import SubCourse from "@/components/Course/SubCourse/SubCourse.vue"
 
+import Cart from "@/components/user/cart/Cart.vue"
+
 import Test from "@/components/test/Test.vue"
 
 const routes = [
@@ -21,11 +23,20 @@ const routes = [
         name: "Home",
         component: Home
     },
+
+    // notice
     {
         path: "/notice",
         name: "Notice",
         component: Notice
     },
+    {
+        path: "/notice/detail/:id",
+        name: "NoticeDetail",
+        component: NoticeDetail
+    },
+
+    // course
     {
         path: "/course",
         name: "Course",
@@ -37,24 +48,36 @@ const routes = [
         component: CourseDetail
     },
     {
-        path: "/about",
-        name: "About",
-        component: About
-    },
-    {
         path: "/unit/:mainCategory/:id",
         name: "SubCourse",
         component: SubCourse
     },
+
+    // about
     {
-        path: "/notice/detail/:id",
-        name: "NoticeDetail",
-        component: NoticeDetail
+        path: "/about",
+        name: "About",
+        component: About
     },
+
+    // user
+    {
+        path: "/user/cart",
+        name: "Cart",
+        component: Cart,
+        meta: { 
+            roles: ['ROLE_USER']
+        }
+    },
+
+    // dev
     {
         path: "/test",
         name: "Test",
-        component: Test
+        component: Test,
+        meta: {
+            roles: ['ROLE_USER']
+        }
     }
 ];
 
@@ -65,6 +88,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     store.commit('Nav/SET_NAV', to.name);
+    
+    // route-allow
+    const { roles } = to.meta;
+    if (roles) {
+        const roleState = store.state.Auth.isLogged ? 'ROLE_USER' : '';
+        if (!roles.includes(roleState)) {
+            alert('로그인이 필요합니다.')
+            return next(from)
+        }
+    }
+
     next();
 })
 

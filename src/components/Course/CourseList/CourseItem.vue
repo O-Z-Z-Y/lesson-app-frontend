@@ -3,11 +3,16 @@
         class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-xl h-80 flex flex-col items-center bg-white rounded-lg shadow-md">
         <div class="item-thumbnail mb-2 w-full h-auto bg-slate-500 rounded-t-lg">
             <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
-                <div class="img-wrapper" v-if="this.thumbnail === '썸네일'">
-                    <img class="rounded-t-lg" src="./../../../assets/thumbnail-default.jpg" alt="">
+                <div class="img-wrapper h-full relative" v-if="this.thumbnail === '썸네일'">
+                    <img class="rounded-lg object-cover" src="./../../../assets/thumbnail-default.jpg" alt="">
                 </div>
-                <div class="img-wrapper h-36" v-else>
-                    <img class="rounded-lg" :src="`/images/${thumbnail}`" alt="thumbnail">
+                <div class="img-wrapper relative h-36" v-else>
+                    <img class="rounded-lg object-cover h-full w-full" :src="`/images/${thumbnail}`" alt="thumbnail">
+                    <div class="hover-layer">
+                        <a class="absolute top-2 right-2" href="#">
+                            <img class="w-full h-full text-white" :src="addCartIcon" alt="">
+                        </a>
+                    </div>
                 </div>
             </router-link>
         </div>
@@ -23,11 +28,21 @@
     <li v-else-if="navState === 'Course'" class="py-6 flex border-b-2">
         <div class="item-thumbnail w-1/3 h-auto bg-slate-500 rounded-lg">
             <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
-                <div class="img-wrapper" v-if="this.thumbnail === '썸네일'">
-                    <img class="rounded-lg" src="./../../../assets/thumbnail-default.jpg" alt="">
+                <div class="img-wrapper h-full relative" v-if="this.thumbnail === '썸네일'">
+                    <img class="rounded-lg object-cover" src="./../../../assets/thumbnail-default.jpg" alt="">
+                    <div class="hover-layer">
+                        <a href="#">
+                            <img :src="addCartIcon" alt="">
+                        </a>
+                    </div>
                 </div>
-                <div class="img-wrapper" v-else>
-                    <img class="rounded-lg" :src="`/images/${thumbnail}`" alt="thumbnail">
+                <div class="img-wrapper h-full relative" v-else>
+                    <img class="rounded-lg object-cover" :src="`/images/${thumbnail}`" alt="thumbnail">
+                    <div class="hover-layer">
+                        <a href="#">
+                            <img :src="addCartIcon" alt="">
+                        </a>
+                    </div>
                 </div>
             </router-link>
         </div>
@@ -36,7 +51,7 @@
                 <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
             </h4>
             <p class="item-description">{{ description }}</p>
-            <p class="item-price mt-10 float-right text-red-500">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR') }}</p>
+            <p class="item-price mt-10 float-right text-red-500">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
             <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
         </div>
     </li>
@@ -44,6 +59,7 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+import addCartIcon from '@/assets/svg/add_cart_icon.svg';
 
 export default {
     name: "CourseItem",
@@ -53,6 +69,11 @@ export default {
         title: String,
         description: String,
         price: Number,
+    },
+    data() {
+        return {
+            addCartIcon: addCartIcon
+        }
     },
     computed: {
         navState() {
