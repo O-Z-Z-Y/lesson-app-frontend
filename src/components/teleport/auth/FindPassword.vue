@@ -2,7 +2,7 @@
     <div class="signup-header flex justify-between">
         <h2 class="text-xl font-bold mb-8">비밀번호 찾기</h2>
         <a href="#" @click="closeModal">
-            <img class="w-7" :src="closeIcon" alt="close">
+            <CloseIcon />
         </a>
     </div>
     <form class="max-w-md mx-auto" @submit.prevent="submitFindEmail">
@@ -41,10 +41,13 @@
 </template>
 <script>
 import axios from 'axios';
+import CloseIcon from '@/assets/svg/modal_close_x_icon.svg'
 
 export default {
     name:'FindPassword',
-    props:['closeIcon'],
+    components: {
+        CloseIcon
+    },
     data() {
         return {
             email: '',

@@ -1,5 +1,5 @@
 <template>
-    <div class="container course-wrapper course-list-wrapper px-6 ">
+    <div class="container course-wrapper course-list-wrapper px-6">
         <ul class="flex flex-col">
             <CourseItem v-for="(course, index) in mainCourseList" 
                 :key="index" 
@@ -22,7 +22,7 @@ export default {
         CourseItem
     },
     computed: {
-        ...mapState('Courses', ['mainCourseList'])
+        ...mapState('Courses', ['mainCourseList']),
     },
     methods: {
         ...mapActions('Courses', ['fetchMainCourseList'])

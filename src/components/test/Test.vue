@@ -3,10 +3,11 @@
         테스트
     </p>
     <div class="w-6 h-6">
-        하나둘하나둘
+        <AddCartIcon class="fill-zinc-500"/>
     </div>
 </template>
 <script>
+import AddCartIcon from '@/assets/svg/add_cart_icon.svg';
 
 export default {
     name: 'Test',
@@ -15,9 +16,7 @@ export default {
         }
     },
     components: {
-    },
-    mounted() {
-        console.log(this.$router.currentRoute._value.meta?.roles)
+        AddCartIcon,
     },
     methods: {
         outsideTest () {

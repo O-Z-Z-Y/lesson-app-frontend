@@ -2,7 +2,7 @@
     <div class="signup-header flex justify-between">
         <h2 class="text-xl font-bold mb-8">회원가입</h2>
         <a href="#" @click="closeModal">
-            <img class="w-7" :src="closeIcon" alt="close">
+            <CloseIcon />
         </a>
     </div>
     <form class="max-w-md mx-auto" @submit.prevent="submitSignup">
@@ -68,10 +68,13 @@
 <script>
 import { mapActions } from 'vuex';
 import axios from "axios"
+import CloseIcon from '@/assets/svg/modal_close_x_icon.svg'
 
 export default {
     name: 'SignupModal',
-    props: ['closeIcon'],
+    components: {
+        CloseIcon
+    },
     data() {
         return {
             username: '',

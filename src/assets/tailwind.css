@@ -24,7 +24,7 @@ body {
 
 @layer utilities{
   .hover-layer {
-    @apply absolute hidden top-0 w-full h-full rounded-lg bg-black opacity-0 text-white text-2xl font-bold transition-opacity duration-300 hover:opacity-50;
+    @apply absolute hidden top-0 w-full h-full rounded-lg bg-black/0 text-white text-2xl font-bold duration-300 hover:bg-black/50;
   }
   
   .img-wrapper:hover .hover-layer {

@@ -1,10 +1,10 @@
 <template>
-    <header class="w-full  text-gray-700 bg-white border-gray-100 shadow-sm body-font dark:bg-[#18181b]">
-        <div class="container flex items-start justify-between p-6 mx-auto md:flex-row">
-            <router-link to="/home" class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">
+    <header class="w-full dark:bg-[#18181b]">
+        <div class="container flex items-center justify-between p-6 md:flex-row">
+            <router-link to="/home" class="flex items-center font-medium text-gray-900 title-font md:mb-0">
                 <img class="h-10" src="./../assets/logo.png" alt="logo">
             </router-link>
-            <nav class="flex flex-wrap items-center justify-center pl-24 text-base md:ml-auto md:mr-auto">
+            <nav class="flex flex-wrap items-center justify-center ml-24 text-base md:ml-auto md:mr-auto">
                 <router-link to="/home" :class="{ '!text-pink-500': nav.includes('Home') }"
                     class="dark:text-white mr-5 font-medium hover:!text-pink-500">Home</router-link>
                 <router-link to="/notice" :class="{ '!text-pink-500': nav.includes('Notice') }"
@@ -29,8 +29,8 @@
                         님 안녕하세요
                     </p>
                     <router-link to="/user/cart" class="cart-wrapper relative w-6 h-6 ml-2">
-                        <img class="w-full h-full pink" :src="shoppingCartIcon" alt="">
-                        <p class="absolute bottom-3 left-3 w-5 h-5 text-sm rounded-full bg-red-600 text-white text-center">1</p>
+                        <ShoppingCartIcon class="w-full h-full duration-300 hover:fill-orange-500"/>
+                        <p class="absolute bottom-3 left-4 w-5 h-5 text-sm rounded-full bg-red-600 text-white text-center">1</p>
                     </router-link>
                 </div>
                 <div v-show="isUserMenuOpened"
@@ -47,14 +47,16 @@
 </template>
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import shoppingCartIcon from '@/assets/svg/shopping_cart_icon.svg'
+import ShoppingCartIcon from '@/assets/svg/shopping_cart_icon.svg'
 
 export default {
     name: 'HeaderVue',
+    components: {
+        ShoppingCartIcon
+    },
     data() {
         return {
             isUserMenuOpened: false,
-            shoppingCartIcon: shoppingCartIcon
         }
     },
     //* 초기 로그인 상태

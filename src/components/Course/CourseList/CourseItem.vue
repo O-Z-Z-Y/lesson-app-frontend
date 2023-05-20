@@ -3,14 +3,11 @@
         class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-xl h-80 flex flex-col items-center bg-white rounded-lg shadow-md">
         <div class="item-thumbnail mb-2 w-full h-auto bg-slate-500 rounded-t-lg">
             <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
-                <div class="img-wrapper h-full relative" v-if="this.thumbnail === '썸네일'">
-                    <img class="rounded-lg object-cover" src="./../../../assets/thumbnail-default.jpg" alt="">
-                </div>
-                <div class="img-wrapper relative h-36" v-else>
+                <div class="img-wrapper relative h-36">
                     <img class="rounded-lg object-cover h-full w-full" :src="`/images/${thumbnail}`" alt="thumbnail">
                     <div class="hover-layer">
                         <a class="absolute top-2 right-2" href="#">
-                            <img class="w-full h-full text-white" :src="addCartIcon" alt="">
+                            <AddCartIcon class="z- w-6 h-6 fill-white opacity-100 hover:fill-red-500" />
                         </a>
                     </div>
                 </div>
@@ -28,19 +25,11 @@
     <li v-else-if="navState === 'Course'" class="py-6 flex border-b-2">
         <div class="item-thumbnail w-1/3 h-auto bg-slate-500 rounded-lg">
             <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
-                <div class="img-wrapper h-full relative" v-if="this.thumbnail === '썸네일'">
-                    <img class="rounded-lg object-cover" src="./../../../assets/thumbnail-default.jpg" alt="">
+                <div class="img-wrapper h-full relative">
+                    <img class="rounded-lg object-cover h-full" :src="`/images/${thumbnail}`" alt="thumbnail">
                     <div class="hover-layer">
                         <a href="#">
-                            <img :src="addCartIcon" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="img-wrapper h-full relative" v-else>
-                    <img class="rounded-lg object-cover" :src="`/images/${thumbnail}`" alt="thumbnail">
-                    <div class="hover-layer">
-                        <a href="#">
-                            <img :src="addCartIcon" alt="">
+                            <AddCartIcon class="z- w-6 h-6 fill-white opacity-100 hover:fill-red-500" />
                         </a>
                     </div>
                 </div>
@@ -59,7 +48,7 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
-import addCartIcon from '@/assets/svg/add_cart_icon.svg';
+import AddCartIcon from '@/assets/svg/add_cart_icon.svg';
 
 export default {
     name: "CourseItem",
@@ -70,10 +59,8 @@ export default {
         description: String,
         price: Number,
     },
-    data() {
-        return {
-            addCartIcon: addCartIcon
-        }
+    components: {
+        AddCartIcon
     },
     computed: {
         navState() {
