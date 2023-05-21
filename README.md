@@ -22,4 +22,4 @@ fix 폴더에 있는 파일을 /node_modules/vue-plyr/dist 에 덮어 쓰세여
 
 ***
 
-> ### Thumbnail은 16:9에 최적화 되어있습니다.
+### Thumbnail은 16:9에 최적화 되어있습니다.
