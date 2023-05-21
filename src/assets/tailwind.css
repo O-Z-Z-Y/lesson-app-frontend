@@ -2,24 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "NanumSquareLight";
-  font-family: "NanumSquare";
-  font-family: "NanumSquareBold";
-  font-family: "NanumSquareExtraBold";
-  font-family: "NanumSquareAcb";
-  font-family: "NanumSquareAceb";
-  font-family: "NanumSquareAcl";
-  font-family: "NanumSquareAcr";
+@layer base{
+  body {
+    font-family: "NanumSquareLight";
+    font-family: "NanumSquare";
+    font-family: "NanumSquareBold";
+    font-family: "NanumSquareExtraBold";
+    font-family: "NanumSquareAcb";
+    font-family: "NanumSquareAceb";
+    font-family: "NanumSquareAcl";
+    font-family: "NanumSquareAcr";
+  }
+  .dark {
+    @apply bg-[#0e0e10] text-white;
+  }
+  a {
+    @apply cursor-pointer
+  }
 }
 
-.dark {
-  background-color: #0e0e10;
-  color: white;
-}
+@layer components{
+  .container {
+    @apply mx-auto sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]
+  }
 
-.hypertext {
-  @apply text-cyan-700 text-lg font-medium cursor-pointer duration-300 hover:text-orange-400;
+  .hypertext {
+    @apply text-cyan-700 text-lg font-medium cursor-pointer duration-300 hover:text-orange-400;
+  }
 }
 
 @layer utilities{
@@ -46,11 +55,14 @@ body::-webkit-scrollbar-track {
   background: rgba(33, 122, 244, 0.1); /*스크롤바 뒷 배경 색상*/
 }
 
+.container {
+  margin: 0 auto;
+}
+
 /* 1440px 이상 */
 @media (min-width: 1440px) {
   .container {
     width: 1410px;
-    margin: 0 auto;
   }
 }
 
@@ -58,7 +70,6 @@ body::-webkit-scrollbar-track {
 @media (min-width: 1200px) and (max-width: 1439px) {
   .container {
     width: 1170px;
-    margin: 0 auto;
   }
 }
 
@@ -66,7 +77,6 @@ body::-webkit-scrollbar-track {
 @media (min-width: 992px) and (max-width: 1199px) {
   .container {
     width: 970px;
-    margin: 0 auto;
   }
 }
 
@@ -74,6 +84,5 @@ body::-webkit-scrollbar-track {
 @media (min-width: 768px) and (max-width: 991px) {
   .container {
     width: 750px;
-    margin: 0 auto;
   }
 }

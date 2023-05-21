@@ -1,33 +1,28 @@
 <template>
-    <p>
-        테스트
-    </p>
-    <div class="w-6 h-6">
-        <AddCartIcon class="fill-zinc-500"/>
-    </div>
+    <button @click="show = !show">토글</button>
+    <Transition>
+        <p v-if="show">안녕</p>
+    </Transition>
 </template>
 <script>
-import AddCartIcon from '@/assets/svg/add_cart_icon.svg';
 
 export default {
     name: 'Test',
     data() {
         return {
-        }
-    },
-    components: {
-        AddCartIcon,
-    },
-    methods: {
-        outsideTest () {
-            console.log('파랑 파랑')
-        },
-        onClickInside() {
-            console.log('빨강 빨강')
+            show: true
         }
     }
 }
 </script>
-<style>
-    
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
 </style>

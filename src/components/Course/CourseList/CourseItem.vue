@@ -1,46 +1,45 @@
 <template>
     <li v-if="navState === 'Home'"
-        class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-xl h-80 flex flex-col items-center bg-white rounded-lg shadow-md">
-        <div class="item-thumbnail mb-2 w-full h-auto bg-slate-500 rounded-t-lg">
-            <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
-                <div class="img-wrapper relative h-36">
-                    <img class="rounded-lg object-cover h-full w-full" :src="`/images/${thumbnail}`" alt="thumbnail">
-                    <div class="hover-layer">
-                        <a class="absolute top-2 right-2" href="#">
-                            <AddCartIcon class="z- w-6 h-6 fill-white opacity-100 hover:fill-red-500" />
-                        </a>
+        class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-xl h-[22rem] flex flex-col justify-between items-center bg-white rounded-lg shadow-md">
+        <div class="w-full item-wrapper">
+            <div class="w-full h-auto mb-2 rounded-t-lg item-thumbnail">
+                <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
+                    <div class="relative img-wrapper h-36">
+                        <img class="object-cover w-full h-full m-auto rounded-lg" :src="`/images/${thumbnail}`" alt="thumbnail">
+                        <div class="hover-layer">
+                            <a class="absolute top-2 right-2">
+                                <AddCartIcon class="w-6 h-6 opacity-100 z- fill-white hover:fill-red-500" />
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </router-link>
+                </router-link>
+            </div>
+            <div class="w-full p-2 text-wrapper h-36">
+                <h4 class="mb-1 text-center hypertext">
+                    <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
+                </h4>
+                <p class="text-center item-description line-clamp-3">{{ description }}</p>
+            </div>
         </div>
-        <div class="text-wrapper p-2 w-full">
-            <h4 class="mb-1 hypertext text-center">
-                <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
-            </h4>
-            <p class="item-description text-center">{{ description }}</p>
-            <div class="difficulty"></div>
-        </div>
+        <p class="mb-2 ml-auto mr-4 text-lg text-red-500 item-price">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
     </li>
 
-    <li v-else-if="navState === 'Course'" class="py-6 flex border-b-2">
-        <div class="item-thumbnail w-1/3 h-auto bg-slate-500 rounded-lg">
+    <li v-else-if="navState === 'Course'" class="flex py-6 border-b-2 hover:bg-gray-100">
+        <div class="w-1/3 h-auto rounded-lg item-thumbnail">
             <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
-                <div class="img-wrapper h-full relative">
-                    <img class="rounded-lg object-cover h-full" :src="`/images/${thumbnail}`" alt="thumbnail">
-                    <div class="hover-layer">
-                        <a href="#">
-                            <AddCartIcon class="z- w-6 h-6 fill-white opacity-100 hover:fill-red-500" />
-                        </a>
-                    </div>
+                <div class="relative h-full img-wrapper">
+                    <img class="object-cover h-full m-auto duration-300 rounded-lg hover:scale-95" :src="`/images/${thumbnail}`" alt="thumbnail">
                 </div>
             </router-link>
         </div>
-        <div class="text-wrapper mx-6 w-2/3">
-            <h4 class="hypertext">
-                <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
-            </h4>
-            <p class="item-description">{{ description }}</p>
-            <p class="item-price mt-10 float-right text-red-500">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
+        <div class="flex justify-between w-2/3 h-40 mx-6 text-wrapper">
+            <div class="info-wrapper">
+                <h4 class="hypertext">
+                    <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
+                </h4>
+                <p class="item-description">{{ description }}</p>
+            </div>
+            <p class="float-right mt-auto mb-2 text-red-500 item-price">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
             <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
         </div>
     </li>

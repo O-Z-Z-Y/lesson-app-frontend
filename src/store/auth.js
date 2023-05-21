@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      //* authMode: 'signup' | 'login' | 'findEmail'
+      //* authMode: 'signup' | 'login' | 'findPassword'
       authMode: '',
       isLogged: false,
     }
@@ -20,7 +20,7 @@ export default {
   },
   actions: {
     setAuthMode(context, value) {
-      if (['login', 'signup', 'findEmail'].includes(value)) {
+      if (['login', 'signup', 'findPassword'].includes(value)) {
         context.commit('SET_AUTHMODE', value)
       } else {
         console.log('올바른 authmode가 아닙니다')

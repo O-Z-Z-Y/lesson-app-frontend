@@ -1,17 +1,11 @@
 <template>
     <teleport to="#root-modal">
-        <div v-if="modalOpened" class="modal fixed top-0 left-0 w-full h-full z-20 flex justify-center items-center animate-[fadeIn_0.5s_ease-in-out]">
-            <div class="modal-background absolute w-full h-full bg-black opacity-50" @click="closeModal" role="presentation" />
-            <div v-if="authMode === 'login'" class="modal-content w-96 p-4 bg-white rounded opacity-100 z-20 animate-[slideUp_0.5s_ease-out]">
-                <LoginModal />
+        <transition name="modal" mode="out-in">
+            <div v-if="modalOpened" class="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-full modal">
+                <div class="absolute w-full h-full bg-black/50 modal-background" @click="closeModal" role="presentation" />
+                <component :is="activeModal"></component>
             </div>
-            <div v-else-if="authMode === 'signup'" class="modal-content w-96 p-4 bg-white rounded opacity-100 z-20 animate-[slideUp_0.5s_ease-out]">
-                <SignupModal />
-            </div>
-            <div v-else-if="authMode === 'findEmail'" class="modal-content w-96 p-4 bg-white rounded opacity-100 z-20 animate-[slideUp_0.5s_ease-out]">
-                <FindPassword />
-            </div>
-        </div>
+        </transition>
     </teleport>
 </template>
 
@@ -20,18 +14,30 @@
 import { mapActions, mapState } from 'vuex';
 import LoginModal from './auth/LoginModal.vue';
 import SignupModal from './auth/SignupModal.vue';
-import FindPassword from './auth/FindPassword.vue';
+import FindPasswordModal from './auth/FindPasswordModal.vue';
 
 export default {
     name: 'ModalTeleport',
     components: {
         LoginModal,
         SignupModal,
-        FindPassword
+        FindPasswordModal
     },
     computed: {
         ...mapState('Modal', ['modalOpened']),
-        ...mapState('Auth', ['authMode'])
+        ...mapState('Auth', ['authMode']),
+        activeModal() {
+            switch (this.authMode) {
+                case 'login':
+                    return 'LoginModal';
+                case 'signup':
+                    return 'SignupModal';
+                case 'findPassword':
+                    return 'FindPasswordModal';
+                default:
+                    return null; // 다른 authMode 값에 대한 처리를 원한다면, 해당 처리를 추가하세요.
+            }
+        }
     },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal'])
@@ -39,6 +45,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.modal-enter-active,
+.modal-leave-active {
+    @apply transition-opacity duration-300
+}
 
+.modal-enter-from,
+.modal-leave-to {
+    @apply opacity-0
+}
+
+.modal-enter-active .modal-content,
+.modal-leave-active .modal-content {
+    @apply transition-transform duration-300
+}
+
+.modal-enter-from .modal-content,
+.modal-leave-to .modal-content {
+    @apply translate-y-96
+}
 </style>

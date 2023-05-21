@@ -14,7 +14,7 @@
 </template>
 <script>
 import CourseItem from './CourseList/CourseItem.vue';
-import { mapActions, mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
     name:"Course",
@@ -27,7 +27,7 @@ export default {
     methods: {
         ...mapActions('Courses', ['fetchMainCourseList'])
     },
-    mounted() {
+    created() {
         this.fetchMainCourseList();
     },
 };

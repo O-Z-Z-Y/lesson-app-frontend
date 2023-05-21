@@ -1,27 +1,27 @@
 <template lang="">
     <div class="container">
-    <div class="h-[32rem] bg-[url('./../assets/img/jumbotron-back1.png')] bg-contain bg-no-repeat bg-right-bottom pl-8">
-        <h3 class="font-semibold text-2xl mt-16">붓싼 풀코스로 진행하는 <span class="underline decoration-wavy decoration-zinc-400">프로그래밍 강좌</span></h3>
-        <p class="text-lg pt-6 pb-8">이 것이 강의인가 <span class="text-pink-600">치킨인가</span>
+    <div class="h-[32rem] bg-[url('./../assets/img/jumbotron-back1.png')] bg-[length:80%] sm:bg-contain bg-no-repeat bg-right-bottom px-8">
+        <h3 class="mt-10 text-2xl font-semibold">붓싼 풀코스로 진행하는 <span class="underline decoration-wavy decoration-zinc-400">프로그래밍 강좌</span></h3>
+        <p class="pt-6 pb-8 text-lg">이 것이 강의인가 <span class="text-pink-600">치킨인가</span>
             <br>수원왕갈비강좌입니다!
         </p>
         <router-link to="/course" @click="SET_NAV('Course')"
-            class="px-6 py-4 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded drop-shadow outline-none active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
+            class="px-6 py-4 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
             강의 보기
         </router-link>
     </div>
     </div>
     <div class="bg-slate-300">
-        <div class="carousel h-full pt-2">
+        <div class="h-full pt-2 carousel">
             <CourseCarousel/>
         </div>
     </div>
 
-    <div class="my-4 bg-gray-700 rounded-lg h-16 w-72 text-white m-auto flex justify-center items-center">
+    <div class="flex items-center justify-center h-16 m-auto my-4 text-white bg-gray-700 rounded-lg w-72">
         <h3>현재 수강 가능 리스트 입니다.</h3>
     </div>
     <CourseList />
-    <div class="button-wrapper my-6 flex justify-center items-center">
+    <div class="flex items-center justify-center my-6 button-wrapper">
         <router-link to="/course" @click="SET_NAV('Course')" >
             <button class="learn-more">
                 <span class="circle" aria-hidden="true">

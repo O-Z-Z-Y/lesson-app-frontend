@@ -1,74 +1,76 @@
 <template>
-    <div class="signup-header flex justify-between">
-        <h2 class="text-xl font-bold mb-8">회원가입</h2>
-        <a href="#" @click="closeModal">
-            <CloseIcon />
-        </a>
+    <div class="z-20 p-4 rounded modal-content w-96 bg-white/100">
+        <div class="flex justify-between signup-header">
+            <h2 class="mb-8 text-xl font-bold">회원가입</h2>
+            <a @click="closeModal" class="w-5 h-5 close-icon-wrapper">
+                <CloseIcon w-full h-full/>
+            </a>
+        </div>
+        <form class="max-w-md mx-auto" @submit.prevent="submitSignup">
+            <div class="mb-4">
+                <label class="block mb-2 font-bold text-gray-700" for="email">
+                    이메일
+                </label>
+                <input
+                    class="w-full px-3 py-2 leading-tight text-gray-700 duration-200 border rounded shadow appearance-none focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
+                    id="email" type="email" placeholder="Email" v-model="email" required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 font-bold text-gray-700" for="username">
+                    이름
+                </label>
+                <input
+                    class="w-full px-3 py-2 leading-tight text-gray-700 duration-200 border rounded shadow appearance-none focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
+                    id="username" type="text" placeholder="Name" v-model="username" required>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 font-bold text-gray-700" for="phone-number">
+                    전화번호
+                </label>
+                <input
+                    class="w-full px-3 py-2 leading-tight text-gray-700 duration-200 border rounded shadow appearance-none focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
+                    id="phone-number" type="text" 
+                    placeholder="'-' 빼고 숫자만 입력해 주세요." 
+                    v-model="phonenumber"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    required
+                >
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 font-bold text-gray-700" for="password">
+                    비밀번호
+                </label>
+                <input
+                    class="w-full px-3 py-2 leading-tight text-gray-700 duration-200 border rounded shadow appearance-none focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
+                    id="password" type="password" placeholder="8자 이상, 영어, 숫자, 특수문자 포함입니다" v-model="password" required>
+                <p v-if="passwordStrength" class="text-red-500">{{ passwordStrength }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 font-bold text-gray-700" for="confirm-password">
+                    비밀번호 확인
+                </label>
+                <input
+                    class="w-full px-3 py-2 leading-tight text-gray-700 duration-200 border rounded shadow appearance-none focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
+                    id="confirm-password" type="password" placeholder="Confirm Password" v-model="confirmPassword" required>
+            </div>
+            <div class="mb-4">
+                <button
+                    :class="inputChecker()
+                        ? 'bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' 
+                        : 'bg-gray-400 cursor-default text-white font-bold py-2 px-4 rounded'"
+                    type="submit" :disabled="!inputChecker()">
+                    Sign In
+                </button>
+            </div>
+        </form>
     </div>
-    <form class="max-w-md mx-auto" @submit.prevent="submitSignup">
-        <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2" for="email">
-                이메일
-            </label>
-            <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
-                id="email" type="email" placeholder="Email" v-model="email" required
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2" for="username">
-                이름
-            </label>
-            <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
-                id="username" type="text" placeholder="Name" v-model="username" required>
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2" for="phone-number">
-                전화번호
-            </label>
-            <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
-                id="phone-number" type="text" 
-                placeholder="'-' 빼고 숫자만 입력해 주세요." 
-                v-model="phonenumber"
-                inputmode="numeric"
-                pattern="[0-9]*"
-                required
-            >
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2" for="password">
-                비밀번호
-            </label>
-            <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
-                id="password" type="password" placeholder="8자 이상, 영어, 숫자, 특수문자 포함입니다" v-model="password" required>
-            <p v-if="passwordStrength" class="text-red-500">{{ passwordStrength }}</p>
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2" for="confirm-password">
-                비밀번호 확인
-            </label>
-            <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight duration-200 focus:outline-gray-500 focus:shadow-outline hover:bg-zinc-100"
-                id="confirm-password" type="password" placeholder="Confirm Password" v-model="confirmPassword" required>
-        </div>
-        <div class="mb-4">
-            <button
-                :class="inputChecker()
-                    ? 'bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' 
-                    : 'bg-gray-400 cursor-default text-white font-bold py-2 px-4 rounded'"
-                type="submit" :disabled="!inputChecker()">
-                Sign In
-            </button>
-        </div>
-    </form>
 </template>
 <script>
 import { mapActions } from 'vuex';
 import axios from "axios"
-import CloseIcon from '@/assets/svg/modal_close_x_icon.svg'
+import CloseIcon from '@/assets/svg/close_icon.svg'
 
 export default {
     name: 'SignupModal',
