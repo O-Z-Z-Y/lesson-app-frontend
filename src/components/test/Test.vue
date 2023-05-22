@@ -1,36 +1,18 @@
 <template>
-    <div>
-        <button @click="toggleAll">전체 선택</button>
-        <label v-for="option in options" :key="option.value">
-            <input type="checkbox" :value="option.value" v-model="selectedOptions" />
-            {{ option.label }}
-        </label>
-    </div>
+    <button @click="show = !show">토글</button>
+    <Transition>
+        <p v-if="show">안녕</p>
+    </Transition>
 </template>
-
 <script>
 
 export default {
     name: 'Test',
     data() {
         return {
-            selectedOption: null,
-            options: [
-                { label: '옵션 1', value: 'option1' },
-                { label: '옵션 2', value: 'option2' },
-                { label: '옵션 3', value: 'option3' },
-            ],
+            show: true
         }
-    },
-    methods: {
-        toggleAll() {
-            if (this.selectedOptions.length === this.options.length) {
-                this.selectedOptions = [];
-            } else {
-                this.selectedOptions = this.options.map((option) => option.value);
-            }
-        },
-    },
+    }
 }
 </script>
 <style scoped>
