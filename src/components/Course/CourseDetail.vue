@@ -38,7 +38,7 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
     name: "CourseDetail",
-    mounted() {
+    created() {
         this.fetchSubCourseList()
     },
     computed: {
