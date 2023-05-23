@@ -6,7 +6,7 @@
                 <hr class="h-0.5 bg-black">
                 <div class="flex justify-between my-4 cart-control">
                     <div class="flex items-center justify-between cart-select-all">
-                        <input type="checkbox" class="w-5 h-5 mr-2 rounded text-cyan-700 focus:ring-cyan-700">
+                        <input type="checkbox" class="w-5 h-5 mr-2 rounded form-checkbox text-cyan-700 focus:ring-cyan-700">
                         <label for="undefined" class="text-lg">전체선택 1/1</label>
                     </div>
                     <button class="h-10 px-4 border rounded-sm cart-delete-selected">
@@ -17,7 +17,7 @@
                 <div class="cart-list">
                     <article class="flex justify-between my-4 cart-item-card">
                         <div class="mr-4 cart-item-card-checkbox">
-                            <input type="checkbox" class="w-5 h-5 rounded text-cyan-700 focus:ring-cyan-700">
+                            <input type="checkbox" class="w-5 h-5 rounded text-cyan-700 form-checkbox focus:ring-cyan-700">
                         </div>
                         <div class="cart-item-card-img">
                             임지
