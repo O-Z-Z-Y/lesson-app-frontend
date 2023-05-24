@@ -68,7 +68,7 @@
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions,mapMutations } from 'vuex';
 import axios from "axios"
 import CloseIcon from '@/assets/svg/close_icon.svg'
 
@@ -94,6 +94,8 @@ export default {
     },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal']),
+        ...mapMutations('Auth', ['SET_LOGGED']),
+        ...mapMutations('User', ['SET_USERNAME']),
         
         //* 비밀번호 강도 체크
         checkPasswordStrength(password) {
@@ -161,6 +163,12 @@ export default {
                 });
                 console.log(response.data); // 서버로부터 받은 응답을 콘솔에 출력
                 alert('회원가입이 완료되었습니다.'); // 회원가입 성공 알림창 표시
+
+                //* 로그인 처리
+                this.SET_USERNAME(response.data.customer.name)
+                this.$cookies.set('access_token', response.data.token, 60*60)
+                this.SET_LOGGED(true)
+                this.closeModal()
             } catch (error) {
                 console.error(error);
                 alert(error.response.data.msg); // 회원가입 실패 알림창 표시

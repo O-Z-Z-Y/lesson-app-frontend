@@ -1,46 +1,29 @@
 <template>
-    <div>
-        <button @click="toggleAll">전체 선택</button>
-        <label v-for="option in options" :key="option.value">
-            <input type="checkbox" :value="option.value" v-model="selectedOptions" />
-            {{ option.label }}
-        </label>
+    <div class="sub-course-title">제목띠</div>
+    <div class="sub-course-body">
+        <div class="video-wrapper">
+            <vue-plyr>
+                <div class="plyr__video-embed">
+                    <iframe
+                        src="https://player.vimeo.com/video/824522580?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media"
+                        allowfullscreen allowtransparency allow="autoplay"></iframe>
+                </div>
+            </vue-plyr>
+        </div>
+        기타등등
     </div>
 </template>
-
 <script>
-
 export default {
-    name: 'Test',
+    name: "Test",
     data() {
         return {
-            selectedOption: null,
-            options: [
-                { label: '옵션 1', value: 'option1' },
-                { label: '옵션 2', value: 'option2' },
-                { label: '옵션 3', value: 'option3' },
-            ],
+            test: 824522580
         }
     },
-    methods: {
-        toggleAll() {
-            if (this.selectedOptions.length === this.options.length) {
-                this.selectedOptions = [];
-            } else {
-                this.selectedOptions = this.options.map((option) => option.value);
-            }
-        },
-    },
+    mounted() {
+        console.log(this.$refs.plyr.player)
+    }
 }
 </script>
-<style scoped>
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
-}
-</style>
+<style></style>
