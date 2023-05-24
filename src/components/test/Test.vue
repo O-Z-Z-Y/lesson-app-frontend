@@ -1,29 +1,48 @@
 <template>
-    <div class="sub-course-title">제목띠</div>
-    <div class="sub-course-body">
-        <div class="video-wrapper">
-            <vue-plyr>
-                <div class="plyr__video-embed">
-                    <iframe
-                        src="https://player.vimeo.com/video/824522580?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media"
-                        allowfullscreen allowtransparency allow="autoplay"></iframe>
-                </div>
-            </vue-plyr>
+    <div>
+        <h2>Checkbox List</h2>
+        <div>
+            <input type="checkbox" id="selectAll" v-model="selectAllChecked" @change="toggleAllItems" />
+            <label for="selectAll">Select All</label>
         </div>
-        기타등등
+        <div v-for="item in items" :key="item.id">
+            <input type="checkbox" :id="item.id" :value="item.value" v-model="selectedItems" @change="checkAllSelected" />
+            <label :for="item.id">{{ item.label }}</label>
+        </div>
+        <p>Selected Items: {{ selectedItems }}</p>
     </div>
 </template>
+  
 <script>
 export default {
-    name: "Test",
+    name: 'Test',
     data() {
         return {
-            test: 824522580
-        }
+            items: [
+                { id: 1, label: 'Item 1', value: 'item1' },
+                { id: 2, label: 'Item 2', value: 'item2' },
+                { id: 3, label: 'Item 3', value: 'item3' },
+                { id: 4, label: 'Item 4', value: 'item4' },
+            ],
+            selectedItems: [],
+            selectAllChecked: false,
+        };
     },
-    mounted() {
-        console.log(this.$refs.plyr.player)
-    }
-}
+    methods: {
+        toggleAllItems() {
+            if (this.selectAllChecked) {
+                this.selectedItems = this.items.map((item) => item.value);
+            } else {
+                this.selectedItems = [];
+            }
+        },
+        checkAllSelected() {
+            if (this.selectedItems.length === this.items.length) {
+                this.selectAllChecked = true;
+            } else {
+                this.selectAllChecked = false;
+            }
+        },
+    },
+};
 </script>
-<style></style>
