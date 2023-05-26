@@ -75,9 +75,6 @@ const routes = [
         path: "/test",
         name: "Test",
         component: Test,
-        meta: {
-            roles: ['ROLE_USER']
-        }
     }
 ];
 

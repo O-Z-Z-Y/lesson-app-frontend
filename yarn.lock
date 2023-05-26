@@ -6275,9 +6275,9 @@ vue-owl-carousel@^2.0.3:
     owl.carousel "^2.3.4"
     style-loader "^0.23.0"
 
-vue-plyr@^7.0.0:
+vue-plyr@7.0.0:
   version "7.0.0"
-  resolved "https://registry.npmjs.org/vue-plyr/-/vue-plyr-7.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/vue-plyr/-/vue-plyr-7.0.0.tgz#938257e2a4def4582b5803a16087371a8e96209e"
   integrity sha512-NvbO/ZzV1IxlBQQbQlon5Sk8hKuGAj3k4k0XVdi7gM4oSqu8mZMhJ3WM3FfAtNfV790jbLnb8P3dHYqaBqIv6g==
   dependencies:
     plyr "github:sampotts/plyr#develop"
