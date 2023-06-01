@@ -18,7 +18,7 @@ const store = createStore({
   },
   plugins: [createPersistedState({
     // paths에 입력한 모듈만 적용
-    paths: ['Nav', 'Course', 'User', 'Notice'],
+    paths: ['Nav', 'Courses', 'User', 'Notice'],
   })],
 })
 

@@ -65,7 +65,8 @@
                     </p>
                     <router-link to="/user/cart" class="relative w-6 h-6 ml-2 mr-4 cart-wrapper">
                         <ShoppingCartIcon class="duration-300 hover:fill-orange-500" />
-                        <p class="absolute w-5 h-5 text-sm text-center text-white bg-red-600 rounded-full bottom-3 left-4">1
+                        <p class="absolute w-5 h-5 text-sm text-center text-white bg-red-600 rounded-full bottom-3 left-4">
+                            {{ userCart.length }}
                         </p>
                     </router-link>
                     <button @click="openSideBar" class="block w-5 h-5 mobile-nav sm:hidden">
@@ -114,17 +115,23 @@ export default {
         } else {
             this.logout()
         }
+        
+        //* 초기 로딩시에 코스리스트를 불러온다.
+        this.fetchMainCourseList();
+
     },
     computed: {
         ...mapState('Nav', ['nav']),
         ...mapState('Auth', ['authMode', 'isLogged']),
         ...mapState('Modal', ['modalOpened']),
-        ...mapState('User', ['username'])
+        ...mapState('User', ['username', 'userCart']),
+        ...mapState('Courses', ['mainCourseList']),
     },
     methods: {
         ...mapMutations('Nav', ['SET_NAV']),
         ...mapActions('Auth', ['setAuthMode', 'login', 'logout']),
         ...mapActions('Modal', ['openModal', 'closeModal']),
+        ...mapActions('Courses', ['fetchMainCourseList']),
         onLogin() {
             this.setAuthMode('login');
             this.openModal()

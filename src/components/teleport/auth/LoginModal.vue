@@ -59,12 +59,13 @@ export default {
     },
     computed: {
         ...mapState('Auth', ['isLogged']),
-        ...mapState('User', ['username'])
+        ...mapState('User', ['username', 'userCart'])
     },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal']),
-        ...mapMutations('User', ['SET_USERNAME']),
+        ...mapMutations('User', ['SET_USERNAME', 'SET_USERCART']),
         ...mapMutations('Auth', ['SET_AUTHMODE', 'SET_LOGGED']),
+        
         onChangeAuthMode(value) {
             this.SET_AUTHMODE(value)
             this.closeModal()
@@ -83,10 +84,10 @@ export default {
                     password: this.password
                 });
                 this.SET_USERNAME(response.data.user.name)
-                console.log(response.data);
-                
+                this.SET_USERCART(response.data.user.abandonedcart)
                 this.$cookies.set('access_token', response.data.token, 60*60)
                 alert(`${this.username}님 로그인 되었습니다.`)
+
                 this.SET_LOGGED(true)
                 this.closeModal()
             } catch (error) {

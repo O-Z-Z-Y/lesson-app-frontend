@@ -1,5 +1,5 @@
 <template>
-    <div class="container course-wrapper course-list-wrapper px-6">
+    <div class="container px-6 course-wrapper course-list-wrapper">
         <ul class="flex flex-col">
             <CourseItem v-for="(course, index) in mainCourseList" 
                 :key="index" 
@@ -14,7 +14,7 @@
 </template>
 <script>
 import CourseItem from './CourseList/CourseItem.vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     name:"Course",
@@ -23,12 +23,6 @@ export default {
     },
     computed: {
         ...mapState('Courses', ['mainCourseList']),
-    },
-    methods: {
-        ...mapActions('Courses', ['fetchMainCourseList'])
-    },
-    created() {
-        this.fetchMainCourseList();
     },
 };
 </script>

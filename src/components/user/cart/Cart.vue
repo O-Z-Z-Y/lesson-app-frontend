@@ -4,6 +4,9 @@
             <section class="w-full mr-8 shopping-list-wrapper">
                 <h2 class="m-6 text-2xl font-bold">장바구니</h2>
                 <hr class="h-0.5 bg-black">
+                <button @click="filteredListed">
+                    테스트 입니다.
+                </button>
                 <div class="flex justify-between my-4 cart-control">
                     <div class="flex items-center justify-between cart-select-all">
                         <input type="checkbox" class="w-5 h-5 mr-2 rounded form-checkbox text-cyan-700 focus:ring-cyan-700">
@@ -15,7 +18,14 @@
                 </div>
                 <hr class="">
                 <div class="cart-list">
-                    <CartItem />
+                    <CartItem v-for="(item, index) in cartList" 
+                        :key="index"
+                        :id="item.id"
+                        :thumbnail="item.thumbnail"
+                        :title="item.title"
+                        :description="item.description"
+                        :price="item.price ? item.price : 0"
+                    />
                 </div>
             </section>
             <CartPayment />
@@ -35,8 +45,16 @@ export default {
         CartPayment
     },
     computed: {
-        ...mapState('courses', ['mainCourseList'])
-    }
+        ...mapState('Courses', ['mainCourseList']),
+        ...mapState('User', ['userCart']),
+        cartList() {
+            const filteredList = []
+            this.userCart.forEach(itemId => {
+                filteredList.push(this.mainCourseList.find(item => item.id === itemId))
+            });
+            return filteredList
+        }
+    },
 }
 </script>
 <style></style>
