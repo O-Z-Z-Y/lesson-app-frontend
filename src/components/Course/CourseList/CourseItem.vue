@@ -24,24 +24,27 @@
         <p class="mb-2 ml-auto mr-4 text-lg text-red-500 item-price">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
     </li>
 
-    <li v-else-if="navState === 'Course'" class="flex py-6 border-b-2 hover:bg-gray-100">
-        <div class="w-1/3 h-auto rounded-lg item-thumbnail">
-            <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
-                <div class="relative h-full img-wrapper">
-                    <img class="object-cover h-full m-auto duration-300 rounded-lg hover:scale-95" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail">
-                </div>
-            </router-link>
-        </div>
-        <div class="flex justify-between w-2/3 h-40 mx-6 text-wrapper">
-            <div class="info-wrapper">
-                <h4 class="hypertext">
-                    <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
-                </h4>
-                <p class="item-description">{{ description }}</p>
+    <li v-else-if="navState === 'Course'">
+        <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)"
+            class="flex flex-col py-6 border-b-2 sm:flex-row hover:bg-gray-100">
+            <div class="w-full h-auto rounded-lg sm:w-1/3 item-thumbnail">
+                <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
+                    <div class="relative h-full img-wrapper">
+                        <img class="object-cover h-full m-auto duration-300 rounded-lg hover:scale-95" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail">
+                    </div>
+                </router-link>
             </div>
-            <p class="float-right mt-auto mb-2 text-red-500 item-price">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
-            <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
-        </div>
+            <div class="relative m-6 sm:my-0 sm:w-2/3 sm:h-40 text-wrapper">
+                <div class="info-wrapper">
+                    <h4 class="hypertext">
+                        <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
+                    </h4>
+                    <p class="item-description">{{ description }}</p>
+                </div>
+                <p class="absolute right-0 mb-2 text-red-500 item-price">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
+                <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
+            </div>
+        </router-link>
     </li>
 </template>
 
