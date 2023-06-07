@@ -7,17 +7,32 @@
                     <img class="rounded-lg max-h-96" :src="`/images/${mainThumbnail}`" alt="thumbnail">
                 </div>
             </div>
-            <div class="relative w-full p-4 mt-6 border rounded payment-wrapper lg:h-80 lg:min-w-[300px] lg:max-w-[300px] lg:fixed lg:top-48 lg:right-12">
+            <div class="bg-white relative w-full p-4 mt-6 border rounded payment-wrapper lg:h-80 lg:min-w-[300px] lg:max-w-[300px] lg:fixed lg:top-48 lg:right-12"
+                v-if="!isPaidItem">
                 <button
-                class="w-full px-6 py-4 mb-2 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
-                {{ isPaidItem ? '수강 계속하기' : '결제하기' }}
+                    class="w-full px-6 py-4 mb-2 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
+                    결제하기
                 </button>
-                <div class="wrapper" v-show="!isPaidItem">
+                <div class="wrapper">
                     <button
-                    class="w-full px-6 py-4 mb-2 text-base font-bold text-pink-500 transition-all duration-150 bg-white rounded outline-none credit-auth-button drop-shadow active:bg-gray-100 hover:drop-shadow-md focus:outline-none ease">
-                    장바구니
+                        class="w-full px-6 py-4 mb-2 text-base font-bold text-pink-500 transition-all duration-150 bg-white rounded outline-none credit-auth-button drop-shadow active:bg-gray-100 hover:drop-shadow-md focus:outline-none ease">
+                        장바구니
                     </button>
                     <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
+                    <p class="text-center">기간 ?</p>
+                </div>
+            </div>
+            <div class="bg-white relative w-full p-4 mt-6 border rounded payment-wrapper lg:h-80 lg:min-w-[300px] lg:max-w-[300px] lg:fixed lg:top-48 lg:right-12"
+                v-else-if="isPaidItem">
+                <button
+                    class="w-full px-6 py-4 mb-2 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
+                    수강 계속하기
+                </button>
+                <div class="wrapper">
+                    <div class="progress-wrapper">
+                        <p>상태바</p>
+                        <p class="text-center">수강중</p>
+                    </div>
                     <p class="text-center">기간 ?</p>
                 </div>
             </div>
@@ -36,11 +51,10 @@
             </div>
             <hr class="my-6">
             <div class="comment">댓글이긴 한디</div>
-            <button @click="test">11</button>
         </div>
     </div>
     <div class="container p-6 item-wrapper" v-else>
-        <LoadingSpinner/>
+        <LoadingSpinner />
     </div>
 </template>
 <script>

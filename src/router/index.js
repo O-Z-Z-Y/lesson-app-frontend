@@ -11,6 +11,8 @@ import SubCourse from "@/components/Course/SubCourse/SubCourse.vue"
 
 import Cart from "@/components/user/cart/Cart.vue"
 
+import OrderResult from "@/components/order/OrderResult.vue"
+
 import Test from "@/components/test/Test.vue"
 
 const routes = [
@@ -66,6 +68,16 @@ const routes = [
         name: "Cart",
         component: Cart,
         meta: { 
+            roles: ['ROLE_USER']
+        }
+    },
+
+    // order result
+    {
+        path: "/order/result",
+        name: "OrderResult",
+        component: OrderResult,
+        meta: {
             roles: ['ROLE_USER']
         }
     },

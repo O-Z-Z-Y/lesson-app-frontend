@@ -73,7 +73,9 @@
         </div>
         <div class="mb-2 text-sm text-gray-400 terms-agreement">주문 내용을 확인했으며, 어쩌고저쩌고와 결제에 동의합니다.</div>
         <div class="payment-button">
-            <button class="w-full py-4 text-white duration-200 bg-pink-500 border rounded active:bg-pink-600 focus:outline-none ease">결제하기</button>
+            <button 
+            @click="onClickPayment"
+            class="w-full py-4 text-white duration-200 bg-pink-500 border rounded active:bg-pink-600 focus:outline-none ease">결제하기</button>
         </div>
     </aside>
 </template>
@@ -114,8 +116,10 @@ export default {
         formatPrice(price) {
             return price.toLocaleString('ko-KR') + '원';
         },
-        TODO() {
-            alert('내가 안 만들었는데 니가 뭘 할 수 있는데 ㅋㅋㅋ')
+        onClickPayment() {
+            //* 여기가 결제
+
+            this.$router.push(`/order/result`)
         }
     }
 }
