@@ -32,6 +32,9 @@ export default {
     logout({ commit }) {
       cookies.remove('access_token')
       commit('SET_LOGGED', false)
+
+      //* access_list 초기화
+      commit('User/SET_USERACCESSLIST', [], { root: true })
       
       //* 접근 권한이 있는 페이지는 홈으로 보냄
       if (router.currentRoute._value.meta?.roles) {

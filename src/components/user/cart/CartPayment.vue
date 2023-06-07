@@ -116,6 +116,7 @@ export default {
         formatPrice(price) {
             return price.toLocaleString('ko-KR') + '원';
         },
+        
         onClickPayment() {
             //* 여기가 결제
 

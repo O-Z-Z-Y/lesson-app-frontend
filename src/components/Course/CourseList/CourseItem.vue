@@ -5,7 +5,7 @@
             <div class="w-full h-auto mb-2 rounded-t-lg item-thumbnail">
                 <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
                     <div class="relative img-wrapper h-36">
-                        <img class="object-cover w-full h-full m-auto rounded-lg" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail">
+                        <img class="object-cover w-full h-full m-auto rounded-lg" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail" @error="replaceDefaultImg">
                         <div class="hover-layer">
                             <a class="absolute top-2 right-2">
                                 <AddCartIcon class="w-6 h-6 opacity-100 z- fill-white hover:fill-red-500" />
@@ -30,7 +30,7 @@
             <div class="w-full h-auto rounded-lg sm:w-1/3 item-thumbnail">
                 <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
                     <div class="relative h-full img-wrapper">
-                        <img class="object-cover h-full m-auto duration-300 rounded-lg hover:scale-95" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail">
+                        <img class="object-cover h-full m-auto duration-300 rounded-lg hover:scale-95" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail" @error="replaceDefaultImg">
                     </div>
                 </router-link>
             </div>
@@ -94,8 +94,8 @@ export default {
                 return price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원'
             }
         },
-        test(id) {
-            console.log(this.isPaidItem(id))
+        replaceDefaultImg(e) {
+            e.target.src = `${this.thumbnailUrl}/thumbnail_default.jpeg`
         }
     }
 };

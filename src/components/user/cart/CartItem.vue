@@ -11,7 +11,7 @@
                 >
             </div>
             <div class="w-32 h-20 bg-gray-300 cart-item-card-img">
-                <img class="object-cover w-full h-full m-auto rounded-lg" :src="`${thumbnailUrl}/${item.thumbnail}`" alt="thumbnail">
+                <img class="object-cover w-full h-full m-auto rounded-lg" :src="`${thumbnailUrl}/${item.thumbnail}`" alt="thumbnail" @error="replaceDefaultImg">
             </div>
             <div class="flex flex-col w-1/3 cart-item-card-info">
                 <div class="item-promotion"></div>
@@ -47,6 +47,9 @@ export default {
     methods: {
         emitChange() {
             this.$emit('change');
+        },
+        replaceDefaultImg(e) {
+            e.target.src = `${this.thumbnailUrl}/thumbnail_default.jpeg`
         },
         TODO() {
             alert('내가 안 만들었는데 니가 뭘 할 수 있는데 ㅋㅋㅋ')
