@@ -1,5 +1,5 @@
 <template>
-    <div class="container p-6 item-wrapper">
+    <div class="container p-6 item-wrapper" v-if="loaded">
         <div class="w-full item-body">
             <div class="item-header" role="complementary">
                 <h2 class="px-4 py-6 text-2xl font-bold title">{{ mainTitle }}</h2>
@@ -10,14 +10,16 @@
             <div class="relative w-full p-4 mt-6 border rounded payment-wrapper lg:h-80 lg:min-w-[300px] lg:max-w-[300px] lg:fixed lg:top-48 lg:right-12">
                 <button
                 class="w-full px-6 py-4 mb-2 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
-                결제하기 or 수강신청
+                {{ isPaidItem ? '수강 계속하기' : '결제하기' }}
                 </button>
-                <button
-                class="w-full px-6 py-4 mb-2 text-base font-bold text-pink-500 transition-all duration-150 bg-white rounded outline-none credit-auth-button drop-shadow active:bg-gray-100 hover:drop-shadow-md focus:outline-none ease">
-                장바구니
-                </button>
-                <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
-                <p class="text-center">기간 ?</p>
+                <div class="wrapper" v-show="!isPaidItem">
+                    <button
+                    class="w-full px-6 py-4 mb-2 text-base font-bold text-pink-500 transition-all duration-150 bg-white rounded outline-none credit-auth-button drop-shadow active:bg-gray-100 hover:drop-shadow-md focus:outline-none ease">
+                    장바구니
+                    </button>
+                    <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
+                    <p class="text-center">기간 ?</p>
+                </div>
             </div>
             <div class="mt-6 item-info">{{ mainDescription }}</div>
             <hr class="my-6">
@@ -34,22 +36,47 @@
             </div>
             <hr class="my-6">
             <div class="comment">댓글이긴 한디</div>
+            <button @click="test">11</button>
         </div>
+    </div>
+    <div class="container p-6 item-wrapper" v-else>
+        <LoadingSpinner/>
     </div>
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
+import LoadingSpinner from '../common/LoadingSpinner.vue';
 
 export default {
     name: "CourseDetail",
+    components: {
+        LoadingSpinner
+    },
+    data() {
+        return {
+            loaded: false
+        }
+    },
     created() {
-        this.fetchSubCourseList()
+        this.fetchSubCourseList();
+        this.loadThumbnailImage();
     },
     computed: {
-        ...mapState('Courses', ['mainCategory', 'mainThumbnail', 'mainTitle', 'mainDescription', 'mainCoursePrice', 'subCourseList',])
+        ...mapState('Courses', ['mainCategory', 'mainThumbnail', 'mainTitle', 'mainDescription', 'mainCoursePrice', 'subCourseList',]),
+        ...mapState('User', ['userAccessList']),
+        isPaidItem() {
+            return this.userAccessList.includes(this.mainCategory)
+        }
     },
     methods: {
-        ...mapActions('Courses', ['fetchSubCourseList'])
+        ...mapActions('Courses', ['fetchSubCourseList']),
+        loadThumbnailImage() {
+            const image = new Image();
+            image.src = `/images/${this.mainThumbnail}`;
+            image.addEventListener('load', () => {
+                this.loaded = true;
+            })
+        }
     }
 }
 </script>

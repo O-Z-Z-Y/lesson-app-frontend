@@ -1,6 +1,8 @@
 <template>
-    <div class="flex justify-center items-center">
-        <div class="spinner rounded-full border-t-4 border-b-4 border-gray-800 h-16 w-16"></div>
+    <div class="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-emerald-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+        role="status">
+        <span
+            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
     </div>
 </template>
 <script>

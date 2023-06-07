@@ -1,24 +1,14 @@
 <template>
-    <div>
-        <label>
-            <input type="checkbox" v-model="isChecked" />
-            Check me
-        </label>
-        <p v-if="isChecked">Checkbox is checked!</p>
+    <div class="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-emerald-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+        role="status">
+        <span
+            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
     </div>
 </template>
   
 <script>
-import { ref } from 'vue';
 
 export default {
     name: 'Test',
-    setup() {
-        const isChecked = ref(false);
-
-        return {
-            isChecked
-        };
-    }
 };
 </script>
