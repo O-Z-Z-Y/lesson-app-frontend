@@ -1,67 +1,69 @@
 <template lang="">
     <aside class="w-full lg:min-w-[300px] lg:max-w-[300px] p-6 mt-20 border cart-credit lg:w-[300px] rounded-md">
         <p class="mb-6 text-lg">결제창</p>
-        <div class="mb-4 coupon-selection">
-            <div class="flex justify-between coupon-selection-label">
-                <label for="coupon" class="font-bold">쿠폰 할인</label>
-                <div class="coupon-usable">
-                    <span class="text-gray-400 coupon-usable-label">사용가능</span>
-                    <span class="text-cyan-700 coupon-usable-value"> 0 </span>
+        <div class="hidden">
+            <div class="mb-4 coupon-selection">
+                <div class="flex justify-between coupon-selection-label">
+                    <label for="coupon" class="font-bold">쿠폰 할인</label>
+                    <div class="coupon-usable">
+                        <span class="text-gray-400 coupon-usable-label">사용가능</span>
+                        <span class="text-cyan-700 coupon-usable-value"> 0 </span>
+                    </div>
+                </div>
+                <div class="box-border flex items-center h-10 coupon-interactions">
+                    <input class="w-full h-full px-2 mr-2 text-right border border-gray-200 rounded-sm" type="text" id="coupon" placeholder="0" disabled>
+                    <button class="h-full px-2 border rounded-sm coupon-selection shrink-0" @click="TODO">쿠폰 선택</button>
                 </div>
             </div>
-            <div class="box-border flex items-center h-10 coupon-interactions">
-                <input class="w-full h-full px-2 mr-2 text-right border border-gray-200 rounded-sm" type="text" id="coupon" placeholder="0" disabled>
-                <button class="h-full px-2 border rounded-sm coupon-selection shrink-0" @click="TODO">쿠폰 선택</button>
-            </div>
-        </div>
-        <div class="mb-4 cart-using-point">
-            <div class="flex justify-between using-point-label">
-                <label for="point" class="font-bold">포인트 사용</label>
-                <div class="point-usable">
-                    <span class="text-gray-400 point-usable-label">보유</span>
-                    <span class="text-cyan-700 point-usable-value"> 0 </span>
+            <div class="mb-4 cart-using-point">
+                <div class="flex justify-between using-point-label">
+                    <label for="point" class="font-bold">포인트 사용</label>
+                    <div class="point-usable">
+                        <span class="text-gray-400 point-usable-label">보유</span>
+                        <span class="text-cyan-700 point-usable-value"> 0 </span>
+                    </div>
+                </div>
+                <div class="flex items-center h-10 point-interactions">
+                    <input class="w-full h-full px-2 mr-2 text-right border border-gray-200 rounded-sm" type="text" id="point" placeholder="0" disabled>
+                    <button class="h-full px-2 border rounded-sm point-selection shrink-0" @click="TODO">전액 사용</button>
                 </div>
             </div>
-            <div class="flex items-center h-10 point-interactions">
-                <input class="w-full h-full px-2 mr-2 text-right border border-gray-200 rounded-sm" type="text" id="point" placeholder="0" disabled>
-                <button class="h-full px-2 border rounded-sm point-selection shrink-0" @click="TODO">전액 사용</button>
-            </div>
-        </div>
-        <div class="flex justify-between mb-1 price-regular">
-            <span>선택상품</span>
-            <div class="price-regular-value">
-                <span>{{ formatPrice(regularPrice) }}</span>
-            </div>
-        </div>
-        <div class="flex justify-between mb-1 price-discount">
-            <button class="display-discount-list-button">
-                <span class="text-red-400">할인금액</span>
-            </button>
-            <div class="text-red-400 price-discount-value">
-                <span>{{ formatPrice(totalDiscountedPrice) }}</span>
-            </div>
-        </div>
-        <div class="mb-1 text-gray-400 price-discount-list">
-            <dl>
-                <div class="flex justify-between">
-                    <dt>- 즉시할인</dt>
-                    <dd>
-                        {{ formatPrice(discountedPrice) }}
-                    </dd>
+            <div class="flex justify-between mb-1 price-regular">
+                <span>선택상품</span>
+                <div class="price-regular-value">
+                    <span>{{ formatPrice(regularPrice) }}</span>
                 </div>
-                <div class="flex justify-between">
-                    <dt>- 쿠폰할인</dt>
-                    <dd>
-                        {{ formatPrice(discountedCoupon) }}
-                    </dd>
+            </div>
+            <div class="flex justify-between mb-1 price-discount">
+                <button class="display-discount-list-button">
+                    <span class="text-red-400">할인금액</span>
+                </button>
+                <div class="text-red-400 price-discount-value">
+                    <span>{{ formatPrice(totalDiscountedPrice) }}</span>
                 </div>
-                <div class="flex justify-between">
-                    <dt>- 포인트사용</dt>
-                    <dd>
-                        {{ formatPrice(discountedPoint) }}
-                    </dd>
-                </div>
-            </dl>
+            </div>
+            <div class="mb-1 text-gray-400 price-discount-list">
+                <dl>
+                    <div class="flex justify-between">
+                        <dt>- 즉시할인</dt>
+                        <dd>
+                            {{ formatPrice(discountedPrice) }}
+                        </dd>
+                    </div>
+                    <div class="flex justify-between">
+                        <dt>- 쿠폰할인</dt>
+                        <dd>
+                            {{ formatPrice(discountedCoupon) }}
+                        </dd>
+                    </div>
+                    <div class="flex justify-between">
+                        <dt>- 포인트사용</dt>
+                        <dd>
+                            {{ formatPrice(discountedPoint) }}
+                        </dd>
+                    </div>
+                </dl>
+            </div>
         </div>
         <div class="flex justify-between mb-2 font-bold price-pay">
             <span>총 결제금액</span>

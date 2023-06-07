@@ -93,6 +93,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import ShoppingCartIcon from '@/assets/svg/shopping_cart_icon.svg'
 import HamburgerIcon from '@/assets/svg/hamburger_icon.svg'
 import CloseIcon from '@/assets/svg/close_icon.svg'
+import axios from 'axios'
 
 export default {
     name: 'HeaderVue',
@@ -108,10 +109,12 @@ export default {
         }
     },
     //* 초기 로그인 상태
-    created() {
+    async created() {
         const token = this.$cookies.get('access_token');
         if (token) {
             this.login()
+            const access_list = await this.getAccessList()
+            this.SET_USERACCESSLIST(access_list)
         } else {
             this.logout()
         }
@@ -124,11 +127,12 @@ export default {
         ...mapState('Nav', ['nav']),
         ...mapState('Auth', ['authMode', 'isLogged']),
         ...mapState('Modal', ['modalOpened']),
-        ...mapState('User', ['username', 'userCart']),
+        ...mapState('User', ['username', 'userCart', 'userAccessList']),
         ...mapState('Courses', ['mainCourseList']),
     },
     methods: {
         ...mapMutations('Nav', ['SET_NAV']),
+        ...mapMutations('User', ['SET_USERACCESSLIST']),
         ...mapActions('Auth', ['setAuthMode', 'login', 'logout']),
         ...mapActions('Modal', ['openModal', 'closeModal']),
         ...mapActions('Courses', ['fetchMainCourseList']),
@@ -151,6 +155,18 @@ export default {
         },
         onClickOutside() {
             this.isUserMenuOpened = false
+        },
+        async getAccessList() {
+            try {
+                const response = await axios.get('/api/v1/jobs/maincourse/access/list', {
+                    headers: {
+                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                    }
+                })
+                return response.data.accesscourse
+            } catch (error) {
+                console.error(error);
+            }
         }
     }
 }

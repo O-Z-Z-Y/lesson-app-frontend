@@ -59,11 +59,11 @@ export default {
     },
     computed: {
         ...mapState('Auth', ['isLogged']),
-        ...mapState('User', ['username', 'userCart'])
+        ...mapState('User', ['username', 'userCart', 'userAccessList'])
     },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal']),
-        ...mapMutations('User', ['SET_USERNAME', 'SET_USERCART']),
+        ...mapMutations('User', ['SET_USERNAME', 'SET_USERCART', 'SET_USERACCESSLIST']),
         ...mapMutations('Auth', ['SET_AUTHMODE', 'SET_LOGGED']),
         
         onChangeAuthMode(value) {
@@ -88,6 +88,9 @@ export default {
                 this.$cookies.set('access_token', response.data.token, 60*60)
                 alert(`${this.username}님 로그인 되었습니다.`)
 
+                const access_list = await this.getAccessList()
+                this.SET_USERACCESSLIST(access_list)
+                
                 this.SET_LOGGED(true)
                 this.closeModal()
             } catch (error) {
@@ -95,6 +98,18 @@ export default {
                 alert('로그인 실패');
             }
         },
+        async getAccessList() {
+            try {
+                const response = await axios.get('/api/v1/jobs/maincourse/access/list', {
+                    headers: {
+                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                    }
+                })
+                return response.data.accesscourse
+            } catch (error) {
+                console.error(error);
+            }
+        }
     },
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container m-6 item-wrapper">
+    <div class="container p-6 item-wrapper">
         <div class="w-full item-body">
             <div class="item-header" role="complementary">
                 <h2 class="px-4 py-6 text-2xl font-bold title">{{ mainTitle }}</h2>
@@ -7,13 +7,17 @@
                     <img class="rounded-lg max-h-96" :src="`/images/${mainThumbnail}`" alt="thumbnail">
                 </div>
             </div>
-            <div class="relative w-auto p-4 mt-6 border rounded payment-wrapper laptop:h-80 laptop:w-72 laptop:fixed laptop:top-48 laptop:right-12">
+            <div class="relative w-full p-4 mt-6 border rounded payment-wrapper lg:h-80 lg:min-w-[300px] lg:max-w-[300px] lg:fixed lg:top-48 lg:right-12">
                 <button
-                    class="w-full px-6 py-4 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
-                    결제하기 or 수강하기
+                class="w-full px-6 py-4 mb-2 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
+                결제하기 or 수강신청
+                </button>
+                <button
+                class="w-full px-6 py-4 mb-2 text-base font-bold text-pink-500 transition-all duration-150 bg-white rounded outline-none credit-auth-button drop-shadow active:bg-gray-100 hover:drop-shadow-md focus:outline-none ease">
+                장바구니
                 </button>
                 <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
-                <p class="text-center">아직 디자인을 못 정함</p>
+                <p class="text-center">기간 ?</p>
             </div>
             <div class="mt-6 item-info">{{ mainDescription }}</div>
             <hr class="my-6">

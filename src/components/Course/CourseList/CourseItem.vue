@@ -21,7 +21,7 @@
                 <p class="text-center item-description line-clamp-3">{{ description }}</p>
             </div>
         </div>
-        <p class="mb-2 ml-auto mr-4 text-lg text-red-500 item-price">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
+        <p class="mb-2 ml-auto mr-4 text-lg text-red-500 item-price">{{ isPaidItem(id, price) }}</p>
     </li>
 
     <li v-else-if="navState === 'Course'">
@@ -41,7 +41,7 @@
                     </h4>
                     <p class="item-description">{{ description }}</p>
                 </div>
-                <p class="absolute right-0 mb-2 text-red-500 item-price">{{ price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원' }}</p>
+                <p class="absolute right-0 text-red-500 bottom-2 item-price">{{ isPaidItem(id, price) }}</p>
                 <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
             </div>
         </router-link>
@@ -74,6 +74,7 @@ export default {
             return this.$store.state.Nav.nav
         },
         ...mapState('Courses', ['mainCategory']),
+        ...mapState('User', ['userAccessList']),
     },
     methods: {
         ...mapMutations('Courses', ['SET_MAINCATEGORY', 'SET_MAINTHUMBNAIL', 'SET_MAINTITLE', 'SET_MAINDESCRIPTION', 'SET_MAINCOURSEPRICE']),
@@ -85,6 +86,16 @@ export default {
             this.SET_MAINDESCRIPTION(this.description)
             this.SET_MAINCOURSEPRICE(this.price)
             this.SET_NAV('Detail')
+        },
+        isPaidItem(id, price) {
+            if (this.userAccessList.includes(id)) {
+                return '수강 중'
+            } else {
+                return price === 0 ? '무료' : price.toLocaleString('ko-KR')+'원'
+            }
+        },
+        test(id) {
+            console.log(this.isPaidItem(id))
         }
     }
 };
