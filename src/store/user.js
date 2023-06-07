@@ -3,6 +3,7 @@ export default {
   state() {
     return {
       username: '',
+      userEmail: '',
       userCart: [],
       userAccessList: [],
     }
@@ -10,6 +11,9 @@ export default {
   mutations: {
     SET_USERNAME(state, value) {
       state.username = value
+    },
+    SET_USEREMAIL(state, value) {
+      state.userEmail = value
     },
 
     SET_USERCART(state, array) {

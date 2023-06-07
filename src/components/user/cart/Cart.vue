@@ -9,11 +9,11 @@
                         <input type="checkbox" id="selectAll" v-model="selectAllChecked"
                             class="w-5 h-5 mr-2 rounded form-checkbox text-cyan-700 focus:ring-cyan-700"
                             @change="toggleAllItems">
-                        <label for="undefined" class="text-lg">전체선택 1/1</label>
+                        <label for="undefined" class="text-lg">전체선택 <span>{{ selectedItems ? selectedItems.length : 0 }}/{{ cartList.length }}</span></label>
                     </div>
                     <button
                         class="h-10 px-4 text-pink-600 duration-200 border border-pink-600 rounded-sm active:bg-gray-100 cart-delete-selected"
-                        @click="TODO"
+                        @click="deleteSelectedItems"
                     >
                         선택삭제
                     </button>
@@ -22,6 +22,7 @@
                 <div class="cart-list">
                     <CartItem 
                         :cartList="cartList"
+                        @delete-item="deleteSelectedItems"
                         @change="changeSelectedItems" 
                     />
                 </div>
@@ -33,9 +34,10 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import CartItem from './CartItem.vue';
 import CartPayment from './CartPayment.vue'
+import axios from 'axios';
 
 export default {
     name: 'Cart',
@@ -53,7 +55,7 @@ export default {
         ...mapState('Courses', ['mainCourseList']),
         ...mapState('User', ['userCart']),
         cartList() {
-            const filteredList = []
+            let filteredList = []
             this.userCart.forEach(itemId => {
                 filteredList.push(this.mainCourseList.find(item => item.id === itemId))
             });
@@ -61,6 +63,7 @@ export default {
         }
     },
     methods: {
+        ...mapMutations('User', ['SET_USERCART']),
         changeSelectedItems() {
             // items에 checked 값 넣기
             this.selectedItems = this.cartList.filter(item => item.checked)
@@ -84,6 +87,27 @@ export default {
                     item.checked = false;
                 })
                 this.selectedItems = [];
+            }
+        },
+        async deleteSelectedItems(id) {
+            let filteredList;
+            if (!id) {
+                filteredList = this.userCart.filter(itemId => {
+                    return !this.selectedItems.some(item => item.id === itemId);
+                });
+            } else {
+                filteredList = this.userCart.filter(itemId => itemId !== id)
+            }
+            
+            this.SET_USERCART(filteredList)
+            try {
+                const response = await axios.post('/api/v1/customer/savecart', {
+                    email: this.email,
+                    cart: this.filteredList,
+                });
+                this.SET_USERCART(response.body.abandonedcart)
+            } catch(error) {
+                console.log(error)
             }
         },
         TODO() {

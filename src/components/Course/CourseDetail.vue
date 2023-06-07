@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="text-right">
                                     <span class="inline-block text-sm font-semibold text-pink-600">
-                                        {{ inProgress }}%
+                                        {{ inProgress ? inProgress : 0 }}%
                                     </span>
                                 </div>
                             </div>

@@ -120,6 +120,9 @@ export default {
         onClickPayment() {
             //* 여기가 결제
 
+
+            //* 결제 완료된 아이템은 카트에서 뺍니다.
+            //* selectedItems에서 pop해와서 결과창에 보여주는걸로
             this.$router.push(`/order/result`)
         }
     }

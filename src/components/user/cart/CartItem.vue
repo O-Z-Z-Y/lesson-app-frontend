@@ -21,7 +21,7 @@
             <div class="cart-item-card-price">
                 {{ item.price === 0 ? '무료' : item.price.toLocaleString('ko-KR')+'원' }}
             </div>
-            <button class="w-4 h-4 close fill-gray-400" @click="TODO"><CloseIcon /></button>
+            <button class="w-4 h-4 close fill-gray-400" @click="deleteItem(item.id)"><CloseIcon /></button>
         </article>
     </div>
 </template>
@@ -50,6 +50,9 @@ export default {
         },
         replaceDefaultImg(e) {
             e.target.src = `${this.thumbnailUrl}/thumbnail_default.jpeg`
+        },
+        deleteItem(itemId) {
+            this.$emit('delete-item', itemId)
         },
         TODO() {
             alert('내가 안 만들었는데 니가 뭘 할 수 있는데 ㅋㅋㅋ')
