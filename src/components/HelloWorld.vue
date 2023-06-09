@@ -1,10 +1,12 @@
 <template>
     <Header />
-    <router-view></router-view>
-    <footer class="h-32 bg-slate-400">
+    <div id="content" class="h-auto" :style="`min-height:${resizeHeight}px`">
+        <router-view></router-view>
+    </div>
+    <footer class="relative h-32 bg-slate-400">
         푸터 입니닭
     </footer>
-    <DarkmodeToggle />
+    <DarkmodeToggle class="hidden" />
 </template>
 
 <script>
@@ -16,9 +18,34 @@ export default {
         Header,
         DarkmodeToggle
     },
+    data() {
+        return {
+            screenHeight: '',
+        }
+    },
+    mounted() {
+        this.setScreenHeight();
+        window.addEventListener('resize', this.handleResize)
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.handleResize)
+    },
     computed: {
         navState() {
             return this.$store.state.Nav.nav
+        },
+        resizeHeight() {
+            return (this.screenHeight - 128 - 57)
+        }
+    },
+    methods: {
+        handleResize() {
+            // 디바운스 (Debounce)를 적용하여 많은 resize 이벤트를 처리하지 않도록 합니다.
+            clearTimeout(this.resizeTimer);
+            this.resizeTimer = setTimeout(this.setScreenHeight, 200);
+        },
+        setScreenHeight() {
+            this.screenHeight = window.innerHeight
         }
     }
 }

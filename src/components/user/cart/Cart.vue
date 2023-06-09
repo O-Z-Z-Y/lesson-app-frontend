@@ -53,7 +53,7 @@ export default {
     },
     computed: {
         ...mapState('Courses', ['mainCourseList']),
-        ...mapState('User', ['userCart']),
+        ...mapState('User', ['userEmail', 'userCart']),
         cartList() {
             let filteredList = []
             this.userCart.forEach(itemId => {
@@ -102,10 +102,14 @@ export default {
             this.SET_USERCART(filteredList)
             try {
                 const response = await axios.post('/api/v1/customer/savecart', {
-                    email: this.email,
-                    cart: this.filteredList,
+                    email: this.userEmail,
+                    cart: filteredList,
+                },{
+                    headers: {
+                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                    }
                 });
-                this.SET_USERCART(response.body.abandonedcart)
+                this.SET_USERCART(response.data.updateCart.abandonedcart)
             } catch(error) {
                 console.log(error)
             }

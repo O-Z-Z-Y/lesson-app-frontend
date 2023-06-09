@@ -79,11 +79,17 @@
         </div>
     </aside>
 </template>
+
 <script>
 export default {
     name: 'CartPayment',
     props: {
         selectedItems: Array
+    },
+    mounted() {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.iamport.kr/v1/iamport.js';
+        document.body.appendChild(script);
     },
     computed: {
         // 선택 상품
@@ -119,12 +125,46 @@ export default {
         
         onClickPayment() {
             //* 여기가 결제
+            this.initPG(); // Initalize PG
+            this.requestPay(); // Call PG API
+        },
+        /**
+         * Init PaymentGateway
+         */
+        initPG(){
+            const IMP = window.IMP;
+            IMP.init("imp75375154");
+            console.log("Initalize Payment Gateway..");
+        },
 
-
-            //* 결제 완료된 아이템은 카트에서 뺍니다.
-            //* selectedItems에서 pop해와서 결과창에 보여주는걸로
-            this.$router.push(`/order/result`)
-        }
+        /**
+         * Section of request PG call
+         */
+        requestPay() {
+            IMP.request_pay({ // param
+            pg: "html5_inicis",
+            pay_method: "card",
+            merchant_uid: "ORD20180131-0000011",
+            name: "노르웨이 회전 의자",
+            amount: 64900,
+            buyer_email: "gildong@gmail.com",
+            buyer_name: "홍길동",
+            buyer_tel: "010-4242-4242",
+            }, rsp => { 
+                //callback
+                if (rsp.success) {
+                    console.log("success");
+                                //* 결제 완료된 아이템은 카트에서 뺍니다.
+                    //* selectedItems에서 pop해와서 결과창에 보여주는걸로
+                    this.$router.push(`/order/result`)
+                    // 결제 성공 시 로직,
+                    
+                } else {
+                    console.log("failed");
+                    // 결제 실패 시 로직,
+                }
+            });
+      }
     }
 }
 </script>

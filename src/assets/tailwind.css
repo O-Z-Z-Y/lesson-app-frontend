@@ -12,6 +12,8 @@
     font-family: "NanumSquareAceb";
     font-family: "NanumSquareAcl";
     font-family: "NanumSquareAcr";
+
+    height: 100%;
   }
   .dark {
     @apply bg-[#0e0e10] text-white;
@@ -24,6 +26,9 @@
 @layer components{
   .container {
     @apply mx-auto sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]
+  }
+  .page {
+    @apply min-h-[800px]
   }
 
   .hypertext {

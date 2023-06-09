@@ -1,10 +1,10 @@
 <template>
-    <div class="container flex justify-center items-center">
-        <table class="border-collapse w-full bg-white shadow-md overflow-hidden rounded-md my-8">
+    <div class="container flex items-center justify-center">
+        <table class="w-full my-8 overflow-hidden bg-white border-collapse rounded-md shadow-md">
             <thead>
                 <tr>
-                    <th class="px-6 py-4 text-center border-b border-gray-300 bg-gray-100 font-bold text-gray-700">No.</th>
-                    <th class="px-6 py-4 text-center border-b border-gray-300 bg-gray-100 font-bold text-gray-700">Title
+                    <th class="px-6 py-4 font-bold text-center text-gray-700 bg-gray-100 border-b border-gray-300">No.</th>
+                    <th class="px-6 py-4 font-bold text-center text-gray-700 bg-gray-100 border-b border-gray-300">Title
                     </th>
                 </tr>
             </thead>
@@ -14,10 +14,10 @@
                     @click="routerNoticeDetail(item.id)"
                     class="cursor-pointer hover:bg-gray-100"
                 >
-                    <td class="w-4 text-center border-b border-gray-300 font-medium">
+                    <td class="w-4 font-medium text-center border-b border-gray-300">
                         {{ item.id }}
                     </td>
-                    <td class="px-6 py-4 text-center border-b border-gray-300 font-medium cursor-pointer duration-300 hover:text-orange-600">
+                    <td class="px-6 py-4 font-medium text-center duration-300 border-b border-gray-300 cursor-pointer hover:text-orange-600">
                         {{ item.title }}
                     </td>
                 </tr>

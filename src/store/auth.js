@@ -26,14 +26,19 @@ export default {
         console.log('올바른 authmode가 아닙니다')
       }
     },
+    //* 로그인 api는 LoginModal.vue에서 관리
     login({ commit }) {
       commit('SET_LOGGED', true)
     },
+    
     logout({ commit }) {
       cookies.remove('access_token')
       commit('SET_LOGGED', false)
 
-      //* access_list 초기화
+      //* user정보 초기화
+      commit('User/SET_USERNAME', '', { root: true })
+      commit('User/SET_USEREMAIL', '', { root: true })
+      commit('User/SET_USERCART', [], { root: true })
       commit('User/SET_USERACCESSLIST', [], { root: true })
       
       //* 접근 권한이 있는 페이지는 홈으로 보냄
