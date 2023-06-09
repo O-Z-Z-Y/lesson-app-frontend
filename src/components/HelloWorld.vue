@@ -3,7 +3,7 @@
     <div id="content" class="h-auto" :style="`min-height:${resizeHeight}px`">
         <router-view></router-view>
     </div>
-    <Footer />
+    <Footer v-if="navState !== 'SubCourse'"/>
     <DarkmodeToggle class="hidden" />
 </template>
 
