@@ -12,16 +12,10 @@
                 v-if="!isPaidItem">
                 <button
                     class="w-full px-6 py-4 mb-2 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
-                    결제하기
+                    수강 신청하기
                 </button>
-                <div class="wrapper">
-                    <button
-                        class="w-full px-6 py-4 mb-2 text-base font-bold text-pink-500 transition-all duration-150 bg-white rounded outline-none credit-auth-button drop-shadow active:bg-gray-100 hover:drop-shadow-md focus:outline-none ease">
-                        장바구니
-                    </button>
-                    <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
-                    <p class="text-center">기간 ?</p>
-                </div>
+                <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
+                <p class="text-center">기간 ?</p>
             </div>
             <div class="bg-white relative w-full p-4 mt-20 border rounded payment-wrapper lg:h-64 lg:min-w-[300px] lg:max-w-[300px]"
                 v-else-if="isPaidItem">

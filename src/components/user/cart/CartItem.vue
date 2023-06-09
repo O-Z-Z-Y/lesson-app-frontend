@@ -18,11 +18,12 @@
                 <div class="cart-item-title">{{ item.title }}</div>
                 <div class="item-expired"></div>
             </div>
-            <div class="cart-item-card-price">
+            <div class="flex items-center justify-center w-24 cart-item-card-price">
                 {{ item.price === 0 ? '무료' : item.price.toLocaleString('ko-KR')+'원' }}
             </div>
             <button class="w-4 h-4 close fill-gray-400" @click="deleteItem(item.id)"><CloseIcon /></button>
         </article>
+        <hr>
     </div>
 </template>
 <script>
