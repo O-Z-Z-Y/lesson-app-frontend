@@ -1,17 +1,17 @@
 <template>
-    <div class="container p-6 item-wrapper">
+    <div v-if="isLoading" class="container p-6 item-wrapper">
         <div class="container flex flex-col justify-between lg:flex-row">
             <div class="item-header" role="complementary">
                 <h2 class="px-4 py-6 text-2xl font-bold title">{{ mainTitle }}</h2>
                 <div class="img-wrapper">
-                    <img class="rounded-lg max-h-96" :src="`${thumbnailUrl}/${mainThumbnail}`" alt="thumbnail"
-                        @error="replaceDefaultImg">
+                    <img class="rounded-lg max-h-96" :src="preloadedImage" alt="thumbnail">
                 </div>
             </div>
             <div class="bg-white relative w-full p-4 mt-20 border rounded payment-wrapper lg:h-80 lg:min-w-[300px] lg:max-w-[300px]"
                 v-if="!isPaidItem">
                 <button
-                    class="w-full px-6 py-4 mb-2 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
+                    class="w-full px-6 py-4 mb-2 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease"
+                    @click="addCart">
                     수강 신청하기
                 </button>
                 <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
@@ -77,38 +77,51 @@
             <div class="comment">댓글이긴 한디</div>
         </div>
     </div>
+    <div v-else-if="!isLoading" class="">
+        <LoadingSpinner />
+    </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 import PlayCircleIcon from '@/assets/svg/play_circle.svg'
+import LoadingSpinner from '../common/LoadingSpinner.vue';
 import axios from 'axios';
 
 export default {
     name: "CourseDetail",
     components: {
+        LoadingSpinner,
         PlayCircleIcon
     },
     data() {
         return {
             thumbnailUrl: `${process.env.VUE_APP_BACK_URL}/public/images`,
-            inProgress: null
+            inProgress: '',
+            isLoading: false,
+            preloadedImage: null,
         }
     },
-    created() {
-        this.fetchSubCourseList();
-        this.fetchProgress();
+    async created() {
+        await this.fetchSubCourseList();
+        if (this.isLogged) {
+            await this.fetchProgress();
+        }
+        this.fetchImage()
+        this.isLoading = true
     },
     computed: {
         ...mapState('Courses', ['mainCategory', 'mainThumbnail', 'mainTitle', 'mainDescription', 'mainCoursePrice', 'subCourseList',]),
-        ...mapState('User', ['userAccessList']),
+        ...mapState('User', ['userEmail', 'userCart', 'userAccessList']),
+        ...mapState('Auth', ['isLogged']),
         isPaidItem() {
             return this.userAccessList.includes(this.mainCategory)
         }
     },
     methods: {
+        ...mapMutations('User', ['GET_CARTITEM']),
         ...mapActions('Courses', ['fetchSubCourseList']),
         async fetchProgress() {
-            try{
+            try {
                 const response = await axios.get(`/api/v1/jobs/maincourse/getprogress/${this.mainCategory}`, {
                     headers: {
                         'Authorization': `Bearer ${this.$cookies.get('access_token')}`
@@ -118,10 +131,34 @@ export default {
             } catch (error) {
                 console.log(error)
             }
-
         },
-        replaceDefaultImg(e) {
-            e.target.src = `${this.thumbnailUrl}/thumbnail_default.jpeg`
+        fetchImage() {
+            const image = new Image();
+            image.src = `${this.thumbnailUrl}/${this.mainThumbnail}`
+            image.onload = () => {
+            this.preloadedImage = image.src
+            };
+            image.onerror = () => {
+                this.preloadedImage = `${this.thumbnailUrl}/thumbnail_default.jpeg`
+            }
+        },
+        async addCart() {
+            if (!this.userCart.includes(this.mainCategory))
+                this.GET_CARTITEM(this.mainCategory)
+            try {
+                const response = await axios.post('/api/v1/customer/savecart', {
+                    email: this.userEmail,
+                    cart: this.userCart,
+                },{
+                    headers: {
+                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                    }
+                });
+                this.SET_USERCART(response.data.updateCart.abandonedcart)
+            } catch(error) {
+                console.log(error)
+            }
+            this.$router.push('/user/cart')
         }
     }
 }

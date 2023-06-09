@@ -95,7 +95,6 @@ export default {
                 this.SET_LOGGED(true)
                 this.closeModal()
             } catch (error) {
-                console.error(error);
                 alert('로그인 실패');
             }
         },

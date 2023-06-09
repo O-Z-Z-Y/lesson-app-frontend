@@ -65,8 +65,14 @@ export default {
       commit('SET_MAINCOURSELIST', response.data.mainItems)
     },
     async fetchSubCourseList({commit, state}) {
-      const response = await axios.get(`/api/v1/jobs/subcourse/list/${state.mainCategory}`)
-      commit('SET_SUBCOURSELIST', response.data.result)
+      try {
+        const response = await axios.get(`/api/v1/jobs/subcourse/list/${state.mainCategory}`)
+        commit('SET_SUBCOURSELIST', response.data.result)
+      } catch (error) {
+        console.log(error)
+        //* TODO: 임시방편으로 빈 배열처리, 백엔드에서 빈 배열 or 잘못된 요청을 구분해주면 로직 재작성
+        commit('SET_SUBCOURSELIST', [])
+      }
     },
   },
   getters: {
