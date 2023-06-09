@@ -81,10 +81,19 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'CartPayment',
     props: {
         selectedItems: Array
+    },
+    data() {
+        return {
+            buyerName: '',
+            buyerEmail: '',
+            buyerTel: '',
+        }
     },
     mounted() {
         const script = document.createElement('script');
@@ -116,17 +125,48 @@ export default {
         },
         payPrice() {
             return this.regularPrice - this.totalDiscountedPrice
+        },
+
+        //* 결제 관련 변수
+        productName() {
+            if (this.selectedItems.length === 0) {
+                return '';
+            } else if (this.selectedItems.length === 1){
+                return this.selectedItems[0].title
+            } else {
+                return `${this.selectedItems[0].title} 외 ${this.selectedItems.length - 1}개`
+            }
         }
     },
     methods: {
         formatPrice(price) {
             return price.toLocaleString('ko-KR') + '원';
         },
-        
+
+        async fetchBuyerInfo() {
+            try {
+                const response = await axios.get('/api/v1/customer/getcustomer', {
+                    headers: {
+                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                    }
+                })
+                this.buyerName = response.data.user.name
+                this.buyerEmail = response.data.user.email
+                this.buyerTel = response.data.user.phonenumber
+            } catch(error) {
+                console.log(error)
+            }
+        },
         onClickPayment() {
-            //* 여기가 결제
-            this.initPG(); // Initalize PG
-            this.requestPay(); // Call PG API
+            if (this.selectedItems === 0) {
+                return;
+            }
+            else {
+                this.fetchBuyerInfo()
+                //* 여기가 결제
+                this.initPG(); // Initalize PG
+                this.requestPay(); // Call PG API
+            }
         },
         /**
          * Init PaymentGateway
@@ -140,21 +180,23 @@ export default {
         /**
          * Section of request PG call
          */
+
         requestPay() {
             IMP.request_pay({ // param
             pg: "html5_inicis",
             pay_method: "card",
             merchant_uid: "ORD20180131-0000011",
-            name: "노르웨이 회전 의자",
-            amount: 64900,
-            buyer_email: "gildong@gmail.com",
-            buyer_name: "홍길동",
-            buyer_tel: "010-4242-4242",
+            name: this.productName,
+            amount: this.payPrice,
+            buyer_email: this.buyerEmail,
+            buyer_name: this.buyerName,
+            buyer_tel: this.buyerTel,
             }, rsp => { 
                 //callback
                 if (rsp.success) {
                     console.log("success");
-                                //* 결제 완료된 아이템은 카트에서 뺍니다.
+                    //* 결제 완료된 아이템은 카트에서 뺍니다.
+                    this.deleteSelectedItems()
                     //* selectedItems에서 pop해와서 결과창에 보여주는걸로
                     this.$router.push(`/order/result`)
                     // 결제 성공 시 로직,
@@ -164,7 +206,26 @@ export default {
                     // 결제 실패 시 로직,
                 }
             });
-      }
+        },
+        async deleteSelectedItems() {
+            let filteredList = this.userCart.filter(itemId => {
+                    return !this.selectedItems.some(item => item.id === itemId);
+            });
+            this.SET_USERCART(filteredList)
+            try {
+                const response = await axios.post('/api/v1/customer/savecart', {
+                    email: this.userEmail,
+                    cart: filteredList,
+                },{
+                    headers: {
+                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                    }
+                });
+                this.SET_USERCART(response.data.updateCart.abandonedcart)
+            } catch(error) {
+                console.log(error)
+            }
+        },
     }
 }
 </script>
