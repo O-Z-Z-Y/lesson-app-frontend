@@ -3,19 +3,20 @@
     <div id="content" class="h-auto" :style="`min-height:${resizeHeight}px`">
         <router-view></router-view>
     </div>
-    <footer class="relative h-32 bg-slate-400">
-        푸터 입니닭
-    </footer>
+    <Footer />
     <DarkmodeToggle class="hidden" />
 </template>
 
 <script>
 import Header from './Header.vue'
+import Footer from './Footer.vue'
+
 import DarkmodeToggle from './DarkmodeToggle.vue'
 export default {
     name: 'HelloWorld',
     components: {
         Header,
+        Footer,
         DarkmodeToggle
     },
     data() {
