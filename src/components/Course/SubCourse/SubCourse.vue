@@ -34,26 +34,41 @@ export default {
         this.loadSubCourse()
     },
     computed: {
-        ...mapState('Courses', ['subCourseList']),
+        ...mapState('Courses', ['mainCategory', 'subCourseList']),
+        ...mapState('User', ['userAccessList']),
         currentSubCourse() {
             return this.subCourseList.find(item =>
                 item.id === parseInt(this.$route.params.id)
             )
         },
+        isPaidItem() {
+            return this.userAccessList.includes(this.mainCategory)
+        }
     },
     methods: {
         async loadSubCourse() {
-            try {
-                const response = await axios.get(`/api/v1/jobs/subcourse/detail/${this.currentSubCourse.id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
-                })
-                this.courseItem = response.data.subcourse
-                this.videoUrl = response.data.subcourse.link
-                this.filterVimeo()
-            } catch (error) {
-                console.log(error)
+            if (!this.isPaidItem && this.currentSubCourse.sampling) {
+                try {
+                    const response = await axios.get(`/api/v1/jobs/subcourse/sample/detail/${this.currentSubCourse.id}`)
+                    this.courseItem = response.data.subcourse
+                    this.videoUrl = response.data.subcourse.link
+                    this.filterVimeo()
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
+                try {
+                    const response = await axios.get(`/api/v1/jobs/subcourse/detail/${this.currentSubCourse.id}`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                        }
+                    })
+                    this.courseItem = response.data.subcourse
+                    this.videoUrl = response.data.subcourse.link
+                    this.filterVimeo()
+                } catch (error) {
+                    console.log(error)
+                }
             }
         },
         //* vimeo는 자체 공유링크는 페이지로 연결되어 있어, 외부의 접근을 차단함. 그래서 플레이어로 치환

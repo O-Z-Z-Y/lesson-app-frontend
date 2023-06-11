@@ -13,6 +13,11 @@ import Cart from "@/components/user/cart/Cart.vue"
 
 import OrderResult from "@/components/order/OrderResult.vue"
 
+import UserPage from "@/components/user/UserPage.vue"
+import UserCourses from "@/components/user/UserCourses.vue"
+import UserNotifications from "@/components/user/UserNotifications.vue"
+import UserAccount from "@/components/user/UserAccount.vue"
+
 import Test from "@/components/test/Test.vue"
 
 const routes = [
@@ -47,12 +52,15 @@ const routes = [
     {
         path:"/course/detail/:id",
         name: "CourseDetail",
-        component: CourseDetail
+        component: CourseDetail,
     },
     {
         path: "/unit/:mainCategory/:id",
         name: "SubCourse",
-        component: SubCourse
+        component: SubCourse,
+        meta: {
+            roles: ['ROLE_USER']
+        }
     },
 
     // about
@@ -77,6 +85,40 @@ const routes = [
         path: "/order/result",
         name: "OrderResult",
         component: OrderResult,
+        meta: {
+            roles: ['ROLE_USER']
+        }
+    },
+
+    // user page
+    {
+        path: "/user",
+        name: "UserPage",
+        component: UserPage,
+        meta: {
+            roles: ['ROLE_USER']
+        }
+    },
+    {
+        path: "/user/courses",
+        name: "UserCourses",
+        component: UserCourses,
+        meta: {
+            roles: ['ROLE_USER']
+        }
+    },
+    {
+        path: "/user/notifications",
+        name: "UserNotifications",
+        component: UserNotifications,
+        meta: {
+            roles: ['ROLE_USER']
+        }
+    },
+    {
+        path: "/user/profile",
+        name: "UserAccount",
+        component: UserAccount,
         meta: {
             roles: ['ROLE_USER']
         }

@@ -77,11 +77,13 @@
             @click="onClickPayment"
             class="w-full py-4 text-white duration-200 bg-pink-500 border rounded active:bg-pink-600 focus:outline-none ease">결제하기</button>
         </div>
+        <button @click="test">테스트</button>
     </aside>
 </template>
 
 <script>
 import axios from 'axios';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'CartPayment',
@@ -101,6 +103,7 @@ export default {
         document.body.appendChild(script);
     },
     computed: {
+        ...mapState('User', ['userPaidItems']),
         // 선택 상품
         regularPrice() {
             return this.selectedItems.reduce((sum, item) => sum + item.price, 0)
@@ -139,6 +142,8 @@ export default {
         }
     },
     methods: {
+        ...mapMutations('User', ['SET_USERPAIDITEMS']),
+
         formatPrice(price) {
             return price.toLocaleString('ko-KR') + '원';
         },
@@ -196,6 +201,7 @@ export default {
                 if (rsp.success) {
                     console.log("success");
                     //* 결제 완료된 아이템은 카트에서 뺍니다.
+                    this.SET_USERPAIDITEMS(this.selectedItems)
                     this.deleteSelectedItems()
                     //* selectedItems에서 pop해와서 결과창에 보여주는걸로
                     this.$router.push(`/order/result`)
@@ -226,6 +232,9 @@ export default {
                 console.log(error)
             }
         },
+        test() {
+            this.SET_USERPAIDITEMS(this.selectedItems)
+        }
     }
 }
 </script>

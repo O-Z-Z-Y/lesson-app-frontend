@@ -1,8 +1,6 @@
 <template lang="">
+    <UserPage />
     <div class="container">
-        <h2 class="my-10 text-2xl font-bold text-center">주문이 <span class="text-pink-500">완료</span> 되었습니다.</h2>
-    </div>
-    <div class="w-3/4 mx-auto border rounde-xl">
         <div class="mx-4 mt-4 text-center" v-for="(item, index) in userPaidItems" :key="index">
             <article class="flex justify-between mx-2 my-4 cart-item-card ">
                 <div class="w-32 h-20 bg-gray-300 cart-item-card-img">
@@ -24,9 +22,13 @@
 </template>
 <script>
 import { mapState } from 'vuex';
+import UserPage from './UserPage.vue';
 
 export default {
-    name:'OrderResult',
+    name: 'UserCourses',
+    components: {
+        UserPage
+    },
     data() {
         return {
             thumbnailUrl: `${process.env.VUE_APP_BACK_URL}/public/images`

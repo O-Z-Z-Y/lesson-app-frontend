@@ -77,8 +77,16 @@
                     <div v-show="isUserMenuOpened"
                         class="absolute z-20 block p-2 bg-white border rounded-sm shadow-lg header-usermenu">
                         <ul>
-                            <li class="mb-2 duration-300 cursor-pointer hover:text-orange-600">수강중인 강좌</li>
-                            <li class="mb-2 duration-300 cursor-pointer hover:text-orange-600">회원 정보 변경</li>
+                            <li class="mb-2 duration-300 cursor-pointer hover:text-orange-600">
+                                <router-link to="/user/courses" @click="onClickOutside">
+                                    수강중인 강좌
+                                </router-link>
+                            </li>
+                            <li class="mb-2 duration-300 cursor-pointer hover:text-orange-600">
+                                <router-link to="/user/profile" @click="onClickOutside">
+                                    회원 정보 변경
+                                </router-link>
+                            </li>
                             <li class="duration-300 cursor-pointer hover:text-orange-600" @click="logout">로그아웃</li>
                         </ul>
                     </div>

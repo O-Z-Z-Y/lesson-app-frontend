@@ -6,6 +6,7 @@ export default {
       userEmail: '',
       userCart: [],
       userAccessList: [],
+      userPaidItems: [],
     }
   },
   mutations: {
@@ -34,6 +35,10 @@ export default {
     },
     REMOVE_USERACCESSITEM(state, itemId) {
       state.userAccessList = state.userAccessList.filter(id => id !== itemId);
+    },
+
+    SET_USERPAIDITEMS(state, array) {
+      state.userPaidItems = array
     },
   },
   actions: {
