@@ -218,7 +218,7 @@ export default {
             });
             this.SET_USERCART(filteredList)
             try {
-                const response = await axios.post('/api/v1/customer/savecart', {
+                const response = await ('/api/v1/customer/savecart', {
                     email: this.userEmail,
                     cart: filteredList,
                 },{

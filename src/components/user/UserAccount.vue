@@ -2,6 +2,7 @@
     <UserPage />
     <div class="container">
         정보 변경
+        <form action="submit"></form>
     </div>
 </template>
 <script>

@@ -59,11 +59,11 @@ export default {
     },
     computed: {
         ...mapState('Auth', ['isLogged']),
-        ...mapState('User', ['username', 'userEmail', 'userCart', 'userAccessList'])
+        ...mapState('User', ['userId', 'username', 'userEmail', 'userCart', 'userAccessList'])
     },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal']),
-        ...mapMutations('User', ['SET_USERNAME', 'SET_USEREMAIL', 'SET_USERCART', 'SET_USERACCESSLIST']),
+        ...mapMutations('User', ['SET_USERID', 'SET_USERNAME', 'SET_USEREMAIL', 'SET_USERCART', 'SET_USERACCESSLIST']),
         ...mapMutations('Auth', ['SET_AUTHMODE', 'SET_LOGGED']),
         
         onChangeAuthMode(value) {
@@ -83,6 +83,7 @@ export default {
                     email: this.email,
                     password: this.password
                 });
+                this.SET_USERID(response.data.user.id)
                 this.SET_USERNAME(response.data.user.name)
                 this.SET_USEREMAIL(response.data.user.email)
                 this.SET_USERCART(response.data.user.abandonedcart)

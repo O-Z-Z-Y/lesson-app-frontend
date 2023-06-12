@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state() {
     return {
+      userId: '',
       username: '',
       userEmail: '',
       userCart: [],
@@ -10,6 +11,9 @@ export default {
     }
   },
   mutations: {
+    SET_USERID(state, value) {
+      state.userId = value
+    },
     SET_USERNAME(state, value) {
       state.username = value
     },
