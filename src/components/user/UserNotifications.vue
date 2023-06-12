@@ -1,7 +1,7 @@
 <template lang="">
     <UserPage />
-    <div>
-        알림
+    <div class="container">
+        알림 페이지 입니다.
     </div>
 </template>
 <script>

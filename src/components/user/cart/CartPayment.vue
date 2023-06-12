@@ -77,7 +77,6 @@
             @click="onClickPayment"
             class="w-full py-4 text-white duration-200 bg-pink-500 border rounded active:bg-pink-600 focus:outline-none ease">결제하기</button>
         </div>
-        <button @click="test">테스트</button>
     </aside>
 </template>
 

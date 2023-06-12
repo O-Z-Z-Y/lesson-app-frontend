@@ -1,4 +1,8 @@
 <template>
+    <div class="container">
+        <h2 class="p-10 text-2xl font-bold">현재 수강 가능 리스트입니다.</h2>
+        <hr>
+    </div>
     <div class="container px-6 course-wrapper course-list-wrapper">
         <ul class="flex flex-col">
             <CourseItem v-for="(course, index) in mainCourseList" 

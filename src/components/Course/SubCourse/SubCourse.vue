@@ -1,18 +1,24 @@
 <template>
-    <div class="p-12 text-2xl font-bold sub-course-title bg-slate-100">
-        <h2 class="container">{{ courseItem.title }}</h2>
-    </div>
-    <div class="container py-4 sub-course-body">
-        <div v-if="courseItem.link" class="video-wrapper">
-            <Plyr :url="videoUrl" :main="parseInt(courseItem.maincategory)" :sub="courseItem.id" />
+    <div class="overflow-x-hidden" :key="updateSubCoursePage">
+        <div class="flex items-center justify-between sub-course-title bg-slate-100">
+            <h2 class="container p-12 text-2xl font-bold">{{ courseItem.title }}</h2>
+            <router-link class="w-32 px-4 py-3 mx-12 text-center text-pink-500 duration-300 border border-pink-300 rounded-lg hover:bg-white" 
+                :to="`/course/detail/${this.mainCategory}`">
+                뒤로가기
+            </router-link>
         </div>
-        <div class="content-wrapper" v-html="courseItem.content"></div>
+        <div class="container py-4 sb-course-body">
+            <div v-if="courseItem.link" class="video-wrapper">
+                <Plyr :url="videoUrl" :main="parseInt(courseItem.maincategory)" :sub="courseItem.id" />
+            </div>
+            <div class="content-wrapper" v-html="courseItem.content"></div>
+        </div>
+        <footer v-show="isPaidItem" class="fixed bottom-0 flex items-center justify-center w-full h-20 bg-slate-200">
+            <a v-show="showPageButton('prev')" @click="routeSubCourse('prev')" class="mx-4 pref-course">&lt; 이전 강의</a>
+            <div class="mx-4 is-watched">봤어요</div>
+            <a v-show="showPageButton('next')" @click="routeSubCourse('next')" class="mx-4 next-course">다음 강의 &gt;</a>
+        </footer>
     </div>
-    <footer class="fixed bottom-0 flex items-center justify-center w-full h-20 bg-slate-200">
-        <div class="mx-4 pref-course">&lt; 이전 강의</div>
-        <div class="mx-4 is-watched">봤어요</div>
-        <div class="mx-4 next-course">다음 강의 &gt;</div>
-    </footer>
 </template>
 <script>
 import { mapState } from 'vuex';
@@ -33,6 +39,11 @@ export default {
     created() {
         this.loadSubCourse()
     },
+    watch: {
+        $route(to, from) {
+            if (to.path !== from.path) this.loadSubCourse()
+        }
+    },
     computed: {
         ...mapState('Courses', ['mainCategory', 'subCourseList']),
         ...mapState('User', ['userAccessList']),
@@ -43,7 +54,8 @@ export default {
         },
         isPaidItem() {
             return this.userAccessList.includes(this.mainCategory)
-        }
+        },
+        
     },
     methods: {
         async loadSubCourse() {
@@ -63,6 +75,7 @@ export default {
                             'Authorization': `Bearer ${this.$cookies.get('access_token')}`
                         }
                     })
+                    console.log(response.data)
                     this.courseItem = response.data.subcourse
                     this.videoUrl = response.data.subcourse.link
                     this.filterVimeo()
@@ -75,6 +88,46 @@ export default {
         filterVimeo() {
             if (this.videoUrl.includes('vimeo')) {
                 this.videoUrl = this.videoUrl.replace('https://vimeo.com/', 'https://player.vimeo.com/video/')
+            }
+        },
+        showPageButton(attr) {
+            const index = this.subCourseList.findIndex(item => item.id === this.courseItem.id);
+            
+            if (index === -1) {
+                return false
+            } else {
+                if (attr === 'prev') {
+                    if (index === 0 ) {
+                        return false
+                    } else {
+                        return true
+                    }
+                } else if (attr === 'next') {
+                    if (index === this.subCourseList.length - 1) {
+                        return false
+                    } else {
+                        return true
+                    }
+                } 
+            }
+        },
+        routeSubCourse(attr) {
+            const index = this.subCourseList.findIndex(item => item.id === this.courseItem.id);
+
+            if (attr === 'prev') {
+                if (this.subCourseList[index-1].sampling || this.isPaidItem) {
+                    this.$router.push(`/unit/${this.mainCategory}/${this.subCourseList[index-1].id}`)
+                    this.updateSubCoursePage++;
+                } else {
+                    alert('강의를 수강하시면 볼 수 있습니다.')
+                }
+            } else if (attr === 'next') {
+                if (this.subCourseList[index+1].sampling || this.isPaidItem) {
+                    this.$router.push(`/unit/${this.mainCategory}/${this.subCourseList[index+1].id}`)
+                    this.updateSubCoursePage++;
+                } else {
+                    alert('강의를 수강하시면 볼 수 있습니다.')
+                }
             }
         }
     }

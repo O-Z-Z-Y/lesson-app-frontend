@@ -1,6 +1,6 @@
 <template lang="">
     <UserPage />
-    <div>
+    <div class="container">
         정보 변경
     </div>
 </template>

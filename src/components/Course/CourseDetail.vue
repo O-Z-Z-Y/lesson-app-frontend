@@ -1,8 +1,8 @@
 <template>
-    <div v-if="isLoading" class="container p-6 item-wrapper">
+    <div v-if="isLoading" class="container item-wrapper">
         <div class="container flex flex-col justify-between lg:flex-row">
             <div class="item-header" role="complementary">
-                <h2 class="px-4 py-6 text-2xl font-bold title">{{ mainTitle }}</h2>
+                <h2 class="p-10 text-2xl font-bold">{{ mainTitle }}</h2>
                 <div class="img-wrapper">
                     <img class="rounded-lg max-h-96" :src="preloadedImage" alt="thumbnail">
                 </div>
@@ -17,10 +17,11 @@
                 <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
                 <p class="text-center">기간 ?</p>
             </div>
-            <div class="bg-white relative w-full p-4 mt-20 border rounded payment-wrapper lg:h-64 lg:min-w-[300px] lg:max-w-[300px]"
+            <div class="bg-white relative w-11/12 p-4 mt-20 border rounded payment-wrapper lg:h-64 lg:min-w-[300px] lg:max-w-[300px]"
                 v-else-if="isPaidItem">
                 <button
-                    class="w-full px-6 py-4 mb-4 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease">
+                    class="w-full px-6 py-4 mb-4 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease"
+                    @click="continueSubCourse">
                     수강 계속하기
                 </button>
                 <div class="wrapper">
@@ -59,17 +60,17 @@
                 <ul class="mt-6">
                     <li class="flex items-center justify-between h-12 px-2 mb-2 text-lg font-medium border rounded-xl"
                         v-for="course in subCourseList" :key="course.id">
-                        <router-link :to="`/unit/${mainCategory}/${course.id}`"
-                        v-if="isPaidItem || course.sampling"
-                        class="text-green-600 duration-300 hover:text-orange-400">
-                            <PlayCircleIcon class="inline mr-1"/>
+                        <router-link :to="`/unit/${mainCategory}/${course.id}`" v-if="isPaidItem || course.sampling"
+                            class="text-green-600 duration-300 hover:text-orange-400">
+                            <PlayCircleIcon class="inline mr-1" />
                             {{ course.title }}
                         </router-link>
                         <div v-else>
-                            <PlayCircleIcon class="inline mr-1"/>
+                            <PlayCircleIcon class="inline mr-1" />
                             {{ course.title }}
                         </div>
-                        <div v-if="!isPaidItem && course.sampling" class="px-2 py-1 text-pink-500 border border-pink-400 sampling rounded-xl bg-pink-50">미리보기</div>
+                        <div v-if="!isPaidItem && course.sampling"
+                            class="px-2 py-1 text-pink-500 border border-pink-400 sampling rounded-xl bg-pink-50">미리보기</div>
                     </li>
                 </ul>
             </div>
@@ -136,7 +137,7 @@ export default {
             const image = new Image();
             image.src = `${this.thumbnailUrl}/${this.mainThumbnail}`
             image.onload = () => {
-            this.preloadedImage = image.src
+                this.preloadedImage = image.src
             };
             image.onerror = () => {
                 this.preloadedImage = `${this.thumbnailUrl}/thumbnail_default.jpeg`
@@ -149,16 +150,29 @@ export default {
                 const response = await axios.post('/api/v1/customer/savecart', {
                     email: this.userEmail,
                     cart: this.userCart,
-                },{
+                }, {
                     headers: {
                         'Authorization': `Bearer ${this.$cookies.get('access_token')}`
                     }
                 });
                 this.SET_USERCART(response.data.updateCart.abandonedcart)
-            } catch(error) {
+            } catch (error) {
                 console.log(error)
             }
             this.$router.push('/user/cart')
+        },
+        async continueSubCourse() {
+            try {
+                const response = await axios.get(`/api/v1/jobs/subcourse/continue/${this.mainCategory}`, {
+                    headers: {
+                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                    }
+                })
+                let currentSubCourse = response.data.subcourse_id
+                this.$router.push(`/unit/${this.mainCategory}/${currentSubCourse}`)
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 }

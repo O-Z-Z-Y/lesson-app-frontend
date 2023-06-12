@@ -1,6 +1,6 @@
 <template>
     <div class="container course-wrapper course-list-wrapper">
-        <ul class="flex flex-wrap justify-around">
+        <ul class="flex flex-wrap justify-between">
             <CourseItem v-for="(course, index) in mainCourseList" 
                 :key="index" 
                 :id="course.id" 
