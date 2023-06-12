@@ -11,22 +11,23 @@
                 </div>
                 <ul class="flex flex-col nav-list">
                     <li class="text-center border-t">
-                        <router-link to="/home" @click="closeSideBar" :class="{ '!text-pink-500': nav.includes('Home') }"
+                        <router-link to="/home" @click="closeSideBar" 
+                            :class="{ '!text-pink-500': nav === 'Home' }"
                             class="block m-4 font-semibold text-lg hover:!text-pink-500">Home</router-link>
                     </li>
                     <li class="text-center border-t">
                         <router-link to="/notice" @click="closeSideBar"
-                            :class="{ '!text-pink-500': nav.includes('Notice') }"
-                            class="block m-4 font-semibold text-lg hover:!text-pink-500">Notice
-                        </router-link>
+                            :class="{ '!text-pink-500': nav === 'Notice' }"
+                            class="block m-4 font-semibold text-lg hover:!text-pink-500">Notice</router-link>
                     </li>
                     <li class="text-center border-t">
                         <router-link to="/course" @click="closeSideBar"
-                            :class="{ '!text-pink-500': nav.includes('Course') }"
+                            :class="{ '!text-pink-500': nav === 'Course' }"
                             class="block m-4 font-semibold text-lg hover:!text-pink-500">Course</router-link>
                     </li>
                     <li class="text-center border-y">
-                        <router-link to="/about" @click="closeSideBar" :class="{ '!text-pink-500': nav.includes('About') }"
+                        <router-link to="/about" @click="closeSideBar" 
+                            :class="{ '!text-pink-500': nav === 'About' }"
                             class="block m-4 font-semibold text-lg hover:!text-pink-500">About</router-link>
                     </li>
                 </ul>
@@ -37,13 +38,13 @@
                 <img class="h-10" src="./../assets/logo.png" alt="logo">
             </router-link>
             <nav class="flex-wrap items-center justify-center hidden ml-24 text-base sm:flex tablet:hidden">
-                <router-link to="/home" :class="{ '!text-pink-500': nav.includes('Home') }"
+                <router-link to="/home" :class="{ '!text-pink-500': nav === 'Home' }"
                     class="mr-5 font-medium hover:!text-pink-500">Home</router-link>
-                <router-link to="/notice" :class="{ '!text-pink-500': nav.includes('Notice') }"
+                <router-link to="/notice" :class="{ '!text-pink-500': nav === 'Notice' }"
                     class="mr-5 font-medium hover:!text-pink-500">Notice</router-link>
-                <router-link to="/course" :class="{ '!text-pink-500': nav.includes('Course') }"
+                <router-link to="/course" :class="{ '!text-pink-500': nav === 'Course' }"
                     class="mr-5 font-medium hover:!text-pink-500">Course</router-link>
-                <router-link to="/about" :class="{ '!text-pink-500': nav.includes('About') }"
+                <router-link to="/about" :class="{ '!text-pink-500': nav === 'About' }"
                     class="font-medium hover:!text-pink-500">About</router-link>
             </nav>
             <div v-if="!isLogged" class="flex items-center h-full">
