@@ -1,8 +1,8 @@
 <template>
     <div class="container course-wrapper course-list-wrapper">
-        <ul class="flex flex-wrap justify-between">
+        <ul class="flex flex-wrap justify-around mx-auto sm:justify-between">
             <CourseItem v-for="(course, index) in mainCourseList" 
-                :key="index" 
+                :key="index"
                 :id="course.id" 
                 :thumbnail="course.thumbnail" 
                 :title="course.title"

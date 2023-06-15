@@ -149,14 +149,14 @@ export default {
 
         async fetchBuyerInfo() {
             try {
-                const response = await axios.get('/api/v1/customer/getcustomer', {
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
-                })
-                this.buyerName = response.data.user.name
-                this.buyerEmail = response.data.user.email
-                this.buyerTel = response.data.user.phonenumber
+                    const response = await axios.get('/api/v1/customer/getcustomer', {
+                        headers: {
+                            'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                        }
+                    })
+                    this.buyerName = response.data.user.name
+                    this.buyerEmail = response.data.user.email
+                    this.buyerTel = response.data.user.phonenumber
             } catch(error) {
                 console.log(error)
             }
@@ -218,15 +218,15 @@ export default {
             });
             this.SET_USERCART(filteredList)
             try {
-                const response = await ('/api/v1/customer/savecart', {
-                    email: this.userEmail,
-                    cart: filteredList,
-                },{
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
-                });
-                this.SET_USERCART(response.data.updateCart.abandonedcart)
+                    const response = await ('/api/v1/customer/savecart', {
+                        email: this.userEmail,
+                        cart: filteredList,
+                    },{
+                        headers: {
+                            'Authorization': `Bearer ${this.$cookies.get('access_token')}`
+                        }
+                    });
+                    this.SET_USERCART(response.data.updateCart.abandonedcart)
             } catch(error) {
                 console.log(error)
             }

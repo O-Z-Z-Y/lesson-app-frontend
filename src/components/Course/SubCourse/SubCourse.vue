@@ -1,14 +1,14 @@
 <template>
     <div class="overflow-x-hidden" :key="updateSubCoursePage">
         <div class="flex items-center justify-between sub-course-title bg-slate-100">
-            <h2 class="container p-12 text-2xl font-bold">{{ courseItem.title }}</h2>
+            <h2 class="container p-6 text-2xl font-bold lg:p-12">{{ courseItem.title }}</h2>
             <router-link
                 class="w-32 px-4 py-3 mx-12 text-center text-pink-500 duration-300 border border-pink-300 rounded-lg hover:bg-white"
                 :to="`/course/detail/${this.mainCategory}`">
                 뒤로가기
             </router-link>
         </div>
-        <div class="container py-4 sb-course-body">
+        <div class="container py-4 mb-20 sb-course-body">
             <div v-if="courseItem.link" class="video-wrapper">
                 <Plyr :url="videoUrl" :main="parseInt(courseItem.maincategory)" :sub="courseItem.id" />
             </div>

@@ -27,19 +27,17 @@
     <li v-else-if="navState === 'Course'">
         <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)"
             class="flex flex-col py-6 mx-auto border-b-2 sm:flex-row hover:bg-gray-100">
-            <div class="w-full h-auto rounded-lg sm:w-1/3 item-thumbnail">
-                <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">
-                    <div class="relative h-full img-wrapper">
-                        <img class="object-cover h-full m-auto duration-300 rounded-lg hover:scale-95" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail" @error="replaceDefaultImg">
-                    </div>
-                </router-link>
+            <div class="w-full rounded-lg sm:w-1/3 item-thumbnail"
+                :style="`height:${imgHeight}px`" :ref="`imgWrapper${id}`">
+                <div class="relative h-full img-wrapper">
+                    <img class="object-cover h-full m-auto duration-300 rounded-lg hover:scale-95" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail" @error="replaceDefaultImg">
+                </div>
             </div>
             <div class="relative m-6 sm:my-0 sm:w-2/3 sm:h-40 text-wrapper">
                 <div class="info-wrapper">
-                    <h4 class="hypertext">
-                        <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)">{{ title }}</router-link>
-                    </h4>
+                    <h4 class="hypertext">{{ title }}</h4>
                     <p class="item-description">{{ description }}</p>
+                    <button @click="getImgWidth">딸깍</button>
                 </div>
                 <p class="absolute right-0 text-red-500 bottom-2 item-price">{{ isPaidItem(id, price) }}</p>
                 <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
@@ -66,8 +64,12 @@ export default {
     },
     data() {
         return {
-            thumbnailUrl: `${process.env.VUE_APP_BACK_URL}/public/images`
+            thumbnailUrl: `${process.env.VUE_APP_BACK_URL}/public/images`,
+            imgWidth: null
         }
+    },
+    mounted() {
+        this.getImgWidth()
     },
     computed: {
         navState() {
@@ -75,6 +77,9 @@ export default {
         },
         ...mapState('Courses', ['mainCategory']),
         ...mapState('User', ['userAccessList']),
+        imgHeight() {
+            return this.imgWidth / 16 * 9
+        }
     },
     methods: {
         ...mapMutations('Courses', ['SET_MAINCATEGORY', 'SET_MAINTHUMBNAIL', 'SET_MAINTITLE', 'SET_MAINDESCRIPTION', 'SET_MAINCOURSEPRICE']),
@@ -96,6 +101,11 @@ export default {
         },
         replaceDefaultImg(e) {
             e.target.src = `${this.thumbnailUrl}/thumbnail_default.jpeg`
+        },
+        getImgWidth() {
+            const img = this.$refs[`imgWrapper${this.id}`];
+            this.imgWidth = img.offsetWidth
+            console.log(this.imgWidth)
         }
     }
 };

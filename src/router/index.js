@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import store from "@/store/store";
+import VueCookies from 'vue-cookies'
 
 import Home from "@/components/Home/Home.vue"
 import Notice from "@/components/Notice/Notice.vue"
@@ -139,17 +140,22 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     store.commit('Nav/SET_NAV', to.name);
-    
-    // route-allow
-    const { roles } = to.meta;
-    if (roles) {
-        const roleState = store.state.Auth.isLogged ? 'ROLE_USER' : '';
-        if (!roles.includes(roleState)) {
-            alert('로그인이 필요합니다.')
-            return next(from)
+
+    // login 세션이 끝나면 자동으로 로그아웃
+    if (!VueCookies.get('access_token') && store.state.Auth.isLogged) {
+        store.dispatch('Auth/logout')
+    } else {
+        // route-allow
+        const { roles } = to.meta;
+        if (roles) {
+            const roleState = store.state.Auth.isLogged ? 'ROLE_USER' : '';
+            if (!roles.includes(roleState)) {
+                alert('로그인이 필요합니다.')
+                return next('/')
+            }
         }
     }
-
+    
     next();
 })
 

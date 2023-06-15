@@ -13,6 +13,8 @@ import 'vue-plyr/dist/vue-plyr.css'
 
 const app = createApp(App)
 app.use(router)
+router.app = app
+
 app.use(store)
 app.use(VuePlyr)
 app.use(VueCookies)
@@ -30,8 +32,10 @@ app.directive('click-outside', {
   },
 });
 
-// 쿠키의 만료일은 7일이다. (글로벌 세팅)
+// 쿠키의 default 만료일은 1일이다. (글로벌 세팅)
 // default options config: { expires: '1d', path: '/', domain: '', secure: '', sameSite: 'Lax' }
 app.$cookies.config("60 * 60");
 
 app.mount('#app')
+
+export { app };
