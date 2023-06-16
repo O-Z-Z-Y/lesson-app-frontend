@@ -69,6 +69,7 @@ export default {
         }
     },
     mounted() {
+        if (this.navState === 'Course')
         this.getImgWidth()
     },
     computed: {
