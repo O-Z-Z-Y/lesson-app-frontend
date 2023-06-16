@@ -59,7 +59,8 @@ export default {
     },
     computed: {
         ...mapState('Auth', ['isLogged']),
-        ...mapState('User', ['userId', 'username', 'userEmail', 'userCart', 'userAccessList'])
+        ...mapState('User', ['userId', 'username', 'userEmail', 'userCart', 'userAccessList']),
+        ...mapState('Courses', ['mainCourseList'])
     },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal']),
@@ -86,7 +87,25 @@ export default {
                 this.SET_USERID(response.data.user.id)
                 this.SET_USERNAME(response.data.user.name)
                 this.SET_USEREMAIL(response.data.user.email)
-                this.SET_USERCART(response.data.user.abandonedcart)
+
+                //* 장바구니에 존재하지 않는 아이템이 담겨져 있을 경우, 업데이트한다
+                const abandonedcart = response.data.user.abandonedcart
+                const filteredcart = abandonedcart.filter(itemId => this.mainCourseList.some(item => item.id === itemId))
+                
+                //* 객체의 동등성은 참조 비교를 기반으로 하기 때문에 문자열로 변환
+                if (JSON.stringify(abandonedcart) !== JSON.stringify(filteredcart)) {
+                    try {
+                        const response = await axios.post('api/v1/customer/savecart', {
+                            email: this.email,
+                            cart: filteredcart
+                        })
+                        console.log('updated', response.data)
+                        this.SET_USERCART(response.data.updateCart.abandonedcart)
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
+
                 this.$cookies.set('access_token', response.data.token, 60*60)
                 alert(`${this.username}님 로그인 되었습니다.`)
 

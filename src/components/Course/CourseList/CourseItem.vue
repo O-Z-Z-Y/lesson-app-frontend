@@ -37,7 +37,6 @@
                 <div class="info-wrapper">
                     <h4 class="hypertext">{{ title }}</h4>
                     <p class="item-description">{{ description }}</p>
-                    <button @click="getImgWidth">딸깍</button>
                 </div>
                 <p class="absolute right-0 text-red-500 bottom-2 item-price">{{ isPaidItem(id, price) }}</p>
                 <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
@@ -69,8 +68,9 @@ export default {
         }
     },
     mounted() {
-        if (this.navState === 'Course')
-        this.getImgWidth()
+        if (this.navState === 'Course'){
+            this.getImgWidth()
+        }
     },
     computed: {
         navState() {
@@ -106,7 +106,6 @@ export default {
         getImgWidth() {
             const img = this.$refs[`imgWrapper${this.id}`];
             this.imgWidth = img.offsetWidth
-            console.log(this.imgWidth)
         }
     }
 };
