@@ -11,8 +11,6 @@
     </footer>
 </template>
 <script>
-import axios from 'axios'
-
 export default {
     name:'Footer',
     data() {
@@ -21,7 +19,7 @@ export default {
         }
     },
     async created() {
-        const response = await axios.get(`/api/v1/jobs/config/get`)
+        const response = await this.axios.get(`/api/v1/jobs/config/get`)
         this.company = response.data.data
     },
 }

@@ -27,11 +27,11 @@ export default {
       }
     },
     //* 로그인 api는 LoginModal.vue에서 관리
-    login({ commit }) {
+    commitLogin({ commit }) {
       commit('SET_LOGGED', true)
     },
     
-    logout({ commit }) {
+    commitLogout({ commit }) {
       cookies.remove('access_token')
       commit('SET_LOGGED', false)
 

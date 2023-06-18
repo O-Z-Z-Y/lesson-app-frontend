@@ -143,7 +143,7 @@ router.beforeEach((to, from, next) => {
 
     // login 세션이 끝나면 자동으로 로그아웃
     if (!VueCookies.get('access_token') && store.state.Auth.isLogged) {
-        store.dispatch('Auth/logout')
+        store.dispatch('Auth/commitLogout')
     } else {
         // route-allow
         const { roles } = to.meta;

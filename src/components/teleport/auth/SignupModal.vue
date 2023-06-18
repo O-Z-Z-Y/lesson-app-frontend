@@ -69,8 +69,8 @@
 </template>
 <script>
 import { mapActions,mapMutations } from 'vuex';
-import axios from "axios"
 import CloseIcon from '@/assets/svg/close_icon.svg'
+import { signup } from '@/service/auth/signup';
 
 export default {
     name: 'SignupModal',
@@ -100,7 +100,7 @@ export default {
         //* 비밀번호 강도 체크
         checkPasswordStrength(password) {
             // 비밀번호 안전도를 검사하는 함수
-            // TODO:대소문자 포함여부
+            // 대소문자 포함여부 ?
             const minLength = 8;
             const passwordLowerCase = password.toLowerCase();
             // const hasUpperCase = /[A-Z]/.test(password);
@@ -155,19 +155,7 @@ export default {
             }
 
             try {
-                const response = await axios.post('/api/v1/customer/register', {
-                    name: this.username,
-                    email: this.email,
-                    password: this.password,
-                    phonenumber: this.phonenumber,
-                });
-                console.log(response.data); // 서버로부터 받은 응답을 콘솔에 출력
-                alert('회원가입이 완료되었습니다.'); // 회원가입 성공 알림창 표시
-
-                //* 로그인 처리
-                this.SET_USERNAME(response.data.customer.name)
-                this.$cookies.set('access_token', response.data.token, 60*60)
-                this.SET_LOGGED(true)
+                signup(this.username, this.email, this.password, this.phonenumber)
                 this.closeModal()
             } catch (error) {
                 console.error(error);

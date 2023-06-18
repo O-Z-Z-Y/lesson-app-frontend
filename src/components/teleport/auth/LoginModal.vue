@@ -42,9 +42,9 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
 import { mapActions, mapState, mapMutations } from 'vuex';
 import CloseIcon from '@/assets/svg/close_icon.svg'
+import { login } from '@/service/auth/login'
 
 export default {
     name: 'LoginModal',
@@ -80,56 +80,14 @@ export default {
                 return;
             }
             try {
-                const response = await axios.post('/api/v1/customer/login', {
-                    email: this.email,
-                    password: this.password
-                });
-                this.SET_USERID(response.data.user.id)
-                this.SET_USERNAME(response.data.user.name)
-                this.SET_USEREMAIL(response.data.user.email)
-
-                //* 장바구니에 존재하지 않는 아이템이 담겨져 있을 경우, 업데이트한다
-                const abandonedcart = response.data.user.abandonedcart
-                const filteredcart = abandonedcart.filter(itemId => this.mainCourseList.some(item => item.id === itemId))
+                await login(this.email, this.password)
+                alert(`${this.username}님 환영합니다.`)
                 
-                //* 객체의 동등성은 참조 비교를 기반으로 하기 때문에 문자열로 변환
-                if (JSON.stringify(abandonedcart) !== JSON.stringify(filteredcart)) {
-                    try {
-                        const response = await axios.post('api/v1/customer/savecart', {
-                            email: this.email,
-                            cart: filteredcart
-                        })
-                        console.log('updated', response.data)
-                        this.SET_USERCART(response.data.updateCart.abandonedcart)
-                    } catch (error) {
-                        console.log(error)
-                    }
-                }
-
-                this.$cookies.set('access_token', response.data.token, 60*60)
-                alert(`${this.username}님 로그인 되었습니다.`)
-
-                const access_list = await this.getAccessList()
-                this.SET_USERACCESSLIST(access_list)
-                
-                this.SET_LOGGED(true)
                 this.closeModal()
             } catch (error) {
                 alert('로그인 실패');
             }
         },
-        async getAccessList() {
-            try {
-                const response = await axios.get('/api/v1/jobs/maincourse/access/list', {
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
-                })
-                return response.data.accesscourse
-            } catch (error) {
-                console.error(error);
-            }
-        }
     },
 }
 </script>

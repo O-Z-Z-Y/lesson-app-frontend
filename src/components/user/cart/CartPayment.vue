@@ -81,7 +81,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapMutations, mapState } from 'vuex';
 
 export default {
@@ -102,7 +101,7 @@ export default {
         document.body.appendChild(script);
     },
     computed: {
-        ...mapState('User', ['userPaidItems']),
+        ...mapState('User', ['userPaidItems', 'orderNumber']),
         // 선택 상품
         regularPrice() {
             return this.selectedItems.reduce((sum, item) => sum + item.price, 0)
@@ -141,7 +140,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations('User', ['SET_USERPAIDITEMS']),
+        ...mapMutations('User', ['SET_USERPAIDITEMS', 'SET_ORDERNUMBER']),
 
         formatPrice(price) {
             return price.toLocaleString('ko-KR') + '원';
@@ -149,11 +148,7 @@ export default {
 
         async fetchBuyerInfo() {
             try {
-                    const response = await axios.get('/api/v1/customer/getcustomer', {
-                        headers: {
-                            'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                        }
-                    })
+                    const response = await this.axios.get('/api/v1/customer/getcustomer')
                     this.buyerName = response.data.user.name
                     this.buyerEmail = response.data.user.email
                     this.buyerTel = response.data.user.phonenumber
@@ -187,27 +182,44 @@ export default {
 
         requestPay() {
             IMP.request_pay({ // param
-            pg: "html5_inicis",
-            pay_method: "card",
-            merchant_uid: "ORD20180131-0000011",
-            name: this.productName,
-            amount: this.payPrice,
-            buyer_email: this.buyerEmail,
-            buyer_name: this.buyerName,
-            buyer_tel: this.buyerTel,
-            }, rsp => { 
+                pg: "html5_inicis",
+                pay_method: "card",
+                merchant_uid: "ORD20180131-0000011",
+                name: this.productName,
+                amount: this.payPrice,
+                buyer_email: this.buyerEmail,
+                buyer_name: this.buyerName,
+                buyer_tel: this.buyerTel,
+            }, async rsp => { 
                 //callback
                 if (rsp.success) {
                     console.log("success");
+                    console.log('rsp', rsp)
                     //* 결제 완료된 아이템은 카트에서 뺍니다.
+                    //* selectedItems에서 pop해와서 결과창에 보여주는걸로
                     this.SET_USERPAIDITEMS(this.selectedItems)
                     this.deleteSelectedItems()
-                    //* selectedItems에서 pop해와서 결과창에 보여주는걸로
+
+                    try {
+                        const response = await this.axios.post('api/v1/jobs/order/create', {
+                            customerid: '',
+                            amount: rsp.paid_amount,
+                            title: rsp.name,
+                            courses: this.selectedItems,
+                            paymentid: rsp.imp_uid,
+                        })
+                        //* TODO:주문번호 넣어야함
+                        this.SET_ORDERNUMBER('123123')
+                    } catch(error) {
+                        console.log(error)
+                    }
+
                     this.$router.push(`/order/result`)
                     // 결제 성공 시 로직,
                     
                 } else {
                     console.log("failed");
+                    console.log(rsp)
                     // 결제 실패 시 로직,
                 }
             });
@@ -218,13 +230,9 @@ export default {
             });
             this.SET_USERCART(filteredList)
             try {
-                    const response = await ('/api/v1/customer/savecart', {
+                    const response = await this.axios.post('/api/v1/customer/savecart', {
                         email: this.userEmail,
                         cart: filteredList,
-                    },{
-                        headers: {
-                            'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                        }
                     });
                     this.SET_USERCART(response.data.updateCart.abandonedcart)
             } catch(error) {

@@ -37,7 +37,6 @@
 import { mapMutations, mapState } from 'vuex';
 import CartItem from './CartItem.vue';
 import CartPayment from './CartPayment.vue'
-import axios from 'axios';
 
 export default {
     name: 'Cart',
@@ -50,6 +49,10 @@ export default {
             selectedItems: [],
             selectAllChecked: false,
         }
+    },
+    mounted() {
+        this.selectAllChecked = true
+        this.toggleAllItems();
     },
     computed: {
         ...mapState('Courses', ['mainCourseList']),
@@ -101,13 +104,9 @@ export default {
             
             this.SET_USERCART(filteredList)
             try {
-                const response = await axios.post('/api/v1/customer/savecart', {
+                const response = await this.axios.post('/api/v1/customer/savecart', {
                     email: this.userEmail,
                     cart: filteredList,
-                },{
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
                 });
                 this.SET_USERCART(response.data.updateCart.abandonedcart)
             } catch(error) {

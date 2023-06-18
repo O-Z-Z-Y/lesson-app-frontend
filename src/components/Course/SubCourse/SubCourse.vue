@@ -27,7 +27,6 @@
 <script>
 import { mapState } from 'vuex';
 import Plyr from './Plyr.vue';
-import axios from 'axios';
 import CheckedIcon from '@/assets/svg/check_icon.svg'
 
 export default {
@@ -73,7 +72,7 @@ export default {
         async loadSubCourse() {
             if (!this.isPaidItem && this.currentSubCourse.sampling) {
                 try {
-                    const response = await axios.get(`/api/v1/jobs/subcourse/sample/detail/${this.currentSubCourse.id}`)
+                    const response = await this.axios.get(`/api/v1/jobs/subcourse/sample/detail/${this.currentSubCourse.id}`)
                     this.courseItem = response.data.subcourse
                     this.videoUrl = response.data.subcourse.link
                     this.filterVimeo()
@@ -82,11 +81,7 @@ export default {
                 }
             } else {
                 try {
-                    const response = await axios.get(`/api/v1/jobs/subcourse/detail/${this.currentSubCourse.id}`, {
-                        headers: {
-                            'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                        }
-                    })
+                    const response = await this.axios.get(`/api/v1/jobs/subcourse/detail/${this.currentSubCourse.id}`)
                     console.log(response.data)
                     this.courseItem = response.data.subcourse
                     this.videoUrl = response.data.subcourse.link
@@ -143,13 +138,9 @@ export default {
         },
         async updateProgressCourse() {
             try {
-                const response = await axios.post('/api/v1/jobs/subcourse/progress/update', {
+                const response = await this.axios.post('/api/v1/jobs/subcourse/progress/update', {
                     maincourseId: this.mainCategory,
                     subcourseId: this.courseItem.id
-                },{
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
                 })
                 console.log(response.data)
                 this.courseItem = response.data.doc

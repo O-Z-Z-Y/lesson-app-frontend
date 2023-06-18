@@ -88,7 +88,7 @@
                                     회원 정보 변경
                                 </router-link>
                             </li>
-                            <li class="duration-300 cursor-pointer hover:text-orange-600" @click="logout">로그아웃</li>
+                            <li class="duration-300 cursor-pointer hover:text-orange-600" @click="commitLogout">로그아웃</li>
                         </ul>
                     </div>
                 </transition>
@@ -102,7 +102,8 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import ShoppingCartIcon from '@/assets/svg/shopping_cart_icon.svg'
 import HamburgerIcon from '@/assets/svg/hamburger_icon.svg'
 import CloseIcon from '@/assets/svg/close_icon.svg'
-import axios from 'axios'
+import { logout } from '@/service/auth/logout'
+import { fetchUserdata } from '@/service/auth/login'
 
 export default {
     name: 'HeaderVue',
@@ -121,11 +122,12 @@ export default {
     async created() {
         const token = this.$cookies.get('access_token');
         if (token) {
-            this.login()
+            fetchUserdata()
+            this.commitLogin()
             const access_list = await this.getAccessList()
             this.SET_USERACCESSLIST(access_list)
         } else {
-            this.logout()
+            logout()
         }
         
         //* 초기 로딩시에 코스리스트를 불러온다.
@@ -142,7 +144,7 @@ export default {
     methods: {
         ...mapMutations('Nav', ['SET_NAV']),
         ...mapMutations('User', ['SET_USERNAME', 'SET_USEREMAIL', 'SET_USERACCESSLIST']),
-        ...mapActions('Auth', ['setAuthMode', 'login', 'logout']),
+        ...mapActions('Auth', ['setAuthMode', 'commitLogin', 'commitLogout']),
         ...mapActions('Modal', ['openModal', 'closeModal']),
         ...mapActions('Courses', ['fetchMainCourseList']),
         onLogin() {
@@ -167,11 +169,7 @@ export default {
         },
         async getAccessList() {
             try {
-                const response = await axios.get('/api/v1/jobs/maincourse/access/list', {
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
-                })
+                const response = await this.axios.get('/api/v1/jobs/maincourse/access/list')
                 return response.data.accesscourse
             } catch (error) {
                 console.error(error);

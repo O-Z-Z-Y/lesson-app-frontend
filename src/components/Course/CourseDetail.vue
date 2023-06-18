@@ -15,41 +15,40 @@
                     수강 신청하기
                 </button>
                 <p class="text-center">{{ mainCoursePrice.toLocaleString('ko-KR') }}원</p>
-                <p class="text-center">기간 ?</p>
+                <p class="text-center">기간 : 1년</p>
             </div>
             <div class="bg-white relative w-11/12 p-4 mt-20 border rounded payment-wrapper lg:h-64 lg:min-w-[300px] lg:max-w-[300px]"
                 v-else-if="isPaidItem">
-                <button
-                    class="w-full px-6 py-4 mb-4 text-base font-bold text-white transition-all duration-150 bg-pink-500 rounded outline-none credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease"
-                    @click="continueSubCourse">
-                    수강 계속하기
-                </button>
-                <div class="wrapper">
-                    <div class="progress-wrapper">
-                        <div class="relative pt-1">
-                            <div class="flex items-center justify-between mb-2">
-                                <div>
-                                    <span
-                                        class="inline-block px-2 py-1 text-sm text-pink-600 uppercase rounded-full bg-pink-50">
-                                        현재 수강율
-                                    </span>
-                                </div>
-                                <div class="text-right">
-                                    <span class="inline-block text-sm font-semibold text-pink-600">
-                                        {{ inProgress ? inProgress : 0 }}%
-                                    </span>
-                                </div>
+                
+                <div class="progress-wrapper">
+                    <div class="relative pt-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <span
+                                    class="inline-block px-2 py-1 text-sm text-pink-600 uppercase rounded-full bg-pink-50">
+                                    현재 수강율
+                                </span>
                             </div>
-                            <div class="flex h-2 mb-4 overflow-hidden text-xs bg-pink-200 rounded">
-                                <div :style="`width:${inProgress}%`"
-                                    class="flex flex-col justify-center text-center text-white bg-pink-500 shadow-none whitespace-nowrap">
-                                </div>
+                            <div class="text-right">
+                                <span class="inline-block text-sm font-semibold text-pink-600">
+                                    {{ inProgress ? inProgress : 0 }}%
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex h-2 mb-4 overflow-hidden text-xs bg-pink-200 rounded">
+                            <div :style="`width:${inProgress}%`"
+                                class="flex flex-col justify-center text-center text-white bg-pink-500 shadow-none whitespace-nowrap">
                             </div>
                         </div>
                     </div>
-                    <hr class="mb-4">
-                    <p class="mb-4 text-center">남은 기간 ?</p>
                 </div>
+                <button
+                    class="w-full px-6 py-4 mb-4 text-base font-bold text-pink-500 transition-all duration-300 bg-white rounded outline-none hover:bg-pink-50 credit-auth-button drop-shadow active:bg-pink-600 hover:drop-shadow-md focus:outline-none ease"
+                    @click="continueSubCourse">
+                    수강 계속하기
+                </button>
+                <hr class="mb-4">
+                <p class="mb-4 text-center">남은 기간 : {{ mainCourseExpired }}일</p>
             </div>
         </div>
         <div class="course-detail">
@@ -86,7 +85,6 @@
 import { mapActions, mapMutations, mapState } from 'vuex';
 import PlayCircleIcon from '@/assets/svg/play_circle.svg'
 import LoadingSpinner from '../common/LoadingSpinner.vue';
-import axios from 'axios';
 
 export default {
     name: "CourseDetail",
@@ -104,14 +102,15 @@ export default {
     },
     async created() {
         await this.fetchSubCourseList();
-        if (this.isLogged) {
+        if (this.isLogged & this.isPaidItem) {
+            await this.fetchMainCourseExpired();
             await this.fetchProgress();
         }
         this.fetchImage()
         this.isLoading = true
     },
     computed: {
-        ...mapState('Courses', ['mainCategory', 'mainThumbnail', 'mainTitle', 'mainDescription', 'mainCoursePrice', 'subCourseList',]),
+        ...mapState('Courses', ['mainCategory', 'mainThumbnail', 'mainTitle', 'mainDescription', 'mainCoursePrice', 'mainCourseExpired', 'subCourseList',]),
         ...mapState('User', ['userEmail', 'userCart', 'userAccessList']),
         ...mapState('Auth', ['isLogged']),
         isPaidItem() {
@@ -120,14 +119,10 @@ export default {
     },
     methods: {
         ...mapMutations('User', ['GET_CARTITEM']),
-        ...mapActions('Courses', ['fetchSubCourseList']),
+        ...mapActions('Courses', ['fetchMainCourseExpired', 'fetchSubCourseList']),
         async fetchProgress() {
             try {
-                const response = await axios.get(`/api/v1/jobs/maincourse/getprogress/${this.mainCategory}`, {
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
-                });
+                const response = await this.axios.get(`/api/v1/jobs/maincourse/getprogress/${this.mainCategory}`);
                 this.inProgress = response.data.data
             } catch (error) {
                 console.log(error)
@@ -147,13 +142,9 @@ export default {
             if (!this.userCart.includes(this.mainCategory))
                 this.GET_CARTITEM(this.mainCategory)
             try {
-                const response = await axios.post('/api/v1/customer/savecart', {
+                const response = await this.axios.post('/api/v1/customer/savecart', {
                     email: this.userEmail,
                     cart: this.userCart,
-                }, {
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
                 });
                 this.SET_USERCART(response.data.updateCart.abandonedcart)
             } catch (error) {
@@ -163,11 +154,7 @@ export default {
         },
         async continueSubCourse() {
             try {
-                const response = await axios.get(`/api/v1/jobs/subcourse/continue/${this.mainCategory}`, {
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
-                })
+                const response = await this.axios.get(`/api/v1/jobs/subcourse/continue/${this.mainCategory}`)
                 let currentSubCourse = response.data.subcourse_id
                 this.$router.push(`/unit/${this.mainCategory}/${currentSubCourse}`)
             } catch (error) {

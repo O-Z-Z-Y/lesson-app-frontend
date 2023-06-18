@@ -42,7 +42,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
 import CloseIcon from '@/assets/svg/close_icon.svg'
 
 export default {
@@ -64,7 +63,7 @@ export default {
             }
 
             try {
-                const response = await axios.post('/api/응몰라', {
+                const response = await this.axios.post('/api/응몰라', {
                     email: this.email,
                     phonenumber: this.phonenumber,
                 });

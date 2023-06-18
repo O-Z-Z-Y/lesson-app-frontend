@@ -6,7 +6,6 @@
     </vue-plyr>
 </template>
 <script>
-import axios from 'axios';
 
 export default {
     name:'PlyrVue',
@@ -24,13 +23,9 @@ export default {
     methods: {
         async endSubCourse() {
             try {
-                const response = await axios.post('/api/v1/jobs/subcourse/progress/update', {
+                const response = await this.axios.post('/api/v1/jobs/subcourse/progress/update', {
                     maincourseId: this.main,
                     subcourseId: this.sub
-                },{
-                    headers: {
-                        'Authorization': `Bearer ${this.$cookies.get('access_token')}`
-                    }
                 });
                 console.log(response.status)
             } catch (error) {

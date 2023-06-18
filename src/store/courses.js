@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "@/service/axios"
 
 export default {
   namespaced: true,
@@ -13,6 +13,7 @@ export default {
       mainTitle: "",
       mainDescription: "",
       mainCoursePrice: null,
+      mainCourseExpired: null,
 
       //* subcourseitem
       subIndexnumber: null,
@@ -40,6 +41,9 @@ export default {
     },
     SET_MAINCOURSEPRICE(state, value) {
       state.mainCoursePrice = value
+    },
+    SET_MAINCOURSEEXPIRED(state, value) {
+      state.mainCourseExpired = value
     },
 
     // subcourse
@@ -74,6 +78,14 @@ export default {
         commit('SET_SUBCOURSELIST', [])
       }
     },
+    async fetchMainCourseExpired({commit, state}) {
+      try {
+        const response = await axios.get(`/api/v1/jobs/maincourse/getexpire/${state.mainCategory}`);
+        commit('SET_MAINCOURSEEXPIRED', response.data.date)
+    } catch (error) {
+        console.log(error)
+    }
+    }
   },
   getters: {
     category: state => state.category

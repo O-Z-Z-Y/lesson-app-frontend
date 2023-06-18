@@ -1,8 +1,9 @@
 <template lang="">
     <div class="container">
         <h2 class="my-10 text-2xl font-bold text-center">주문이 <span class="text-pink-500">완료</span> 되었습니다.</h2>
+        <h3 class="mb-4 text-lg text-center">주문 번호: {{ orderNumber }}</h3>
     </div>
-    <div class="w-3/4 mx-auto border rounde-xl">
+    <div class="w-3/4 mx-auto border rounded-xl">
         <div class="mx-4 mt-4 text-center" v-for="(item, index) in userPaidItems" :key="index">
             <article class="flex justify-between mx-2 my-4 cart-item-card ">
                 <div class="w-32 h-20 bg-gray-300 cart-item-card-img">
@@ -33,7 +34,7 @@ export default {
         }
     },
     computed: {
-        ...mapState('User', ['userPaidItems'])
+        ...mapState('User', ['userPaidItems', 'orderNumber'])
     },
     methods: {
         replaceDefaultImg(e) {

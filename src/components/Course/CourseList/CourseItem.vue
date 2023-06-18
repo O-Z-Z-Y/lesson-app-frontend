@@ -33,13 +33,12 @@
                     <img class="object-cover h-full m-auto duration-300 rounded-lg hover:scale-95" :src="`${thumbnailUrl}/${thumbnail}`" alt="thumbnail" @error="replaceDefaultImg">
                 </div>
             </div>
-            <div class="relative m-6 sm:my-0 sm:w-2/3 sm:h-40 text-wrapper">
-                <div class="info-wrapper">
+            <div class="relative m-6 mb-0 sm:my-0 sm:w-2/3 sm:h-40 text-wrapper">
+                <div class="mb-6 info-wrapper">
                     <h4 class="hypertext">{{ title }}</h4>
                     <p class="item-description">{{ description }}</p>
                 </div>
-                <p class="absolute right-0 text-red-500 bottom-2 item-price">{{ isPaidItem(id, price) }}</p>
-                <!-- TODO:price는 결제 유무에 따라 강의 시작하기 -->
+                <p class="absolute bottom-0 right-0 text-red-500 item-price">{{ isPaidItem(id, price) }}</p>
             </div>
         </router-link>
     </li>

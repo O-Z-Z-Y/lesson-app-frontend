@@ -8,6 +8,7 @@ export default {
       userCart: [],
       userAccessList: [],
       userPaidItems: [],
+      orderNumber: ''
     }
   },
   mutations: {
@@ -44,11 +45,28 @@ export default {
     SET_USERPAIDITEMS(state, array) {
       state.userPaidItems = array
     },
+
+    SET_ORDERNUMBER(state, value) {
+      state.orderNumber = value
+    }
   },
   actions: {
     getUserName(context, value) {
       context.commit('SET_USERNAME', value)
     },
+    getUserdata({ commit }, user) {
+      commit('SET_USERID', user.id);
+      commit('SET_USERNAME', user.name)
+      commit('SET_USEREMAIL', user.email)
+    },
+    initUserdata({ commit }) {
+      commit('SET_USERID', '');
+      commit('SET_USERNAME', '')
+      commit('SET_USEREMAIL', '')
+      commit('SET_USERCART', [])
+      commit('SET_USERACCESSLIST', [])
+      commit('SET_USERPAIDITEMS', [])
+    }
   },
   getters: {
     username: state => state.username
