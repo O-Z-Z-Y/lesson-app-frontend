@@ -16,7 +16,7 @@
             <div class="flex flex-col w-1/3 cart-item-card-info">
                 <div class="item-promotion"></div>
                 <div class="cart-item-title">{{ item.title }}</div>
-                <div class="item-expired"></div>
+                <div class="item-expired">수강기한: 1년</div>
             </div>
             <div class="flex items-center justify-center w-24 cart-item-card-price">
                 {{ item.price === 0 ? '무료' : item.price.toLocaleString('ko-KR')+'원' }}

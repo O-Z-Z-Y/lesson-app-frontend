@@ -70,7 +70,7 @@
 <script>
 import { mapActions,mapMutations } from 'vuex';
 import CloseIcon from '@/assets/svg/close_icon.svg'
-import { signup } from '@/service/auth/signup';
+import { signup, checkPasswordStrength } from '@/service/auth/signup';
 
 export default {
     name: 'SignupModal',
@@ -89,7 +89,7 @@ export default {
     },
     watch: {
         password: function (value) {
-            this.passwordStrength = this.checkPasswordStrength(value);
+            this.passwordStrength = checkPasswordStrength(value);
         }
     },
     methods: {
@@ -97,29 +97,6 @@ export default {
         ...mapMutations('Auth', ['SET_LOGGED']),
         ...mapMutations('User', ['SET_USERNAME']),
         
-        //* 비밀번호 강도 체크
-        checkPasswordStrength(password) {
-            // 비밀번호 안전도를 검사하는 함수
-            // 대소문자 포함여부 ?
-            const minLength = 8;
-            const passwordLowerCase = password.toLowerCase();
-            // const hasUpperCase = /[A-Z]/.test(password);
-            const hasLowerCase = /[a-z]/.test(passwordLowerCase);
-            const hasNumber = /\d/.test(passwordLowerCase);
-            // eslint-disable-next-line no-useless-escape
-            const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(passwordLowerCase);
-
-            if (passwordLowerCase.length < minLength) {
-                return '비밀번호는 최소 ' + minLength + '자 이상이어야 합니다.';
-            }
-
-            if (!(hasLowerCase && hasNumber && hasSpecialChar)) {
-                return '비밀번호는 영어, 숫자, 특수문자를 모두 포함해야 합니다.';
-            }
-
-            return '';
-        },
-
         //* 모든 칸에 입력이 다 되었는지
         inputChecker() {
             if (

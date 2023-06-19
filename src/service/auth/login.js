@@ -13,7 +13,6 @@ export async function login(email, password) {
     //* 토큰 유효기간 60*60 = 1hour
     VueCookies.set('access_token', response.data.token, 60*60)
     store.dispatch('User/getUserdata', response.data.user)
-    console.log(response.data.user.abandonedcart)
     validateCart(response.data.user.abandonedcart, email)
     await getAccessList()
     store.commit('Auth/SET_LOGGED', true)
@@ -24,7 +23,7 @@ export async function login(email, password) {
 
 export async function fetchUserdata() {
   try {
-    const response = await axios.get('api/v1/customer/getcustomer')
+    const response = await axios.get('/api/v1/customer/getcustomer')
     store.dispatch('User/getUserdata', response.data.user)
     await getAccessList()
   } catch(error) {
@@ -39,7 +38,7 @@ async function validateCart(items, email) {
   //* 객체의 동등성은 참조 비교를 기반으로 하기 때문에 문자열로 변환
   if (JSON.stringify(items) != JSON.stringify(filteredcart)) {
     try {
-        const response = await axios.post('api/v1/customer/savecart', {
+        const response = await axios.post('/api/v1/customer/savecart', {
             email: email,
             cart: filteredcart
         })

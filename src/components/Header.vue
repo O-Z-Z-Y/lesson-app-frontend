@@ -104,6 +104,7 @@ import HamburgerIcon from '@/assets/svg/hamburger_icon.svg'
 import CloseIcon from '@/assets/svg/close_icon.svg'
 import { logout } from '@/service/auth/logout'
 import { fetchUserdata } from '@/service/auth/login'
+import { getAccessList } from '@/service/courses/maincourse'
 
 export default {
     name: 'HeaderVue',
@@ -121,11 +122,12 @@ export default {
     //* 초기 로그인 상태
     async created() {
         const token = this.$cookies.get('access_token');
-        if (token) {
+        if (token & this.username === '') {
             fetchUserdata()
             this.commitLogin()
-            const access_list = await this.getAccessList()
-            this.SET_USERACCESSLIST(access_list)
+            getAccessList()
+        } else if (token) {
+            this.commitLogin()
         } else {
             logout()
         }
@@ -167,14 +169,6 @@ export default {
         onClickOutside() {
             this.isUserMenuOpened = false
         },
-        async getAccessList() {
-            try {
-                const response = await this.axios.get('/api/v1/jobs/maincourse/access/list')
-                return response.data.accesscourse
-            } catch (error) {
-                console.error(error);
-            }
-        }
     }
 }
 </script>

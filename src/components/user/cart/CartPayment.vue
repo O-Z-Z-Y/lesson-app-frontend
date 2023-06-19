@@ -196,7 +196,6 @@ export default {
                     console.log("success");
                     console.log('rsp', rsp)
                     //* 결제 완료된 아이템은 카트에서 뺍니다.
-                    //* selectedItems에서 pop해와서 결과창에 보여주는걸로
                     this.SET_USERPAIDITEMS(this.selectedItems)
                     this.deleteSelectedItems()
 
@@ -208,7 +207,7 @@ export default {
                             courses: this.selectedItems,
                             paymentid: rsp.imp_uid,
                         })
-                        //* TODO:주문번호 넣어야함
+                        //* 주문번호 넣어야함
                         this.SET_ORDERNUMBER('123123')
                     } catch(error) {
                         console.log(error)
@@ -239,9 +238,6 @@ export default {
                 console.log(error)
             }
         },
-        test() {
-            this.SET_USERPAIDITEMS(this.selectedItems)
-        }
     }
 }
 </script>

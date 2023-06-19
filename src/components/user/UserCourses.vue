@@ -6,13 +6,11 @@
                 <div class="w-32 h-20 cart-item-card-img">
                     <img class="object-cover w-full h-full m-auto rounded-lg" :src="`${thumbnailUrl}/${item.thumbnail}`" alt="thumbnail" @error="replaceDefaultImg">
                 </div>
-                <div class="flex flex-col w-1/3 cart-item-card-info">
-                    <div class="item-promotion"></div>
+                <div class="flex flex-col justify-center w-1/3 cart-item-card-info">
                     <div class="cart-item-title">{{ item.title }}</div>
-                    <div class="item-expired"></div>
                 </div>
                 <div class="flex items-center justify-center w-24 cart-item-card-price">
-                    {{ item.price === 0 ? '무료' : item.price.toLocaleString('ko-KR')+'원' }}
+                    {{ item.expired ? item.expired+'일' : '무제한' }}
                 </div>
                 <button class="w-4 h-4 close fill-gray-400" @click="deleteItem(item.id)"><CloseIcon /></button>
             </article>
@@ -31,12 +29,22 @@ export default {
     },
     data() {
         return {
-            thumbnailUrl: `${process.env.VUE_APP_BACK_URL}/public/images`
+            thumbnailUrl: `${process.env.VUE_APP_BACK_URL}/public/images`,
+            itemList: []
         }
     },
     created() {
         const filteredlist = this.mainCourseList.filter(item => this.userAccessList.some(itemId => itemId === item.id))
         this.SET_USERPAIDITEMS(filteredlist)
+        this.itemList = filteredlist
+        this.itemList = this.itemList.map(async (item) => {
+            try {
+                const response = await this.axios.get(`/api/v1/jobs/maincourse/getexpire/${item.id}`)
+                return { ...item, expired: response.data.date}
+            } catch (error) {
+                console.log(error)
+            }
+        })
     },
     computed: {
         ...mapState('User', ['userAccessList', 'userPaidItems']),
@@ -47,6 +55,16 @@ export default {
         replaceDefaultImg(e) {
             e.target.src = `${this.thumbnailUrl}/thumbnail_default.jpeg`
         },
+        async fetchExpired(id) {
+            try {
+                const response = await this.axios.get(`/api/v1/jobs/maincourse/getexpire/${id}`)
+                this.expired = response.data.date
+                return this.expired
+            } catch (error) {
+                console.log(error)
+                return this.expired
+            }
+        }
     }
 }
 </script>

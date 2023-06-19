@@ -19,8 +19,12 @@ export default {
         }
     },
     async created() {
-        const response = await this.axios.get(`/api/v1/jobs/config/get`)
-        this.company = response.data.data
+        try {
+            const response = await this.axios.get(`/api/v1/jobs/config/get`)
+            this.company = response.data.data
+        } catch (error) {
+            console.log('footer', error)
+        }
     },
 }
 </script>

@@ -11,6 +11,13 @@ module.exports = defineConfig({
           '^/api': ''
         }
       },
+      "/admin": {
+        target: "http://localhost:3000/admin",
+        changeOrigin: true,
+        pathRewrite: {
+          '^/admin': ''
+        }
+      },
     }
   },
   outputDir: "../test/public",

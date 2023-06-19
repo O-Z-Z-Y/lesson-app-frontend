@@ -25,7 +25,7 @@
 
 @layer components{
   .container {
-    @apply mx-auto sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]
+    @apply px-4 mx-auto sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]
   }
   .page {
     @apply min-h-[800px]
