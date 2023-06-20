@@ -50,7 +50,7 @@ function requestPay(merchant, productname, price, buyername, buyeremail, buyerte
                     amount: rsp.paid_amount,
                     title: rsp.name,
                     courses: itemsId,
-                    merchantid: rsp,
+                    merchantid: rsp.merchant_uid,
                     paymentid: rsp.imp_uid,
                 })
                 //* 주문번호 넣어야함

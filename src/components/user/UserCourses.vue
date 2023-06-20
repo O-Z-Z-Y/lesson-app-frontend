@@ -36,9 +36,7 @@ export default {
     },
     created() {
         getAccessList()
-        const filteredlist = this.mainCourseList.filter(item => this.userAccessList.some(itemId => itemId === item.id))
-        this.SET_USERPAIDITEMS(filteredlist)
-        this.itemList = filteredlist
+        this.itemList = this.mainCourseList.filter(item => this.userAccessList.some(itemId => itemId === item.id))
         this.itemList = this.itemList.map(async (item) => {
             try {
                 const response = await this.axios.get(`/api/v1/jobs/maincourse/getexpire/${item.id}`)
