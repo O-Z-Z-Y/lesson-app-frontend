@@ -1,7 +1,7 @@
 <template lang="">
     <UserPage />
     <div class="container">
-        <div class="mx-4 mt-4 text-center" v-for="(item, index) in userPaidItems" :key="index">
+        <div class="mx-4 mt-4 text-center" v-for="(item, index) in itemList" :key="index">
             <article class="flex justify-between mx-2 my-4 cart-item-card ">
                 <div class="w-32 h-20 cart-item-card-img">
                     <img class="object-cover w-full h-full m-auto rounded-lg" :src="`${thumbnailUrl}/${item.thumbnail}`" alt="thumbnail" @error="replaceDefaultImg">
@@ -12,15 +12,13 @@
                 <div class="flex items-center justify-center w-24 cart-item-card-price">
                     {{ item.expired ? item.expired+'일' : '무제한' }}
                 </div>
-                <button class="w-4 h-4 close fill-gray-400" @click="deleteItem(item.id)"><CloseIcon /></button>
             </article>
-            <hr v-show="index !== userPaidItems.length-1">
+            <hr v-show="index !== itemList.length-1">
         </div>
     </div>
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex';
-import { getAccessList } from '@/service/courses/maincourse';
 import UserPage from './UserPage.vue';
 
 export default {
@@ -34,17 +32,18 @@ export default {
             itemList: []
         }
     },
-    created() {
-        getAccessList()
-        this.itemList = this.mainCourseList.filter(item => this.userAccessList.some(itemId => itemId === item.id))
-        this.itemList = this.itemList.map(async (item) => {
+    async created() {
+        const filteredList = this.mainCourseList.filter(item => this.userAccessList.some(itemId => itemId === item.id));
+
+        for (const item of filteredList) {
             try {
-                const response = await this.axios.get(`/api/v1/jobs/maincourse/getexpire/${item.id}`)
-                return { ...item, expired: response.data.date}
+                const response = await this.axios.get(`/api/v1/jobs/maincourse/getexpire/${item.id}`);
+                let expired = response.data.date;
+                this.itemList.push({ ...item, expired: expired });
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
-        })
+        }
     },
     computed: {
         ...mapState('User', ['userAccessList', 'userPaidItems']),

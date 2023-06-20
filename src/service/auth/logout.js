@@ -5,6 +5,7 @@ import router from '@/router';
 export function logout() {
   VueCookies.remove('access_token')
   store.dispatch('User/initUserdata')
+  store.commit('Auth/SET_LOGGED', false)
 
   alert('성공적으로 로그아웃 되었습니다.')
 

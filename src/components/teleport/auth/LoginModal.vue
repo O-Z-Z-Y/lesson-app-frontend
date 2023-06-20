@@ -80,10 +80,13 @@ export default {
                 return;
             }
             try {
-                await login(this.email, this.password)
-                alert(`${this.username}님 환영합니다.`)
-                
-                this.closeModal()
+                const response = await login(this.email, this.password)
+                if (response) {
+                    alert(`${this.username}님 환영합니다.`)
+                    this.closeModal()
+                } else {
+                    alert('로그인 실패');
+                }
             } catch (error) {
                 alert('로그인 실패');
             }

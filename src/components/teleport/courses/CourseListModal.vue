@@ -40,16 +40,13 @@ export default {
     computed: {
         ...mapState('Courses', ['mainCategory', 'subCourseList']),
         ...mapState('User', ['userAccessList']),
-        ...mapActions('Modal', ['openModal', 'closeModal']),
+        
         isPaidItem() {
             return this.userAccessList.includes(this.mainCategory)
-        }
+        },
     },
     methods: {
-        test() {
-            console.log(this.isPaidItem)
-            console.log(this.subCourseList)
-        }
+        ...mapActions('Modal', ['openModal', 'closeModal']),
     }
 }
 </script>

@@ -15,7 +15,7 @@ import { mapActions, mapState } from 'vuex';
 import LoginModal from './auth/LoginModal.vue';
 import SignupModal from './auth/SignupModal.vue';
 import FindPasswordModal from './auth/FindPasswordModal.vue';
-import CourseListModal from './courses/CourseListModal'
+import CourseListModal from './courses/CourseListModal.vue'
 
 export default {
     name: 'ModalTeleport',

@@ -16,8 +16,11 @@ export async function login(email, password) {
     validateCart(response.data.user.abandonedcart, email)
     await getAccessList()
     store.commit('Auth/SET_LOGGED', true)
+    
+    return true
   } catch(error) {
     console.log(error)
+    return false
   }
 }
 
