@@ -2,10 +2,9 @@ import axios from '@/service/axios'
 import router from '@/router';
 import store from '@/store/store';
 
-export function payment(productname, price, items) {
-    const { buyername, buyeremail, buyertel } = fetchBuyerInfo()
+export async function payment(productname, price, items) {
+    const { buyername, buyeremail, buyertel } = await fetchBuyerInfo()
     const merchant = createOrderNumber()
-    console.log(merchant, productname, price, buyername, buyeremail, buyertel, items)
     
     // Initalize PG
     initPG(); 
@@ -78,7 +77,7 @@ async function fetchBuyerInfo() {
         const buyeremail = response.data.user.email
         const buyertel = response.data.user.phonenumber
 
-        return buyername, buyeremail, buyertel
+        return { buyername, buyeremail, buyertel }
     } catch(error) {
         console.log(error)
     }
