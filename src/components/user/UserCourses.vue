@@ -20,6 +20,7 @@
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex';
+import { getAccessList } from '@/service/courses/maincourse';
 import UserPage from './UserPage.vue';
 
 export default {
@@ -34,6 +35,7 @@ export default {
         }
     },
     created() {
+        getAccessList()
         const filteredlist = this.mainCourseList.filter(item => this.userAccessList.some(itemId => itemId === item.id))
         this.SET_USERPAIDITEMS(filteredlist)
         this.itemList = filteredlist

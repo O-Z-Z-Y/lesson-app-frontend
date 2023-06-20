@@ -2,8 +2,8 @@
     <div class="z-20 p-4 rounded modal-content w-96 bg-white/100">
         <div class="flex justify-between signup-header">
             <h2 class="mb-8 text-xl font-bold">강의제목</h2>
-            <a href="#" @click="closeModal">
-                <CloseIcon />
+            <a @click="closeModal" class="w-5 h-5 close-icon-wrapper">
+                <CloseIcon/>
             </a>
         </div>
         <p>수강기간</p>
@@ -30,7 +30,7 @@
 </template>
 <script>
 import CloseIcon from '@/assets/svg/close_icon.svg'
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
     name:'CourseListModal',
@@ -40,6 +40,7 @@ export default {
     computed: {
         ...mapState('Courses', ['mainCategory', 'subCourseList']),
         ...mapState('User', ['userAccessList']),
+        ...mapActions('Modal', ['openModal', 'closeModal']),
         isPaidItem() {
             return this.userAccessList.includes(this.mainCategory)
         }

@@ -45,7 +45,7 @@ export default {
     SET_USERPAIDITEMS(state, array) {
       state.userPaidItems = array
     },
-
+    
     SET_ORDERNUMBER(state, value) {
       state.orderNumber = value
     }

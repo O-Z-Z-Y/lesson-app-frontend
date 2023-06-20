@@ -3,7 +3,7 @@
         <div class="flex justify-between signup-header">
             <h2 class="mb-8 text-xl font-bold">로그인</h2>
             <a @click="closeModal" class="w-5 h-5 close-icon-wrapper">
-                <CloseIcon w-full h-full/>
+                <CloseIcon/>
             </a>
         </div>
         <form class="max-w-md mx-auto" @submit.prevent="submitLogin">

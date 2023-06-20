@@ -45,21 +45,24 @@ function requestPay(merchant, productname, price, buyername, buyeremail, buyerte
             deleteSelectedItems(buyeremail, items)
 
             try {
+                let itemsId = items.map(item => item.id)
                 const response = await axios.post('/api/v1/jobs/order/create', {
                     amount: rsp.paid_amount,
                     title: rsp.name,
-                    courses: items,
-                    merchantid: merchant,
+                    courses: itemsId,
+                    merchantid: rsp,
                     paymentid: rsp.imp_uid,
                 })
                 //* 주문번호 넣어야함
                 store.commit('User/SET_ORDERNUMBER', response.data.data.merchantid)
+
+                // 결제 성공 시 로직,
+                router.push(`/order/result`)
             } catch(error) {
                 console.log(error)
+                alert('오류가 발생하였습니다. 관리자에게 문의하세요.')
             }
-
-            router.push(`/order/result`)
-            // 결제 성공 시 로직,
+            
             
         } else {
             console.log("failed");
