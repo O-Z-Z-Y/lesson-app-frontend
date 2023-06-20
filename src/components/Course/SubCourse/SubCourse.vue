@@ -1,12 +1,20 @@
 <template>
     <div class="overflow-x-hidden" :key="updateSubCoursePage">
+        <header class="container flex justify-between my-4">
+            <router-link
+                class="py-4 text-lg text-center text-gray-500 duration-300 border border-gray-500 rounded-lg focus:bg-gray-200 w-28 px-auto hover:bg-white"
+                :to="`/course/detail/${this.mainCategory}`">
+                &lt; 나가기
+            </router-link>
+            <button
+                class="py-4 text-lg text-center text-gray-500 duration-300 border border-gray-500 rounded-lg focus:bg-gray-200 w-28 px-auto hover:bg-white"
+                @click="onCourseModal">
+                코스리스트
+            </button>
+        </header>
+        <hr>
         <div class="flex items-center justify-between sub-course-title bg-slate-100">
             <h2 class="container p-6 text-2xl font-bold lg:p-12">{{ courseItem.title }}</h2>
-            <router-link
-                class="py-2 mx-6 text-sm text-center duration-300 border rounded-lg text-cyan-700 border-cyan-700 w-28 px-auto hover:bg-white"
-                :to="`/course/detail/${this.mainCategory}`">
-                뒤로가기
-            </router-link>
         </div>
         <div class="container py-4 mb-20 sb-course-body">
             <div v-if="courseItem.link" class="video-wrapper">
@@ -71,6 +79,10 @@ export default {
     },
     methods: {
         ...mapActions('Modal', ['openModal', 'closeModal', 'setCourseModal']),
+        onCourseModal() {
+            this.setCourseModal();
+            this.openModal();
+        },
         async loadSubCourse() {
             if (!this.isPaidItem && this.currentSubCourse.sampling) {
                 try {

@@ -1,5 +1,5 @@
 <template>
-    <Header />
+    <Header v-show="nav !== 'SubCourse'"/>
     <div id="content" class="h-auto" :style="`min-height:${resizeHeight}px`">
         <router-view></router-view>
     </div>
@@ -33,7 +33,7 @@ export default {
         window.removeEventListener('resize', this.handleResize)
     },
     computed: {
-        ...mapState('Nav' ['nav']),
+        ...mapState('Nav', ['nav']),
         resizeHeight() {
             return (this.screenHeight - 128 - 57)
         }
