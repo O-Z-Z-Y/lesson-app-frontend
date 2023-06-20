@@ -3,7 +3,7 @@
     <div id="content" class="h-auto" :style="`min-height:${resizeHeight}px`">
         <router-view></router-view>
     </div>
-    <Footer v-if="navState !== 'SubCourse'"/>
+    <Footer v-if="nav !== 'SubCourse'"/>
     <DarkmodeToggle class="hidden" />
 </template>
 
@@ -12,6 +12,7 @@ import Header from './Header.vue'
 import Footer from './Footer.vue'
 
 import DarkmodeToggle from './DarkmodeToggle.vue'
+import { mapState } from 'vuex';
 export default {
     name: 'HelloWorld',
     components: {
@@ -32,9 +33,7 @@ export default {
         window.removeEventListener('resize', this.handleResize)
     },
     computed: {
-        navState() {
-            return this.$store.state.Nav.nav
-        },
+        ...mapState('Nav' ['nav']),
         resizeHeight() {
             return (this.screenHeight - 128 - 57)
         }

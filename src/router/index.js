@@ -21,6 +21,8 @@ import UserAccount from "@/components/user/UserAccount.vue"
 
 import Test from "@/components/test/Test.vue"
 
+import { logout } from "@/service/auth/logout";
+
 const routes = [
     {
         path: "/",
@@ -143,7 +145,7 @@ router.beforeEach((to, from, next) => {
 
     // login 세션이 끝나면 자동으로 로그아웃
     if (!VueCookies.get('access_token') && store.state.Auth.isLogged) {
-        store.dispatch('Auth/commitLogout')
+        logout()
     } else {
         // route-allow
         const { roles } = to.meta;

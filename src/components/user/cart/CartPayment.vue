@@ -81,7 +81,8 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { mapState } from 'vuex';
+import { payment } from '@/service/payment/index'
 
 export default {
     name: 'CartPayment',
@@ -140,104 +141,20 @@ export default {
         }
     },
     methods: {
-        ...mapMutations('User', ['SET_USERPAIDITEMS', 'SET_ORDERNUMBER']),
-
         formatPrice(price) {
             return price.toLocaleString('ko-KR') + '원';
-        },
-
-        async fetchBuyerInfo() {
-            try {
-                    const response = await this.axios.get('/api/v1/customer/getcustomer')
-                    this.buyerName = response.data.user.name
-                    this.buyerEmail = response.data.user.email
-                    this.buyerTel = response.data.user.phonenumber
-            } catch(error) {
-                console.log(error)
-            }
         },
         onClickPayment() {
             if (this.selectedItems === 0) {
                 return;
             }
             else {
-                this.fetchBuyerInfo()
-                //* 여기가 결제
-                this.initPG(); // Initalize PG
-                this.requestPay(); // Call PG API
+                payment(this.productName, this.payPrice, this.selectedItems)
             }
         },
-        /**
-         * Init PaymentGateway
-         */
-        initPG(){
-            const IMP = window.IMP;
-            IMP.init("imp75375154");
-            console.log("Initalize Payment Gateway..");
-        },
-
-        /**
-         * Section of request PG call
-         */
-
-        requestPay() {
-            IMP.request_pay({ // param
-                pg: "html5_inicis",
-                pay_method: "card",
-                merchant_uid: "ORD20180131-0000011",
-                name: this.productName,
-                amount: this.payPrice,
-                buyer_email: this.buyerEmail,
-                buyer_name: this.buyerName,
-                buyer_tel: this.buyerTel,
-            }, async rsp => { 
-                //callback
-                if (rsp.success) {
-                    console.log("success");
-                    console.log('rsp', rsp)
-                    //* 결제 완료된 아이템은 카트에서 뺍니다.
-                    this.SET_USERPAIDITEMS(this.selectedItems)
-                    this.deleteSelectedItems()
-
-                    try {
-                        const response = await this.axios.post('api/v1/jobs/order/create', {
-                            customerid: '',
-                            amount: rsp.paid_amount,
-                            title: rsp.name,
-                            courses: this.selectedItems,
-                            paymentid: rsp.imp_uid,
-                        })
-                        //* 주문번호 넣어야함
-                        this.SET_ORDERNUMBER('123123')
-                    } catch(error) {
-                        console.log(error)
-                    }
-
-                    this.$router.push(`/order/result`)
-                    // 결제 성공 시 로직,
-                    
-                } else {
-                    console.log("failed");
-                    console.log(rsp)
-                    // 결제 실패 시 로직,
-                }
-            });
-        },
-        async deleteSelectedItems() {
-            let filteredList = this.userCart.filter(itemId => {
-                    return !this.selectedItems.some(item => item.id === itemId);
-            });
-            this.SET_USERCART(filteredList)
-            try {
-                    const response = await this.axios.post('/api/v1/customer/savecart', {
-                        email: this.userEmail,
-                        cart: filteredList,
-                    });
-                    this.SET_USERCART(response.data.updateCart.abandonedcart)
-            } catch(error) {
-                console.log(error)
-            }
-        },
+        TODO() {
+            console.log('미구현')
+        }
     }
 }
 </script>

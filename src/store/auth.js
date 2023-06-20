@@ -1,6 +1,3 @@
-import cookies from 'vue-cookies'
-import router from '@/router';
-
 export default {
   namespaced: true,
   state() {
@@ -20,6 +17,9 @@ export default {
   },
   actions: {
     setAuthMode(context, value) {
+      //*{ root: true }를 줄꺼면 2번째 param으로 뭐라도 줘야함
+      context.dispatch('Modal/setAuthModal', 'auth', { root: true })
+
       if (['login', 'signup', 'findPassword'].includes(value)) {
         context.commit('SET_AUTHMODE', value)
       } else {
@@ -31,22 +31,6 @@ export default {
       commit('SET_LOGGED', true)
     },
     
-    commitLogout({ commit }) {
-      cookies.remove('access_token')
-      commit('SET_LOGGED', false)
-
-      //* user정보 초기화
-      commit('User/SET_USERNAME', '', { root: true })
-      commit('User/SET_USEREMAIL', '', { root: true })
-      commit('User/SET_USERCART', [], { root: true })
-      commit('User/SET_USERACCESSLIST', [], { root: true })
-      
-      //* 접근 권한이 필요한 페이지는 홈으로 보냄
-      if (router.currentRoute._value.meta?.roles) {
-        alert('세션이 만료되었습니다. 다시 로그인하세요.')
-        router.push('/')
-      }
-    }
   },
   getters: {
   }

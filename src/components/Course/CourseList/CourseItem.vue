@@ -1,5 +1,5 @@
 <template>
-    <li v-if="navState === 'Home'"
+    <li v-if="nav === 'Home'"
         class="mb-6 mx-4 w-1/4 min-w-[15rem] max-w-xl h-[22rem] flex flex-col justify-between items-center bg-white rounded-lg shadow-md">
         <div class="w-full item-wrapper">
             <div class="w-full h-auto mb-2 rounded-t-lg item-thumbnail">
@@ -24,7 +24,7 @@
         <p class="mb-2 ml-auto mr-4 text-lg text-red-500 item-price">{{ isPaidItem(id, price) }}</p>
     </li>
 
-    <li v-else-if="navState === 'Course'">
+    <li v-else-if="nav === 'Course'">
         <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)"
             class="flex flex-col py-6 mx-auto border-b-2 sm:flex-row hover:bg-gray-100">
             <div class="w-full rounded-lg sm:w-1/3 item-thumbnail"
@@ -67,14 +67,12 @@ export default {
         }
     },
     mounted() {
-        if (this.navState === 'Course'){
+        if (this.nav === 'Course'){
             this.getImgWidth()
         }
     },
     computed: {
-        navState() {
-            return this.$store.state.Nav.nav
-        },
+        ...mapState('Nav', ['nav']),
         ...mapState('Courses', ['mainCategory']),
         ...mapState('User', ['userAccessList']),
         imgHeight() {

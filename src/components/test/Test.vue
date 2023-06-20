@@ -1,13 +1,24 @@
 <template lang="">
     <div class="flex items-center justify-center h-full">
-        <router-link to="/admin/login">f</router-link>
+        <button @click="onCourseModal">test</button>
     </div>
-
+    
 </template>
-  
+
 <script>
+import { mapState, mapActions } from 'vuex';
 
 export default {
     name: 'Test',
+    computed: {
+        ...mapState('Modal', ['modalMode']),
+    },
+    methods: {
+        ...mapActions('Modal', ['openModal', 'closeModal', 'setCourseModal']),
+        onCourseModal() {
+            this.setCourseModal();
+            this.openModal();
+        }
+    }
 };
 </script>

@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between sub-course-title bg-slate-100">
             <h2 class="container p-6 text-2xl font-bold lg:p-12">{{ courseItem.title }}</h2>
             <router-link
-                class="w-32 px-4 py-3 mx-12 text-center text-pink-500 duration-300 border border-pink-300 rounded-lg hover:bg-white"
+                class="py-2 mx-6 text-sm text-center duration-300 border rounded-lg text-cyan-700 border-cyan-700 w-28 px-auto hover:bg-white"
                 :to="`/course/detail/${this.mainCategory}`">
                 뒤로가기
             </router-link>
@@ -25,7 +25,7 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Plyr from './Plyr.vue';
 import CheckedIcon from '@/assets/svg/check_icon.svg'
 
@@ -52,6 +52,7 @@ export default {
     computed: {
         ...mapState('Courses', ['mainCategory', 'subCourseList']),
         ...mapState('User', ['userId', 'userAccessList']),
+        ...mapState('Modal', ['modalMode']),
         currentSubCourse() {
             return this.subCourseList.find(item =>
                 item.id === parseInt(this.$route.params.id)
@@ -69,6 +70,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions('Modal', ['openModal', 'closeModal', 'setCourseModal']),
         async loadSubCourse() {
             if (!this.isPaidItem && this.currentSubCourse.sampling) {
                 try {

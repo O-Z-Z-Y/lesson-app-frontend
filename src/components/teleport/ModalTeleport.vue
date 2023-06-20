@@ -3,7 +3,7 @@
         <transition name="modal" mode="out-in">
             <div v-if="modalOpened" class="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-full modal">
                 <div class="absolute w-full h-full bg-black/50 modal-background" @click="closeModal" role="presentation" />
-                <component :is="activeModal"></component>
+                <component :is="selectModal"></component>
             </div>
         </transition>
     </teleport>
@@ -15,18 +15,33 @@ import { mapActions, mapState } from 'vuex';
 import LoginModal from './auth/LoginModal.vue';
 import SignupModal from './auth/SignupModal.vue';
 import FindPasswordModal from './auth/FindPasswordModal.vue';
+import CourseListModal from './courses/CourseListModal'
 
 export default {
     name: 'ModalTeleport',
     components: {
         LoginModal,
         SignupModal,
-        FindPasswordModal
+        FindPasswordModal,
+        CourseListModal
     },
     computed: {
-        ...mapState('Modal', ['modalOpened']),
+        ...mapState('Modal', ['modalMode', 'modalOpened']),
         ...mapState('Auth', ['authMode']),
-        activeModal() {
+        selectModal() {
+            switch (this.modalMode) {
+                case 'auth':
+                    return this.activeAuthModal();
+                case 'courses':
+                    return 'CourseListModal';
+                default:
+                    return null; // 다른 authMode 값에 대한 처리를 원한다면, 해당 처리를 추가하세요.
+            }
+        }
+    },
+    methods: {
+        ...mapActions('Modal', ['openModal', 'closeModal']),
+        activeAuthModal() {
             switch (this.authMode) {
                 case 'login':
                     return 'LoginModal';
@@ -37,10 +52,7 @@ export default {
                 default:
                     return null; // 다른 authMode 값에 대한 처리를 원한다면, 해당 처리를 추가하세요.
             }
-        }
-    },
-    methods: {
-        ...mapActions('Modal', ['openModal', 'closeModal'])
+        },
     }
 }
 </script>

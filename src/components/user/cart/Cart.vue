@@ -114,7 +114,7 @@ export default {
             }
         },
         TODO() {
-            alert('내가 안 만들었는데 니가 뭘 할 수 있는데 ㅋㅋㅋ')
+            console.log('미구현')
         }
     }
 }

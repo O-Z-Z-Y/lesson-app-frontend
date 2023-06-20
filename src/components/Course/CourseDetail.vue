@@ -3,7 +3,7 @@
         <div class="container flex flex-col justify-between lg:flex-row">
             <div class="item-header" role="complementary">
                 <h2 class="p-10 text-2xl font-bold">{{ mainTitle }}</h2>
-                <div class="img-wrapper">
+                <div class="mx-4 img-wrapper">
                     <img class="rounded-lg max-h-96" :src="preloadedImage" alt="thumbnail">
                 </div>
             </div>

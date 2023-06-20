@@ -29,7 +29,7 @@ export default {
     },
     methods: {
         todo() {
-            alert("되겠냐고 ㅋㅋ")
+            console.log('미구현')
         }
     }
 }

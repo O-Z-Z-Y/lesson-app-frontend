@@ -55,9 +55,6 @@ export default {
         deleteItem(itemId) {
             this.$emit('delete-item', itemId)
         },
-        TODO() {
-            alert('내가 안 만들었는데 니가 뭘 할 수 있는데 ㅋㅋㅋ')
-        }
     },
     emits: ['change', 'delete-item']
 }

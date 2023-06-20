@@ -88,7 +88,7 @@
                                     회원 정보 변경
                                 </router-link>
                             </li>
-                            <li class="duration-300 cursor-pointer hover:text-orange-600" @click="commitLogout">로그아웃</li>
+                            <li class="duration-300 cursor-pointer hover:text-orange-600" @click="onLogout">로그아웃</li>
                         </ul>
                     </div>
                 </transition>
@@ -128,7 +128,7 @@ export default {
             getAccessList()
         } else if (token) {
             this.commitLogin()
-        } else {
+        } else if (!token && this.isLogged) {
             logout()
         }
         
@@ -146,12 +146,15 @@ export default {
     methods: {
         ...mapMutations('Nav', ['SET_NAV']),
         ...mapMutations('User', ['SET_USERNAME', 'SET_USEREMAIL', 'SET_USERACCESSLIST']),
-        ...mapActions('Auth', ['setAuthMode', 'commitLogin', 'commitLogout']),
+        ...mapActions('Auth', ['setAuthMode', 'commitLogin']),
         ...mapActions('Modal', ['openModal', 'closeModal']),
         ...mapActions('Courses', ['fetchMainCourseList']),
         onLogin() {
             this.setAuthMode('login');
             this.openModal()
+        },
+        onLogout() {
+            logout()
         },
         onSignUp() {
             this.setAuthMode('signup');
