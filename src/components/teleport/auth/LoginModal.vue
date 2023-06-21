@@ -76,7 +76,7 @@ export default {
         },
         async submitLogin() {
             if (this.email === '' || this.password === '') {
-                alert('회원 정보를 정확히 입력해 주세요.')
+                alert('회원 정보를 입력해 주세요.')
                 return;
             }
             try {
@@ -85,10 +85,10 @@ export default {
                     alert(`${this.username}님 환영합니다.`)
                     this.closeModal()
                 } else {
-                    alert('로그인 실패');
+                    alert('이메일 또는 비밀번호를 확인해주세요.');
                 }
             } catch (error) {
-                alert('로그인 실패');
+                alert('이메일 또는 비밀번호를 확인해주세요.');
             }
         },
     },

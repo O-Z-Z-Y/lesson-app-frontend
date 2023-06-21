@@ -56,7 +56,7 @@ export default {
                             alert(response.data.msg)
                         } catch (error) {
                             console.log(error)
-                            alert('탈퇴에 실패하였습니다.')
+                            alert('탈퇴에 실패하였습니다. 고객센터에 문의해 주세요.')
                         }
                         logout('withdrawal')
                     } else {

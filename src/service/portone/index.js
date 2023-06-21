@@ -85,7 +85,7 @@ function requestPay(merchant, productname, price, buyername, buyeremail, buyerte
                 router.push(`/order/result`)
             } catch(error) {
                 console.log(error)
-                alert('오류가 발생하였습니다. 관리자에게 문의하세요.')
+                alert('오류가 발생하였습니다. 고객센터에 문의해 주세요.')
             }
             
             

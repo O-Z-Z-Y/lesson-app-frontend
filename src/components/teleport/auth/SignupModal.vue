@@ -122,7 +122,7 @@ export default {
             }
 
             if (this.password !== this.confirmPassword) {
-                alert('비밀번호와 비밀번호 확인 값이 일치하지 않습니다.');
+                alert('비밀번호가 일치하지 않습니다.');
                 return;
             }
 

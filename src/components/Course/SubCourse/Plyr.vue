@@ -16,7 +16,6 @@ export default {
     },
     mounted() {
         this.$refs.plyr.player.on('ended', () => {
-            alert('영상이 끝났습니다.')
             this.endSubCourse()
         })
     },
