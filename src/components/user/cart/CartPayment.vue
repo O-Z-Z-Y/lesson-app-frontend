@@ -82,7 +82,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { payment } from '@/service/payment/index'
+import { payment, mountPaymentElement } from '@/service/portone/index'
 
 export default {
     name: 'CartPayment',
@@ -97,9 +97,7 @@ export default {
         }
     },
     mounted() {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.iamport.kr/v1/iamport.js';
-        document.body.appendChild(script);
+        mountPaymentElement();
     },
     computed: {
         ...mapState('User', ['userPaidItems', 'orderNumber']),

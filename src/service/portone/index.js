@@ -1,7 +1,11 @@
 import axios from '@/service/axios'
 import router from '@/router';
 import store from '@/store/store';
+import requestAuth from './phone';
 
+/**
+ * 결제하기
+ */
 export async function payment(productname, price, items) {
     const { buyername, buyeremail, buyertel } = await fetchBuyerInfo()
     const merchant = createOrderNumber()
@@ -10,6 +14,27 @@ export async function payment(productname, price, items) {
     initPG(); 
     // Call PG API
     requestPay(merchant, productname, price, buyername, buyeremail, buyertel, items);
+}
+
+/**
+ * 휴대폰 인증
+ */
+export async function authPhone() {
+    const merchant = createOrderNumber()
+    
+    // Initalize PG
+    initPG(); 
+    // Call PG API
+    requestAuth(merchant);
+}
+
+/**
+ * iamport.js
+ */
+export function mountPaymentElement() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.iamport.kr/v1/iamport.js';
+    document.body.appendChild(script);
 }
 
 /**

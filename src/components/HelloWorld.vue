@@ -1,6 +1,6 @@
 <template>
     <Header v-show="nav !== 'SubCourse'"/>
-    <div id="content" class="h-auto" :style="`min-height:${resizeHeight}px`">
+    <div id="content" class="h-auto overflow-x-hidden" :style="`min-height:${resizeHeight}px`">
         <router-view></router-view>
     </div>
     <Footer v-if="nav !== 'SubCourse'"/>

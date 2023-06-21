@@ -7,6 +7,7 @@
             <router-link class="mr-16 access-course" to="/user/courses">강좌</router-link>
             <router-link class="mr-16 user-notifications" to="/user/notifications">알림</router-link>
             <router-link class="mr-16 user-profile" to="/user/profile">프로필</router-link>
+            <router-link class="mr-16 user-profile" to="/user/withdrawal">탈퇴</router-link>
         </div>
     </div>
 </template>

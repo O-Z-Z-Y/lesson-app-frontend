@@ -23,8 +23,14 @@
             <input class="w-full h-10 px-2 mr-2 text-gray-700 border border-gray-200 rounded-sm lg:w-72" v-model="name" type="text" id="name" :placeholder="name">
             <label class="mt-4 text-lg font-bold" for="phone-number">전화번호(*)</label>
             <input class="w-full h-10 px-2 mr-2 text-gray-700 border border-gray-200 rounded-sm lg:w-72" v-model="phonenumber" type="text" id="phone-number" :placeholder="phonenumber">
-
-            <button>변경하기</button>
+            <div class="my-4">
+                <button :class="name !== '' && phonenumber !== ''
+                    ? 'w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                    : 'w-full bg-gray-400 cursor-default text-white font-bold py-2 px-4 rounded'"
+                    type="submit" :disabled="name === '' || phonenumber === ''">
+                    변경하기
+                </button>
+            </div>
         </form>
     </div>
 </template>
@@ -78,9 +84,9 @@ export default {
                     email: this.email,
                     password: this.password
                 })
-                if (response.data.data === true) {
+                if (response.data.data) {
                     this.isValid = response.data.data
-                } else if (response.data.data === false) {
+                } else if (!response.data.data) {
                     alert('비밀번호가 틀립니다.')
                 }
                 this.validateMsg = ''

@@ -18,6 +18,7 @@ import UserPage from "@/components/user/UserPage.vue"
 import UserCourses from "@/components/user/UserCourses.vue"
 import UserNotifications from "@/components/user/UserNotifications.vue"
 import UserAccount from "@/components/user/UserAccount.vue"
+import UserWithdrawal from "@/components/user/UserWithdrawal.vue"
 
 import Test from "@/components/test/Test.vue"
 
@@ -122,6 +123,14 @@ const routes = [
         path: "/user/profile",
         name: "UserAccount",
         component: UserAccount,
+        meta: {
+            roles: ['ROLE_USER']
+        }
+    },
+    {
+        path: "/user/withdrawal",
+        name: "UserWithdrawal",
+        component: UserWithdrawal,
         meta: {
             roles: ['ROLE_USER']
         }
