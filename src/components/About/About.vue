@@ -1,29 +1,20 @@
 <template >
-    <div class="p-10">
-        <p>자주 묻는 질문</p>
-        <p>Q. 강의 수강기간?</p>
+    <div class="container">
+        <h2 class="p-10 px-8 text-2xl font-bold">자주 하는 질문</h2>
+        <p class="mt-4 text-lg">Q. <span class="highlight-underline">강의 수강기간?</span></p>
         <ul>
             <li>1년입니다.</li>
         </ul>
-        <p>Q. 질문하는 곳?</p>
+        <p class="mt-4 text-lg">Q. <span class="highlight-underline">질문하는 곳?</span></p>
         <ul>
             <li>게시판에 남겨주시면 됩니다.</li>
         </ul>
-        <p>Q. 아이디 공유?</p>
+        <p class="mt-4 text-lg">Q. <span class="highlight-underline">아이디 공유?</span></p>
         <ul>
             <li>타인과 아이디 공유시 스팸계정으로 등록되어 예고없이 이용이 제한될 수 있습니다.</li>
         </ul>
-        <p>Q. 취업?</p>
-        <ul>
-            <li>알아서 잘들 하고 고맙다는 인사 많이 들어옵니다.</li>
-        </ul>
-        <p>Q. 강의수 적음?</p>
-        <ul>
-            <li>동작원리와 코드 알아서 혼자 잘짜는 법 중점으로 알려주는 강의라 짧고 간략합니다. </li>
-        </ul>
-        <p>10시간 강의들으면서 뇌 비우고 코드 따라적는거보다 </p>
-        <p>10분 강의 듣고나서 강의에서 내주는 숙제하면서 30분 직접 코드짜보는게 실력에 훨씬 도움됩니다.</p>
-        <p>계속 선생코드 따라치기만 하면 요즘 개발자 취업시 과제전형에서 다 걸러짐 </p>
+        <p class="mt-4">ps. 몇 시간동안 강의 듣기만 하기보다</p>
+        <p>10분 듣고 숙제하면서 30분은 직접 해보는게 훨씬 자기 것으로 만들 수 있습니다.</p>
     </div>
 </template>
 <script>

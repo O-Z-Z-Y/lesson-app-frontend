@@ -34,6 +34,10 @@
   .hypertext {
     @apply text-cyan-700 text-lg font-medium cursor-pointer duration-300 hover:text-orange-400;
   }
+
+  .highlight-underline {
+    @apply underline decoration-emerald-300 decoration-8 underline-offset-[-3px]
+}
 }
 
 @layer utilities{

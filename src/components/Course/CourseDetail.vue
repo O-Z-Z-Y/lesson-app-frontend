@@ -55,7 +55,7 @@
             <div class="mt-6 item-info">{{ mainDescription }}</div>
             <hr class="my-6">
             <div class="sub-course-list">
-                <h3 class="text-xl course-list">커리큘럼 입니다. 여기 테이블로 바꿔야 합니다.</h3>
+                <h3 class="text-xl course-list">강의 리스트 입니다.</h3>
                 <ul class="mt-6">
                     <li class="flex items-center justify-between h-12 px-2 mb-2 text-lg font-medium border rounded-xl"
                         v-for="course in subCourseList" :key="course.id">
@@ -74,7 +74,7 @@
                 </ul>
             </div>
             <hr class="my-6">
-            <div class="comment">댓글이긴 한디</div>
+            <div class="comment">댓글입니다.</div>
         </div>
     </div>
     <div v-else-if="!isLoading" class="">

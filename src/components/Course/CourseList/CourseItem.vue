@@ -26,7 +26,7 @@
 
     <li v-else-if="nav === 'Course'">
         <router-link :to="`/course/detail/${id}`" @click="onClickCourseItem(id)"
-            class="flex flex-col py-6 mx-auto border-b-2 sm:flex-row hover:bg-gray-100">
+            class="flex flex-col py-6 mx-auto border-b sm:flex-row hover:bg-gray-100">
             <div class="w-full rounded-lg sm:w-1/3 item-thumbnail"
                 :style="`height:${imgHeight}px`" :ref="`imgWrapper${id}`">
                 <div class="relative h-full img-wrapper">
